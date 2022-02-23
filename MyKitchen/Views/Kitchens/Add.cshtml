@@ -1,0 +1,187 @@
+﻿@model KitchenFormModel
+
+@{
+    ViewBag.Title = "Add Kitchen";
+}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+<form method="post" enctype="multipart/form-data">
+    @if (Model.CategoryId==1)
+    {
+        <div class="form-group">
+        <label asp-for="Dimension.LenghtLeft">Shorter side</label>
+        <input asp-for="Dimension.LenghtLeft" class="form-control" placeholder="....meters">
+        <span asp-validation-for="Dimension.LenghtLeft" class="small text-danger"></span>
+    </div>
+        <div class="form-group">
+        <label asp-for="Dimension.LenghtCenter">Long side</label>
+        <input asp-for="Dimension.LenghtCenter" class="form-control" placeholder="....meters">
+        <span asp-validation-for="Dimension.LenghtCenter" class="small text-danger"></span>
+    </div>
+    }
+  @if (Model.CategoryId==2)
+    {
+        <div class="form-group">
+        <label asp-for="Dimension.LenghtLeft">Left</label>
+        <input asp-for="Dimension.LenghtLeft" class="form-control" placeholder="....meters">
+        <span asp-validation-for="Dimension.LenghtLeft" class="small text-danger"></span>
+    </div>
+        <div class="form-group">
+        <label asp-for="Dimension.LenghtCenter">Center</label>
+        <input asp-for="Dimension.LenghtCenter" class="form-control" placeholder="....meters">
+        <span asp-validation-for="Dimension.LenghtCenter" class="small text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Dimension.LenghtRight">Right</label>
+        <input asp-for="Dimension.LenghtRight" class="form-control" placeholder="....meters">
+        <span asp-validation-for="Dimension.LenghtRight" class="small text-danger"></span>
+    </div>
+    }
+    @if (Model.CategoryId==3)
+    {
+        <div class="form-group">
+        <label asp-for="Dimension.LenghtLeft">Left</label>
+        <input asp-for="Dimension.LenghtLeft" class="form-control" placeholder="....meters">
+        <span asp-validation-for="Dimension.LenghtLeft" class="small text-danger"></span>
+    </div>
+        <div class="form-group">
+        <label asp-for="Dimension.LenghtCenter">Center</label>
+        <input asp-for="Dimension.LenghtCenter" class="form-control" placeholder="....meters">
+        <span asp-validation-for="Dimension.LenghtCenter" class="small text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Dimension.LenghtRight">Right</label>
+        <input asp-for="Dimension.LenghtRight" class="form-control" placeholder="....meters">
+        <span asp-validation-for="Dimension.LenghtRight" class="small text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Dimension.LenghtIsland">Island</label>
+        <input asp-for="Dimension.LenghtIsland" class="form-control" placeholder="....meters">
+        <span asp-validation-for="Dimension.LenghtIsland" class="small text-danger"></span>
+    </div>
+    }
+    @if (Model.CategoryId==4)
+    {
+        <div class="form-group">
+        <label asp-for="Dimension.LenghtCenter">Lenght</label>
+        <input asp-for="Dimension.LenghtCenter" class="form-control" placeholder="....meters">
+        <span asp-validation-for="Dimension.LenghtCenter" class="small text-danger"></span>
+    </div>
+    }
+    @if (Model.CategoryId==5)
+    {
+        <div class="form-group">
+        <label asp-for="Dimension.LenghtLeft">Left</label>
+        <input asp-for="Dimension.LenghtLeft" class="form-control" placeholder="....meters">
+        <span asp-validation-for="Dimension.LenghtLeft" class="small text-danger"></span>
+    </div>
+        <div class="form-group">
+        <label asp-for="Dimension.LenghtCenter">Center</label>
+        <input asp-for="Dimension.LenghtCenter" class="form-control" placeholder="....meters">
+        <span asp-validation-for="Dimension.LenghtCenter" class="small text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Dimension.LenghtRight">Right</label>
+        <input asp-for="Dimension.LenghtRight" class="form-control" placeholder="....meters">
+        <span asp-validation-for="Dimension.LenghtRight" class="small text-danger"></span>
+    </div>
+     <div class="form-group">
+        <label asp-for="Dimension.LenghtG">G Side</label>
+        <input asp-for="Dimension.LenghtG" class="form-control" placeholder="....meters">
+        <span asp-validation-for="Dimension.LenghtG" class="small text-danger"></span>
+    </div>
+    }
+    @if (Model.CategoryId==1)
+    {
+        <div class="form-group">
+        <label asp-for="Dimension.LenghtLeft">First</label>
+        <input asp-for="Dimension.LenghtLeft" class="form-control" placeholder="....meters">
+        <span asp-validation-for="Dimension.LenghtLeft" class="small text-danger"></span>
+    </div>
+        <div class="form-group">
+        <label asp-for="Dimension.LenghtCenter">Second</label>
+        <input asp-for="Dimension.LenghtCenter" class="form-control" placeholder="....meters">
+        <span asp-validation-for="Dimension.LenghtCenter" class="small text-danger"></span>
+    </div>
+    }
+    <div class="form-group">
+        <label asp-for="Images"></label>
+        <input asp-for="Images" class="form-control" />
+        <span asp-validation-for="Images" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" placeholder="....Euros">
+        <span asp-validation-for="Price" class="small text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PreparationTime"></label>
+        <input asp-for="PreparationTime" class="form-control" placeholder="....Days">
+        <span asp-validation-for="PreparationTime" class="small text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" rows="4" class="form-control" placeholder="Аdditional information about the kitchen..."></textarea>
+        <span asp-validation-for="Description" class="small text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="ColorsId">Colors</label>
+        <select asp-for="ColorsId" class="selectpicker" multiple data-live-search="true">
+            @foreach (var color in Model.Colors)
+            {
+                <option value="@color.Id">@color.Name</option>
+            }
+        </select>
+    </div>
+    <br />
+    <a asp-controller="Colors" asp-action="Add" class="btn btn-primary btn-lg">Add Color</a>
+
+    <div class="h5 font-weight-bold text-center">Type of Kitchen Cabinet Doors:</div>
+    <div class="form-group">
+        <div>
+            <input asp-for="TypeOfDoorMaterial" type="radio" id="MelamineFaced" value="MelamineFaced" checked>
+            <label for="MelamineFaced">MelamineFaced</label>
+        </div>
+        <div>
+            <input asp-for="TypeOfDoorMaterial" type="radio" id="Hardwood" value="Hardwood">
+            <label for="Hardwood">Hardwood</label>
+        </div>
+        <div>
+            <input asp-for="TypeOfDoorMaterial" type="radio" id="VinylWrapped" value="VinylWrapped">
+            <label for="VinylWrapped">Vinyl Wrapped</label>
+        </div>
+        <div>
+            <input asp-for="TypeOfDoorMaterial" type="radio" id="CashОHighGloss" value="CashОHighGloss">
+            <label for="HighGloss">High Gloss</label>
+        </div>
+    </div>
+    <span asp-validation-for="TypeOfDoorMaterial" class="text-danger"></span>
+
+    <div class="form-group">
+        <label asp-for="МanufacturerId"></label>
+        <select asp-for="МanufacturerId" class="form-control">
+            @foreach (var manufacturer in Model.Manufacturers)
+            {
+                <option value="@manufacturer.Id">@manufacturer.Name</option>
+            }
+        </select>
+        <span asp-validation-for="МanufacturerId" class="small text-danger"></span>
+         <br />
+        <a asp-controller="Manufacturers" asp-action="Add" class="btn btn-primary btn-lg">Add Manufacturer</a>
+    </div>
+
+    <input class="btn btn-primary mt-3" type="submit" value="Save" />
+</form>
+
+
+
+
