@@ -1,48 +1,74 @@
 ﻿@model ManufacturerFormModel
 
 @{
-    ViewBag.Title = "Add Kitchen";
+    ViewBag.Title = "Add Manufacturer";
 }
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <h2 class="heading-margin text-center">@ViewBag.Title</h2>
+          <div asp-validation-summary="All" class="text-danger"></div>
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
 
-<form method="post" >
+            <div class="form-group" >
+                <label asp-for="CountryId"></label>
+                <select asp-for="CountryId" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    @foreach (var country in Model.Countries)
+                    {
+                        <option value="@country.Id">@country.Name</option>
+                    }
+                </select>
+                <a asp-controller="Countries" asp-action="Add" class="btn btn-primary btn-lg">Add Country</a>
+                <span asp-validation-for="CountryId" class="small text-danger"></span>
+            </div>
 
-    <select id="CountryId" name="Countries" asp-for="CountryId" asp-items=>
-         <option>Select Country</option>
-         </select>
+            <div class="form-group">
+                <label asp-for="CityId"></label>
+                <select asp-for="CityId"  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    @foreach (var city in Model.Cities)
+                    {
+                        <option value="@city.Id">@city.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CityId" class="small text-danger"></span>
+                <a asp-controller="Cities" asp-action="Add" class="btn btn-primary btn-lg">Add city</a>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Website">Website</label>
+                <input asp-for="Website" class="form-control" />
+                <span asp-validation-for="Website" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.Name">Address Name</label>
+                <input asp-for="Address.Name" class="form-control" />
+                <span asp-validation-for="Address.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.Number">Address Number</label>
+                <input asp-for="Address.Number" class="form-control" />
+                <span asp-validation-for="Address.Number" class="text-danger"></span>
+            </div>
 
-     <select id="CityList">
-         <option>Select City</option>
-         </select>
+            <input class="btn btn-primary mt-3" type="submit" value="Save" />
 
-     <div class="form-group">
-        <label asp-for="Address.Name">Address Name</label>
-        <input asp-for="Address.Name" class="form-control" />
-        <span asp-validation-for="Address.Name" class="text-danger"></span>
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="Address.Number">Address Number</label>
-        <input asp-for="Address.Number" class="form-control" />
-        <span asp-validation-for="Address.Number" class="text-danger"></span>
-    </div>
+</div>
 
-    <input class="btn btn-primary mt-3" type="submit" value="Save" />
-
-</form>
-@section Scripts{
-    <script type="text/javascript">
-        
-    @(document).ready(function (){
-        $("#CountryList").change(function () {
-           $@("#CityList").empty();
-           $.ajax({
-               type: 'GET',
-               url: '@Url.Action("LoadCity")',
-           })
-
-        })
-    }
-    </script>
-}
 
 
 

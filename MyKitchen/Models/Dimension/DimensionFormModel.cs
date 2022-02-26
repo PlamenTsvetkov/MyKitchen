@@ -2,14 +2,14 @@
 {
     public class DimensionFormModel
     {
-        public double LenghtCenter { get; set; }
+        public double LenghtCenter { get; init; }
 
-        public double LenghtLeft { get; set; }
+        public double LenghtLeft { get; init; }
 
-        public double LenghtRight { get; set; }
+        public double LenghtRight { get; init; }
 
-        public double LenghtG { get; set; }
+        public double LenghtG { get; init; }
 
-        public double LenghtIsland { get; set; }
+        public double LenghtIsland { get; init; }
     }
 }

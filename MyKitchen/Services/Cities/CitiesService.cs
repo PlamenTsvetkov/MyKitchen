@@ -4,21 +4,43 @@
     using AutoMapper.QueryableExtensions;
     using MyKitchen.Data;
     using MyKitchen.Data.Models;
+    using MyKitchen.Services.Countries;
     using System.Collections.Generic;
 
     public class CitiesService : ICitiesService
     {
         private readonly MyKitchenDbContext db;
         private readonly IMapper mapper;
+        private readonly ICountriesService countriesService;
 
         public CitiesService(
             MyKitchenDbContext db,
-            IMapper mapper
-            )
+            IMapper mapper,
+            ICountriesService countriesService)
         {
             this.db = db;
             this.mapper = mapper;
+            this.countriesService = countriesService;
         }
+
+        public void Create(string name, int countryId)
+        {
+            var city = this.db.Cities.FirstOrDefault(x => x.Name == name && x.CountryId==countryId);
+
+            if (city != null)
+            {
+                return;
+            }
+            city = new City
+            {
+                Name = name,
+                CountryId = countryId,
+            };
+
+            this.db.Cities.Add(city);
+            this.db.SaveChanges();
+        }
+
         public IEnumerable<T> GetAll<T>(int? count = null)
         {
             IQueryable<City> query =

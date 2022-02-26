@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MyKitchen.Data;
 using MyKitchen.Data.Models;
 using MyKitchen.Infrastructure.Extensions;
+using MyKitchen.Services.Addresses;
 using MyKitchen.Services.Categories;
 using MyKitchen.Services.Cities;
 using MyKitchen.Services.Colors;
@@ -37,6 +38,7 @@ builder.Services.AddTransient<IManufacturersService, ManufacturersService>();
 builder.Services.AddTransient<IColorsService, ColorsService>();
 builder.Services.AddTransient<ICountriesService, CountriesService>();
 builder.Services.AddTransient<ICitiesService, CitiesService>();
+builder.Services.AddTransient<IAddressesService, AddressesService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

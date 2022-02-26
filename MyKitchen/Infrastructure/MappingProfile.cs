@@ -5,9 +5,10 @@
     using MyKitchen.Models.Categories;
     using MyKitchen.Models.Home;
     using MyKitchen.Models.Kitchens;
-    using MyKitchen.Models.Manufacturers;
+    using MyKitchen.Models.Countries;
     using MyKitchen.Services.Colors.Models;
     using MyKitchen.Services.Manufacturers.Models;
+    using MyKitchen.Models.Cityes;
 
     public class MappingProfile : Profile
     {
@@ -19,8 +20,8 @@
             this.CreateMap<Kitchen, KitchensInCategoryViewModel>();
             this.CreateMap<Manufacturer, KitchenManufacturerServiceModel>();
             this.CreateMap<Color, KitchenColorServiceModel>();
-            this.CreateMap<Country, ManucafturerCountryFormModel>();
-            this.CreateMap<City, ManufacturerCityFormModel>();
+            this.CreateMap<Country, AllCountryModel>();
+            this.CreateMap<City, AllCityModel>();
         }
     }
 }

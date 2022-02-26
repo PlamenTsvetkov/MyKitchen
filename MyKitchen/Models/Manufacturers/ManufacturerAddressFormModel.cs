@@ -1,4 +1,4 @@
-﻿namespace MyKitchen.Models.Manufacturers
+﻿namespace MyKitchen.Models.Countries
 {
     public class ManufacturerAddressFormModel
     {

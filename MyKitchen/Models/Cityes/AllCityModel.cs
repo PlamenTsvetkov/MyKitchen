@@ -1,6 +1,6 @@
-﻿namespace MyKitchen.Models.Manufacturers
+﻿namespace MyKitchen.Models.Cityes
 {
-    public class ManucafturerCountryFormModel
+    public class AllCityModel
     {
         public int Id { get; init; }
 
