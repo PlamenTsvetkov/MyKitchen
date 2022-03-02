@@ -99,7 +99,7 @@
                     <span asp-validation-for="Dimension.LenghtG" class="small text-danger"></span>
                 </div>
             }
-            @if (Model.CategoryId == 1)
+            @if (Model.CategoryId == 6)
             {
                 <div class="form-group">
                     <label asp-for="Dimension.LenghtLeft">First</label>
@@ -146,9 +146,6 @@
                 </select>
                  <a asp-controller="Colors" asp-action="Add" class="btn btn-primary btn-lg">Add Color</a>
             </div>
-           
-            
-           
 
             <div class="h5 font-weight-bold text-center">Type of Kitchen Cabinet Doors:</div>
             <div class="form-group">
@@ -165,11 +162,13 @@
                     <label for="VinylWrapped">Vinyl Wrapped</label>
                 </div>
                 <div>
-                    <input asp-for="TypeOfDoorMaterial" type="radio" id="CashОHighGloss" value="CashОHighGloss">
+                    <input asp-for="TypeOfDoorMaterial" type="radio" id="HighGloss" value="HighGloss">
                     <label for="HighGloss">High Gloss</label>
                 </div>
             </div>
             <span asp-validation-for="TypeOfDoorMaterial" class="text-danger"></span>
+
+            <input class="btn btn-primary mt-3" type="submit" value="Save" />
 
             <div>
                 <label asp-for="МanufacturerId"></label>
@@ -182,8 +181,6 @@
                 <span asp-validation-for="МanufacturerId" class="small text-danger"></span>
                  <a asp-controller="Manufacturers" asp-action="Add" class="btn btn-primary btn-lg">Add Manufacturer</a>
             </div>
-
-            <input class="btn btn-primary mt-3" type="submit" value="Save" />
         </form>
     </div>
 </div>

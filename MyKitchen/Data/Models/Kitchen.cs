@@ -42,8 +42,6 @@
 
         public virtual ICollection<KitchensColors> KitchensColors { get; set; }
 
-        public int TypeOfDoorMaterialId { get; set; }
-
         public TypeOfDoorMaterial TypeOfDoorMaterial { get; set; }
     }
 }

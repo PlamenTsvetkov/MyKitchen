@@ -9,7 +9,7 @@
 
     public class KitchenService : IKitchenService
     {
-        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif" };
+        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif", "jpeg" };
         private readonly MyKitchenDbContext db;
         private readonly IMapper mapper;
 
@@ -20,59 +20,77 @@
             this.mapper = mapper;
         }
 
+        public int GetCount()
+        {
+            return this.db.Kitchens.Count();
+        }
+
         public async Task AddAsync(KitchenFormModel input, string userId, string imagePath)
         {
-            //var recipe = new Recipe
-            //{
-            //    CategoryId = input.CategoryId,
-            //    CookingTime = TimeSpan.FromMinutes(input.CookingTime),
-            //    Instructions = input.Instructions,
-            //    Name = input.Name,
-            //    PortionsCount = input.PortionsCount,
-            //    PreparationTime = TimeSpan.FromMinutes(input.PreparationTime),
-            //    AddedByUserId = userId,
-            //};
+            var kitchen = new Kitchen
+            {
+                CategoryId = input.CategoryId,
+                UserId = userId,
+                CreatedOn = DateTime.UtcNow,
+                Description = input.Description,
+                PreparationTime = input.PreparationTime,
+                Price = input.Price,
+                TypeOfDoorMaterial = input.TypeOfDoorMaterial,
+                МanufacturerId= input.МanufacturerId,
+                Dimensions= new Dimensions {LenghtCenter=input.Dimension.LenghtCenter, 
+                                            LenghtLeft = input.Dimension.LenghtLeft, 
+                                            LenghtRight = input.Dimension.LenghtRight, 
+                                            LenghtG= input.Dimension.LenghtG,
+                                            LenghtIsland = input.Dimension.LenghtIsland
+                                           },
+            };
 
-            //foreach (var inputIngredient in input.Ingredients)
-            //{
-            //    var ingredient = this.ingredientsRespository.All().FirstOrDefault(x => x.Name == inputIngredient.IngredientName);
-            //    if (ingredient == null)
-            //    {
-            //        ingredient = new Ingredient { Name = inputIngredient.IngredientName };
-            //    }
+            foreach (var color in input.ColorsId)
+            { 
 
-            //    recipe.Ingredients.Add(new RecipeIngredient
-            //    {
-            //        Ingredient = ingredient,
-            //        Quantity = inputIngredient.Quantity,
-            //    });
-            //}
+                kitchen.KitchensColors.Add(new KitchensColors
+                {
+                    KitchenId=kitchen.Id,
+                    ColorId=color,
+                });
+            }
 
-            //// /wwwroot/images/kitchens/jhdsi-343g3h453-=g34g.jpg
-            //Directory.CreateDirectory($"{imagePath}/kitchens/");
-            //foreach (var image in input.Images)
-            //{
-            //    var extension = Path.GetExtension(image.FileName).TrimStart('.');
-            //    if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
-            //    {
-            //        throw new Exception($"Invalid image extension {extension}");
-            //    }
+            // /wwwroot/images/kitchens/jhdsi-343g3h453-=g34g.jpg
+            Directory.CreateDirectory($"{imagePath}/kitchens/");
+            foreach (var image in input.Images)
+            {
+                var extension = Path.GetExtension(image.FileName).TrimStart('.');
+                if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
+                {
+                    throw new Exception($"Invalid image extension {extension}");
+                }
 
-            //    var dbImage = new Image
-            //    {
-            //        AddedByUserId = userId,
-            //        Extension = extension,
-            //    };
-            //    recipe.Images.Add(dbImage);
+                var dbImage = new Image
+                {
+                    AddedByUserId = userId,
+                    Extension = extension,
+                };
+                kitchen.Images.Add(dbImage);
 
-            //    var physicalPath = $"{imagePath}/kitchens/{dbImage.Id}.{extension}";
-            //    using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
-            //    await image.CopyToAsync(fileStream);
-            //}
+                var physicalPath = $"{imagePath}/kitchens/{dbImage.Id}.{extension}";
+                using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
+                await image.CopyToAsync(fileStream);
+            }
 
-            //await this.db.Kitchens.AddAsync(recipe);
-            //await this.db.SaveChangesAsync();
+            await this.db.Kitchens.AddAsync(kitchen);
+            await this.db.SaveChangesAsync();
         }
+
+        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12)
+        {
+            var kitchens = this.db.Kitchens
+               .OrderByDescending(x => x.Id)
+               .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+               .ProjectTo<T>(this.mapper.ConfigurationProvider)
+               .ToList();
+            return kitchens;
+        }
+
         public IEnumerable<T> GetByCategoryId<T>(int categoryId, int? take = null, int skip = 0)
         {
             var query = this.db.Kitchens
@@ -86,6 +104,16 @@
             return query
                 .ProjectTo<T>(this.mapper.ConfigurationProvider)
                 .ToList();
+        }
+
+        public T GetById<T>(int id)
+        {
+            var kitchen = this.db.Kitchens
+                .Where(x => x.Id == id)
+               .ProjectTo<T>(this.mapper.ConfigurationProvider)
+               .FirstOrDefault();
+
+            return kitchen;
         }
 
         public int GetCountByCategoryId(int categoryId)

@@ -1,0 +1,33 @@
+﻿@model KitchensListViewModel
+
+@{
+    ViewBag.Title = "All Kitchens";
+}
+
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success">@this.TempData["Message"]</div>
+}
+
+<h1 class="text-center mt-2">All Kitchens</h1>
+<div class="row">
+    @foreach (var kitchen in Model.Kitchens)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img class="card-img-top" src="@kitchen.ImageUrl" alt="@kitchen.Price @kitchen.PreparationTime - @kitchen.TypeOfDoorMaterial.ToString() (@kitchen.CategoryName)">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-center">@kitchen.Price  @kitchen.PreparationTime @kitchen.TypeOfDoorMaterial.ToString() (@kitchen.CategoryName)</h5>
+                    <a asp-controller="Kitchens" asp-action="Details" asp-route-id="@kitchen.Id" class="btn btn-primary">View</a>
+                    @*@if (ViewBag.AllowCarEdit == true || User.IsAdmin())
+                    {
+                        <a asp-controller="Cars" asp-action="Edit" asp-route-id="@kitchen.Id" class="btn btn-warning">Edit</a>
+                        <a asp-controller="Cars" asp-action="Delete" asp-route-id="@kitchen.Id" class="btn btn-danger">Delete</a>
+                    }*@
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<hr />
+<partial name="_PagingPartial" model="@Model" />

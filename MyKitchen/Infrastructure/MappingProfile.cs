@@ -17,11 +17,16 @@
             this.CreateMap<Category, IndexCategoryViewModel>();
             this.CreateMap<Category, KitchenCategoryFormModel>();
             this.CreateMap<Category, CategoryViewModel>();
-            this.CreateMap<Kitchen, KitchensInCategoryViewModel>();
+            this.CreateMap<Kitchen, KitchensInCategoryViewModel>()
+                 .ForMember(x => x.ImageUrl,
+               opt => opt.MapFrom(x => "/images/kitchens/" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension));
             this.CreateMap<Manufacturer, KitchenManufacturerServiceModel>();
             this.CreateMap<Color, KitchenColorServiceModel>();
             this.CreateMap<Country, AllCountryModel>();
             this.CreateMap<City, AllCityModel>();
+            this.CreateMap<Kitchen, KitchenInListViewModel>()
+               .ForMember(x => x.ImageUrl, 
+               opt => opt.MapFrom(x => "/images/kitchens/" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension));
         }
     }
 }

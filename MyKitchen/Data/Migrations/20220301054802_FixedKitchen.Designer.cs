@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyKitchen.Data;
 
@@ -11,9 +12,10 @@ using MyKitchen.Data;
 namespace MyKitchen.Data.Migrations
 {
     [DbContext(typeof(MyKitchenDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220301054802_FixedKitchen")]
+    partial class FixedKitchen
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,15 +170,18 @@ namespace MyKitchen.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("AddedByUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Number")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -214,6 +219,7 @@ namespace MyKitchen.Data.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
@@ -382,6 +388,7 @@ namespace MyKitchen.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Extension")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("KitchenId")
@@ -455,6 +462,9 @@ namespace MyKitchen.Data.Migrations
                     b.Property<int>("ColorId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
                     b.HasKey("KitchenId", "ColorId");
 
                     b.HasIndex("ColorId");
@@ -478,6 +488,7 @@ namespace MyKitchen.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -486,10 +497,12 @@ namespace MyKitchen.Data.Migrations
                         .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Website")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -556,7 +569,9 @@ namespace MyKitchen.Data.Migrations
                 {
                     b.HasOne("MyKitchen.Data.Models.ApplicationUser", "AddedByUser")
                         .WithMany()
-                        .HasForeignKey("AddedByUserId");
+                        .HasForeignKey("AddedByUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MyKitchen.Data.Models.City", "City")
                         .WithMany("Addresses")
@@ -708,7 +723,8 @@ namespace MyKitchen.Data.Migrations
 
             modelBuilder.Entity("MyKitchen.Data.Models.Dimensions", b =>
                 {
-                    b.Navigation("Kitchen");
+                    b.Navigation("Kitchen")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MyKitchen.Data.Models.Kitchen", b =>

@@ -17,13 +17,13 @@
         public string Description { get; set; }
 
         public int МanufacturerId { get; set; }
-        public IEnumerable<KitchenManufacturerServiceModel> Manufacturers { get; set; }
+        public IEnumerable<KitchenManufacturerServiceModel>? Manufacturers { get; set; }
 
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
 
         public int CategoryId { get; set; }
 
-        public KitchenCategoryFormModel Category { get; set; }
+        public KitchenCategoryFormModel? Category { get; set; }
 
         public decimal Price { get; set; }
 
@@ -39,7 +39,7 @@
 
         public IEnumerable<int> ColorsId { get; init; }
 
-        public IEnumerable<KitchenColorServiceModel> Colors { get; set; }
+        public IEnumerable<KitchenColorServiceModel>? Colors { get; set; }
 
 
         public DimensionFormModel Dimension { get; set; }

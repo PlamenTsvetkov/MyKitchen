@@ -2,7 +2,6 @@
 {
     public class KitchensColors
     {
-        public int Id { get; set; }
 
         public int KitchenId { get; set; }
 

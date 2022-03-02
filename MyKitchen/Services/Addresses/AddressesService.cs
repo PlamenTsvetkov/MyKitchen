@@ -23,7 +23,7 @@
                 .db
                 .Addresses
                 .FirstOrDefault(a => a.Name == name && a.Number == number && a.CityId == cityId);
-            if (addressDate == null)
+            if (addressDate != null)
             {
                 return addressDate;
             }

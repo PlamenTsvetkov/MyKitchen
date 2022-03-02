@@ -45,19 +45,22 @@
             });
         }
         [HttpPost]
-        public async Task<IActionResult> Add(KitchenFormModel kitchen)
+        public async Task<IActionResult> Add(int id,KitchenFormModel kitchen)
         {
+            kitchen.CategoryId = id;
+            var user = await this.userManager.GetUserAsync(this.User);
+            kitchen.UserId = user.Id;
             if (!this.categoriesService.CategoryExists(kitchen.CategoryId))
             {
                 this.ModelState.AddModelError(nameof(kitchen.CategoryId), "Category does not exist.");
             }
+
             if (!ModelState.IsValid)
             {
                 kitchen.Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>();
-
+                kitchen.Colors = this.colorService.GetAll<KitchenColorServiceModel>();
                 return View(kitchen);
             }
-            var user = await this.userManager.GetUserAsync(this.User);
 
             try
             {
@@ -67,7 +70,7 @@
             {
                 this.ModelState.AddModelError(string.Empty, ex.Message);
                 kitchen.Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>();
-
+                kitchen.Colors = this.colorService.GetAll<KitchenColorServiceModel>();
                 return View(kitchen);
             }
 
@@ -76,6 +79,30 @@
             // TODO: Redirect to recipe info page
             return this.RedirectToAction("All");
 
+        }
+
+        public IActionResult All(int id = 1)
+        {
+            if (id <= 0)
+            {
+                return this.NotFound();
+            }
+
+            const int ItemsPerPage = 12;
+            var viewModel = new KitchensListViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                KitchensCount = this.kitchenService.GetCount(),
+                Kitchens = this.kitchenService.GetAll<KitchenInListViewModel>(id, ItemsPerPage),
+            };
+            return this.View(viewModel);
+        }
+
+        public IActionResult ById(int id)
+        {
+            var recipe = this.kitchenService.GetById<SingleKitchenViewModel>(id);
+            return this.View(recipe);
         }
     }
 }

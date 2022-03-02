@@ -1,5 +1,7 @@
 ﻿namespace MyKitchen.Models.Categories
 {
+    using MyKitchen.Data.Models.Enum;
+
     public class KitchensInCategoryViewModel
     {
         public int Id { get; set; }
@@ -12,6 +14,8 @@
                         ? this.Description.Substring(0, 300) + "..."
                         : this.Description;
 
+        public string ImageUrl { get; set; }
+
         public decimal Price { get; set; }
 
         public int PreparationTime { get; set; }
@@ -23,7 +27,10 @@
         public string МanufacturerName { get; set; }
 
         public int CommentsCount { get; set; }
+
+        public TypeOfDoorMaterial TypeOfDoorMaterial { get; set; }
     }
 }
+
 
 
