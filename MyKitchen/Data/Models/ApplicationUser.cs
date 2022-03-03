@@ -9,6 +9,7 @@
             this.Kitchens = new HashSet<Kitchen>();
             this.Manufacturers = new HashSet<Manufacturer>();
             this.Images = new HashSet<Image>();
+            this.Votes = new HashSet<Vote>();
         }
         public string Name { get; set; }
 
@@ -17,5 +18,7 @@
         public ICollection<Kitchen> Kitchens { get; init; }
 
         public ICollection<Manufacturer> Manufacturers { get; set; }
+
+        public virtual ICollection<Vote> Votes { get; set; }
     }
 }

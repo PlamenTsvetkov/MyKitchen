@@ -10,6 +10,7 @@ using MyKitchen.Services.Colors;
 using MyKitchen.Services.Countries;
 using MyKitchen.Services.Kitchens;
 using MyKitchen.Services.Manufacturers;
+using MyKitchen.Services.Vote;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,11 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     .AddEntityFrameworkStores<MyKitchenDbContext>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddAntiforgery(option=>
+{
+    option.HeaderName = "X-CSRF-TOKEN";
+});
+
 
 builder.Services.AddTransient<ICategoriesService, CategoriesService>();
 builder.Services.AddTransient<IKitchenService, KitchenService>();
@@ -38,9 +44,11 @@ builder.Services.AddTransient<IManufacturersService, ManufacturersService>();
 builder.Services.AddTransient<IColorsService, ColorsService>();
 builder.Services.AddTransient<ICountriesService, CountriesService>();
 builder.Services.AddTransient<ICitiesService, CitiesService>();
+builder.Services.AddTransient<IVotesService, VotesService>();
 builder.Services.AddTransient<IAddressesService, AddressesService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 
 var app = builder.Build();
 

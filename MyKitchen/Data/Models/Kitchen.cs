@@ -9,6 +9,7 @@
         {
             this.Images = new HashSet<Image>();
             this.KitchensColors = new HashSet<KitchensColors>();
+            this.Votes = new HashSet<Vote>();
             this.CreatedOn = DateTime.UtcNow;
         }
         public int Id { get; init; }
@@ -41,6 +42,7 @@
         public virtual Dimensions Dimensions { get; set; }
 
         public virtual ICollection<KitchensColors> KitchensColors { get; set; }
+        public virtual ICollection<Vote> Votes { get; set; }
 
         public TypeOfDoorMaterial TypeOfDoorMaterial { get; set; }
     }

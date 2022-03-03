@@ -32,6 +32,8 @@
             this.CreateMap<Kitchen, SingleKitchenViewModel>()
               .ForMember(x => x.ImageUrl,
               opt => opt.MapFrom(x => "/images/kitchens/" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension))
+              .ForMember(x => x.AverageVote, opt =>
+                    opt.MapFrom(x => x.Votes.Count() == 0 ? 0 : x.Votes.Average(v => v.Value)))
                .ForMember(x => x.KitchensColorsColor,
               opt => opt.MapFrom(x => x.KitchensColors.Select(c => c.Color)));
 
