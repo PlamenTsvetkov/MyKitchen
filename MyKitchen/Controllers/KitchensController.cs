@@ -99,7 +99,7 @@
             return this.View(viewModel);
         }
 
-        public IActionResult ById(int id)
+        public IActionResult Details(int id)
         {
             var recipe = this.kitchenService.GetById<SingleKitchenViewModel>(id);
             return this.View(recipe);
