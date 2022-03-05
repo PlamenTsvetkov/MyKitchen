@@ -12,6 +12,6 @@
         [StringLength(NameMaxLength, MinimumLength =NameMinLength, ErrorMessage = "City {0} must be between {2} and {1} characters long")]
         public string Name { get; init; }
 
-        public IEnumerable<AllCountryModel>? Countries { get; set; }
+        public IEnumerable<AllCountryModel> Countries { get; set; }
     }
 }

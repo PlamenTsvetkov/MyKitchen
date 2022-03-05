@@ -22,11 +22,11 @@
 
         public int CountryId { get; init; }
 
-        public IEnumerable<AllCountryModel>? Countries { get; set; }
+        public IEnumerable<AllCountryModel> Countries { get; set; }
 
         public int CityId { get; init; }
 
-        public IEnumerable<AllCityModel>? Cities { get; set; }
+        public IEnumerable<AllCityModel> Cities { get; set; }
 
         public ManufacturerAddressFormModel Address { get; set; }
     }

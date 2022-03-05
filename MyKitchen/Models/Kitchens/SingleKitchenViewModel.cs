@@ -3,6 +3,7 @@
     using MyKitchen.Data.Models;
     using MyKitchen.Data.Models.Enum;
     using MyKitchen.Models.Colors;
+    using MyKitchen.Models.Comments;
 
     public class SingleKitchenViewModel
     {
@@ -36,6 +37,8 @@
         public TypeOfDoorMaterial TypeOfDoorMaterial { get; set; }
 
         public double AverageVote { get; set; }
+
+        public IEnumerable<PostCommentViewModel> Comments { get; set; }
     }
 }
 

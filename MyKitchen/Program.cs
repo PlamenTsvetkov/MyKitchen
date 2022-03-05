@@ -7,6 +7,7 @@ using MyKitchen.Services.Addresses;
 using MyKitchen.Services.Categories;
 using MyKitchen.Services.Cities;
 using MyKitchen.Services.Colors;
+using MyKitchen.Services.Comments;
 using MyKitchen.Services.Countries;
 using MyKitchen.Services.Kitchens;
 using MyKitchen.Services.Manufacturers;
@@ -46,6 +47,7 @@ builder.Services.AddTransient<ICountriesService, CountriesService>();
 builder.Services.AddTransient<ICitiesService, CitiesService>();
 builder.Services.AddTransient<IVotesService, VotesService>();
 builder.Services.AddTransient<IAddressesService, AddressesService>();
+builder.Services.AddTransient<ICommentsService, CommentsService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -73,7 +75,7 @@ app.UseHttpsRedirection()
 
 app.MapControllerRoute(
     "kitchenCategory",
-    "f/{name:minlength(3)}",
+    "k/{name:minlength(3)}",
     new { controller = "Categories", action = "ByName" });
 app.MapControllerRoute(
     name: "default",

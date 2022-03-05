@@ -11,7 +11,7 @@
 
         public int KitchensCount { get; init; }
 
-        public string Url => $"/f/{this.Name.Replace(' ', '-')}";
+        public string Url => $"/k/{this.Name.Replace(' ', '-')}";
     }
 }
 

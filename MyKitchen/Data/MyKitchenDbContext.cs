@@ -21,6 +21,7 @@
         public DbSet<City> Cities { get; init; }
         public DbSet<Address> Addresses { get; init; }
         public DbSet<Vote> Votes { get; init; }
+        public DbSet<Comment> Comments { get; init; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder

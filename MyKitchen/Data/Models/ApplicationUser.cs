@@ -10,6 +10,7 @@
             this.Manufacturers = new HashSet<Manufacturer>();
             this.Images = new HashSet<Image>();
             this.Votes = new HashSet<Vote>();
+            this.Comments = new HashSet<Comment>();
         }
         public string Name { get; set; }
 
@@ -20,5 +21,7 @@
         public ICollection<Manufacturer> Manufacturers { get; set; }
 
         public virtual ICollection<Vote> Votes { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

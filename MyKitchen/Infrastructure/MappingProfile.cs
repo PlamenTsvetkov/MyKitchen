@@ -10,6 +10,7 @@
     using MyKitchen.Services.Manufacturers.Models;
     using MyKitchen.Models.Cityes;
     using MyKitchen.Models.Colors;
+    using MyKitchen.Models.Comments;
 
     public class MappingProfile : Profile
     {
@@ -36,6 +37,7 @@
                     opt.MapFrom(x => x.Votes.Count() == 0 ? 0 : x.Votes.Average(v => v.Value)))
                .ForMember(x => x.KitchensColorsColor,
               opt => opt.MapFrom(x => x.KitchensColors.Select(c => c.Color)));
+            this.CreateMap<Comment, PostCommentViewModel>();
 
 
         }
