@@ -88,14 +88,17 @@
                 return this.NotFound();
             }
 
-            const int ItemsPerPage = 12;
+            
+            const int ItemsPerPage = 3;
             var viewModel = new KitchensListViewModel
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
                 ItemsCount = this.kitchenService.GetCount(),
                 Kitchens = this.kitchenService.GetAll<KitchenInListViewModel>(id, ItemsPerPage),
-            };
+                Action = nameof(All),
+        };
+
             return this.View(viewModel);
         }
 

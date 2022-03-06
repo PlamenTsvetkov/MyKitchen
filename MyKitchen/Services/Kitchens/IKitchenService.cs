@@ -8,11 +8,13 @@
 
         IEnumerable<T> GetByCategoryId<T>(int categoryId, int? take = null, int skip = 0);
 
+        IEnumerable<T> GetAllByCategoryId<T>(int categoryId, int page, int itemsPerPage = 12);
+
+        int GetCountByManufacturerId(int manufacturerId);
+
         int GetCountByCategoryId(int categoryId);
 
         IEnumerable<T> GetAllByManufacturerId<T>(int manufacturerId, int page, int itemsPerPage = 12);
-
-        int GetCountByManufacturerId(int manufacturerId);
 
         IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12);
 

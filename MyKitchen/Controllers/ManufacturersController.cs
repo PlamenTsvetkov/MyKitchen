@@ -76,24 +76,26 @@
                 PageNumber = id,
                 ItemsCount = this.manufacturersService.GetCount(),
                 Manufacturers = this.manufacturersService.GetAllWithPaging<ManufacturerInListViewModel>(id, ItemsPerPage),
+                Action = nameof(All),
             };
             return this.View(viewModel);
         }
 
-        public IActionResult AllKitchens(int manufacturerId, int pageId=1)
+        public IActionResult AllKitchens(int manufacturerId, int id=1)
         {
-            if (pageId <= 0)
+            if (id <= 0)
             {
                 return this.NotFound();
             }
 
-            const int ItemsPerPage = 12;
+            const int ItemsPerPage = 3;
             var viewModel = new KitchensListViewModel
             {
                 ItemsPerPage = ItemsPerPage,
-                PageNumber = pageId,
+                PageNumber = id,
                 ItemsCount = this.kitchenService.GetCountByManufacturerId(manufacturerId),
-                Kitchens = this.kitchenService.GetAllByManufacturerId<KitchenInListViewModel>(manufacturerId, pageId, ItemsPerPage),
+                Kitchens = this.kitchenService.GetAllByManufacturerId<KitchenInListViewModel>(manufacturerId, id, ItemsPerPage),
+                Action = nameof(AllKitchens),
             };
             return this.View(viewModel);
         }
