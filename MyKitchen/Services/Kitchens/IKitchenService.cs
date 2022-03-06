@@ -10,6 +10,10 @@
 
         int GetCountByCategoryId(int categoryId);
 
+        IEnumerable<T> GetAllByManufacturerId<T>(int manufacturerId, int page, int itemsPerPage = 12);
+
+        int GetCountByManufacturerId(int manufacturerId);
+
         IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12);
 
         int GetCount();

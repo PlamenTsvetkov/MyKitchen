@@ -52,6 +52,20 @@
 
             return query.ProjectTo<T>(this.mapper.ConfigurationProvider).ToList();
         }
+
+        public IEnumerable<T> GetAllWithPaging<T>(int page, int itemsPerPage = 12)
+        {
+            var manufacturers = this.db.Manufacturers
+               .OrderByDescending(x => x.Id)
+               .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+               .ProjectTo<T>(this.mapper.ConfigurationProvider)
+               .ToList();
+            return manufacturers;
+        }
+
+        public int GetCount()
+            => this.db.Manufacturers
+                .Count();
     }
 }
 

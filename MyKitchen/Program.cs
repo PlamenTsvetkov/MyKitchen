@@ -74,6 +74,10 @@ app.UseHttpsRedirection()
     .UseAuthorization();
 
 app.MapControllerRoute(
+    "manufacturerKitchens",
+     "{controller}/{action}/{manufacturerId}/{pageId}",
+      new { controller = "Manufacturer", action = "AllKitchen", manufacturerId = "", pageId = "" });
+app.MapControllerRoute(
     "kitchenCategory",
     "k/{name:minlength(3)}",
     new { controller = "Categories", action = "ByName" });

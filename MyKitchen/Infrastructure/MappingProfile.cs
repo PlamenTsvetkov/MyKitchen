@@ -11,6 +11,7 @@
     using MyKitchen.Models.Cityes;
     using MyKitchen.Models.Colors;
     using MyKitchen.Models.Comments;
+    using MyKitchen.Models.Manufacturers;
 
     public class MappingProfile : Profile
     {
@@ -38,6 +39,7 @@
                .ForMember(x => x.KitchensColorsColor,
               opt => opt.MapFrom(x => x.KitchensColors.Select(c => c.Color)));
             this.CreateMap<Comment, PostCommentViewModel>();
+            this.CreateMap<Manufacturer, ManufacturerInListViewModel>();
 
 
         }

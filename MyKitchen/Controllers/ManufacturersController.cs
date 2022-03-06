@@ -7,24 +7,30 @@
     using MyKitchen.Data.Models;
     using MyKitchen.Models.Cityes;
     using MyKitchen.Models.Countries;
+    using MyKitchen.Models.Kitchens;
+    using MyKitchen.Models.Manufacturers;
     using MyKitchen.Services.Cities;
     using MyKitchen.Services.Countries;
+    using MyKitchen.Services.Kitchens;
     using MyKitchen.Services.Manufacturers;
 
     public class ManufacturersController : Controller
     {
         private readonly ICountriesService countryService;
         private readonly ICitiesService citiesService;
+        private readonly IKitchenService kitchenService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IManufacturersService manufacturersService;
 
         public ManufacturersController(ICountriesService countryService,
             ICitiesService citiesService,
+            IKitchenService kitchenService,
             UserManager<ApplicationUser> userManager,
             IManufacturersService manufacturersService)
         {
             this.countryService = countryService;
             this.citiesService = citiesService;
+            this.kitchenService = kitchenService;
             this.userManager = userManager;
             this.manufacturersService = manufacturersService;
         }
@@ -54,6 +60,42 @@
             this.TempData["Message"] = "Manufacturer added successfully.";
 
             return this.RedirectToAction("All");
+        }
+
+        public IActionResult All(int id = 1)
+        {
+            if (id <= 0)
+            {
+                return this.NotFound();
+            }
+
+            const int ItemsPerPage = 6;
+            var viewModel = new ManufacturersListViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                ItemsCount = this.manufacturersService.GetCount(),
+                Manufacturers = this.manufacturersService.GetAllWithPaging<ManufacturerInListViewModel>(id, ItemsPerPage),
+            };
+            return this.View(viewModel);
+        }
+
+        public IActionResult AllKitchens(int manufacturerId, int pageId=1)
+        {
+            if (pageId <= 0)
+            {
+                return this.NotFound();
+            }
+
+            const int ItemsPerPage = 12;
+            var viewModel = new KitchensListViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = pageId,
+                ItemsCount = this.kitchenService.GetCountByManufacturerId(manufacturerId),
+                Kitchens = this.kitchenService.GetAllByManufacturerId<KitchenInListViewModel>(manufacturerId, pageId, ItemsPerPage),
+            };
+            return this.View(viewModel);
         }
     }
 }

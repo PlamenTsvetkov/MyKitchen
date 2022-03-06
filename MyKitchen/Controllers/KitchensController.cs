@@ -93,7 +93,7 @@
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
-                KitchensCount = this.kitchenService.GetCount(),
+                ItemsCount = this.kitchenService.GetCount(),
                 Kitchens = this.kitchenService.GetAll<KitchenInListViewModel>(id, ItemsPerPage),
             };
             return this.View(viewModel);

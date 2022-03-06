@@ -119,6 +119,21 @@
         public int GetCountByCategoryId(int categoryId)
         => this.db.Kitchens
                 .Count(x => x.CategoryId == categoryId);
+
+        public IEnumerable<T> GetAllByManufacturerId<T>(int manufacturerId, int page, int itemsPerPage = 12)
+        {
+            var kitchens = this.db.Kitchens
+              .OrderByDescending(x => x.Id)
+              .Where(x=>x.МanufacturerId==manufacturerId)
+              .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+              .ProjectTo<T>(this.mapper.ConfigurationProvider)
+              .ToList();
+            return kitchens;
+        }
+
+        public int GetCountByManufacturerId(int manufacturerId)
+            =>this.db.Kitchens
+                .Count(x => x.МanufacturerId == manufacturerId);
     }
 }
 

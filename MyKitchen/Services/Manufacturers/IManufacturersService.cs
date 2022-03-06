@@ -14,6 +14,10 @@
             int cityId,
             string addressName,
             string addressNumber);
+        IEnumerable<T> GetAllWithPaging<T>(int page, int itemsPerPage = 12);
+
+        int GetCount();
     }
 }
+   
 
