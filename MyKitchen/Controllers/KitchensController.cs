@@ -4,8 +4,10 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using MyKitchen.Data.Models;
+    using MyKitchen.Models.Categories;
     using MyKitchen.Models.Kitchens;
     using MyKitchen.Services.Categories;
+    using MyKitchen.Services.Categories.Models;
     using MyKitchen.Services.Colors;
     using MyKitchen.Services.Colors.Models;
     using MyKitchen.Services.Kitchens;
@@ -107,6 +109,31 @@
             var recipe = this.kitchenService.GetById<SingleKitchenViewModel>(id);
             return this.View(recipe);
         }
+
+        public IActionResult Edit(int id)
+        {
+            var inputModel = this.kitchenService.GetById<EditKitchenInputModel>(id);
+            return View(new EditKitchenInputModel
+            {
+                Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>(),
+                Categories = this.categoriesService.GetAll<KitchenCategoriesServiceModel>(),
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditKitchenInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                input.Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>();
+               input.Categories = this.categoriesService.GetAll<KitchenCategoriesServiceModel>();
+                return this.View(input);
+            }
+
+            await this.kitchenService.UpdateAsync(id, input);
+            return this.RedirectToAction(nameof(this.Details), new { id });
+        }
+
     }
 }
 

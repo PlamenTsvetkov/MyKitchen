@@ -21,6 +21,8 @@
         int GetCount();
 
         T GetById<T>(int id);
+
+        Task UpdateAsync(int id, EditKitchenInputModel input);
     }
 }
 

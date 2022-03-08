@@ -1,4 +1,5 @@
-﻿@model KitchenFormModel
+﻿@using MyKitchen.Data.Models.Enum
+@model KitchenFormModel
 
 @{
     ViewBag.Title = "Add Kitchen";
@@ -135,7 +136,7 @@
                 <textarea asp-for="Description" rows="4" class="form-control" placeholder="Аdditional information about the kitchen..."></textarea>
                 <span asp-validation-for="Description" class="small text-danger"></span>
             </div>
-            
+
             <div>
                 <label asp-for="ColorsId">Colors</label>
                 <select asp-for="ColorsId" class="selectpicker" multiple data-live-search="true">
@@ -144,32 +145,14 @@
                         <option value="@color.Id">@color.Name</option>
                     }
                 </select>
-                 <a asp-controller="Colors" asp-action="Add" class="btn btn-primary btn-lg">Add Color</a>
+                <a asp-controller="Colors" asp-action="Add" class="btn btn-primary btn-lg">Add Color</a>
             </div>
 
             <div class="h5 font-weight-bold text-center">Type of Kitchen Cabinet Doors:</div>
-            <div class="form-group">
-                <div>
-                    <input asp-for="TypeOfDoorMaterial" type="radio" id="MelamineFaced" value="MelamineFaced" checked>
-                    <label for="MelamineFaced">MelamineFaced</label>
-                </div>
-                <div>
-                    <input asp-for="TypeOfDoorMaterial" type="radio" id="Hardwood" value="Hardwood">
-                    <label for="Hardwood">Hardwood</label>
-                </div>
-                <div>
-                    <input asp-for="TypeOfDoorMaterial" type="radio" id="VinylWrapped" value="VinylWrapped">
-                    <label for="VinylWrapped">Vinyl Wrapped</label>
-                </div>
-                <div>
-                    <input asp-for="TypeOfDoorMaterial" type="radio" id="HighGloss" value="HighGloss">
-                    <label for="HighGloss">High Gloss</label>
-                </div>
-            </div>
-            <span asp-validation-for="TypeOfDoorMaterial" class="text-danger"></span>
-
-            <input class="btn btn-primary mt-3" type="submit" value="Save" />
-
+            <select asp-for="TypeOfDoorMaterial" asp-items="Html.GetEnumSelectList<TypeOfDoorMaterial>()">
+                <option selected="selected" value="">Select material of kitchen</option>
+            </select>
+           
             <div>
                 <label asp-for="МanufacturerId"></label>
                 <select asp-for="МanufacturerId" class="form-control">
@@ -179,11 +162,13 @@
                     }
                 </select>
                 <span asp-validation-for="МanufacturerId" class="small text-danger"></span>
-                 <a asp-controller="Manufacturers" asp-action="Add" class="btn btn-primary btn-lg">Add Manufacturer</a>
+                <a asp-controller="Manufacturers" asp-action="Add" class="btn btn-primary btn-lg">Add Manufacturer</a>
             </div>
         </form>
     </div>
 </div>
+
+<input class="btn btn-primary mt-3" type="submit" value="Save" />
 
 
 

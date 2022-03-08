@@ -145,6 +145,18 @@
              .ToList();
             return kitchens;
         }
+
+        public async Task UpdateAsync(int id, EditKitchenInputModel input)
+        {
+            var kitchen = this.db.Kitchens.FirstOrDefault(x => x.Id == id);
+            kitchen.CategoryId = input.CategoryId;
+            kitchen.МanufacturerId =input.МanufacturerId;
+            kitchen.PreparationTime = input.PreparationTime;
+            kitchen.Description  = input.Description;
+            kitchen.Price = input.Price;
+            kitchen.TypeOfDoorMaterial = input.TypeOfDoorMaterial;
+            await this.db.SaveChangesAsync();
+        }
     }
 }
 
