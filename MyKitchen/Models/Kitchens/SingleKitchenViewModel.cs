@@ -21,16 +21,7 @@
         public decimal Price { get; set; }
 
         public int PreparationTime { get; set; }
-
-        public double DimensionsLenghtCenter { get; set; }
-
-        public double DimensionsLenghtLeft { get; set; }
-
-        public double DimensionsLenghtRight { get; set; }
-
-        public double DimensionsLenghtG { get; set; }
-
-        public double DimensionsLenghtIsland { get; set; }
+        public double KitchenMeter { get; set; }
 
         public  IEnumerable<ColorsViewModel> KitchensColorsColor { get; set; }
 

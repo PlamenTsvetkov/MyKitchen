@@ -23,6 +23,8 @@
         T GetById<T>(int id);
 
         Task UpdateAsync(int id, EditKitchenInputModel input);
+
+        Task DeleteAsync(int id);
     }
 }
 

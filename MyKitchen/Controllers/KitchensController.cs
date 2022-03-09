@@ -134,6 +134,13 @@
             return this.RedirectToAction(nameof(this.Details), new { id });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.kitchenService.DeleteAsync(id);
+            return this.RedirectToAction(nameof(this.All));
+        }
+
     }
 }
 

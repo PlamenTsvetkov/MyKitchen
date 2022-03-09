@@ -19,6 +19,9 @@
         public string Description { get; set; }
         public string МanufacturerName { get; set; }
 
+        public double AverageVote { get; set; }
+        public int CommentsCount { get; set; }
+
 
     }
 }

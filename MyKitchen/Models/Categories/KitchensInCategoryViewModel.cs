@@ -20,7 +20,7 @@
 
         public int PreparationTime { get; set; }
 
-        public int DimensionId { get; set; }
+        public double KitchenMeter { get; set; }
 
         public string UserName { get; set; }
 

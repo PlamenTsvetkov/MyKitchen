@@ -38,9 +38,7 @@
 
         public int PreparationTime { get; set; }
 
-        public int DimensionId { get; set; }
-
-        public virtual Dimensions Dimensions { get; set; }
+        public double KitchenMeter { get; set; }
 
         public virtual ICollection<KitchensColors> KitchensColors { get; set; }
         public virtual ICollection<Vote> Votes { get; set; }
@@ -48,6 +46,10 @@
         public virtual ICollection<Comment> Comments { get; set; }
 
         public TypeOfDoorMaterial TypeOfDoorMaterial { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }
 

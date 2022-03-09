@@ -1,8 +1,6 @@
 ﻿namespace MyKitchen.Models.Kitchens
 {
     using MyKitchen.Data.Models.Enum;
-    using MyKitchen.Models.Dimension;
-    using MyKitchen.Services.Colors.Models;
     using MyKitchen.Services.Manufacturers.Models;
     using System.ComponentModel.DataAnnotations;
 
@@ -35,6 +33,8 @@
 
         [Required]
         public TypeOfDoorMaterial TypeOfDoorMaterial { get; set; }
+
+        public double KitchenMeter { get; set; }
 
         //[Display(Name = "Colors")]
 

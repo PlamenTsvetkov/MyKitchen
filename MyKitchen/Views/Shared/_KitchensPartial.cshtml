@@ -1,0 +1,22 @@
+﻿@model IEnumerable<KitchenInListViewModel>
+
+<div class="row">
+    @foreach (var kitchen in Model)
+    {
+       <div class="col-md-4">
+            <div class="card mb-3">
+                <img class="card-img-top" src="@kitchen.ImageUrl" alt="@kitchen.Price @kitchen.PreparationTime - @kitchen.TypeOfDoorMaterial.ToString() (@kitchen.CategoryName)" width="300", height="600">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-center">Kitchen Category: @kitchen.CategoryName</h5>
+                    <h5 class="card-title text-center">Price: @kitchen.Price</h5>
+                    <h5 class="card-title text-center">Preparation Time: @kitchen.PreparationTime</h5>
+                    <h5 class="card-title text-center">Material: @kitchen.TypeOfDoorMaterial.ToString()</h5>
+                    <h5 class="card-title text-center">Average vote: @kitchen.AverageVote</h5>
+                    <h5 class="card-title text-center">Comment count: @kitchen.CommentsCount</h5>
+                    <a asp-controller="Kitchens" asp-action="Details" asp-route-id="@kitchen.Id" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

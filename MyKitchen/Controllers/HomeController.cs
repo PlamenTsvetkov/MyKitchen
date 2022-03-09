@@ -21,6 +21,7 @@
             {
                 Categories =
                     this.categoriesService.GetAll<IndexCategoryViewModel>(),
+                
             };
             return this.View(viewModel);
         }

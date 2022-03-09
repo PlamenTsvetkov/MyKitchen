@@ -15,104 +15,9 @@
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
         <h2 class="heading-margin text-center">@ViewBag.Title</h2>
         <form method="post" enctype="multipart/form-data">
-            @if (Model.CategoryId == 1)
-            {
-                <div class="form-group">
-                    <label asp-for="Dimension.LenghtLeft">Shorter side</label>
-                    <input asp-for="Dimension.LenghtLeft" class="form-control" placeholder="....meters">
-                    <span asp-validation-for="Dimension.LenghtLeft" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Dimension.LenghtCenter">Long side</label>
-                    <input asp-for="Dimension.LenghtCenter" class="form-control" placeholder="....meters">
-                    <span asp-validation-for="Dimension.LenghtCenter" class="small text-danger"></span>
-                </div>
-            }
-            @if (Model.CategoryId == 2)
-            {
-                <div class="form-group">
-                    <label asp-for="Dimension.LenghtLeft">Left</label>
-                    <input asp-for="Dimension.LenghtLeft" class="form-control" placeholder="....meters">
-                    <span asp-validation-for="Dimension.LenghtLeft" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Dimension.LenghtCenter">Center</label>
-                    <input asp-for="Dimension.LenghtCenter" class="form-control" placeholder="....meters">
-                    <span asp-validation-for="Dimension.LenghtCenter" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Dimension.LenghtRight">Right</label>
-                    <input asp-for="Dimension.LenghtRight" class="form-control" placeholder="....meters">
-                    <span asp-validation-for="Dimension.LenghtRight" class="small text-danger"></span>
-                </div>
-            }
-            @if (Model.CategoryId == 3)
-            {
-                <div class="form-group">
-                    <label asp-for="Dimension.LenghtLeft">Left</label>
-                    <input asp-for="Dimension.LenghtLeft" class="form-control" placeholder="....meters">
-                    <span asp-validation-for="Dimension.LenghtLeft" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Dimension.LenghtCenter">Center</label>
-                    <input asp-for="Dimension.LenghtCenter" class="form-control" placeholder="....meters">
-                    <span asp-validation-for="Dimension.LenghtCenter" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Dimension.LenghtRight">Right</label>
-                    <input asp-for="Dimension.LenghtRight" class="form-control" placeholder="....meters">
-                    <span asp-validation-for="Dimension.LenghtRight" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Dimension.LenghtIsland">Island</label>
-                    <input asp-for="Dimension.LenghtIsland" class="form-control" placeholder="....meters">
-                    <span asp-validation-for="Dimension.LenghtIsland" class="small text-danger"></span>
-                </div>
-            }
-            @if (Model.CategoryId == 4)
-            {
-                <div class="form-group">
-                    <label asp-for="Dimension.LenghtCenter">Lenght</label>
-                    <input asp-for="Dimension.LenghtCenter" class="form-control" placeholder="....meters">
-                    <span asp-validation-for="Dimension.LenghtCenter" class="small text-danger"></span>
-                </div>
-            }
-            @if (Model.CategoryId == 5)
-            {
-                <div class="form-group">
-                    <label asp-for="Dimension.LenghtLeft">Left</label>
-                    <input asp-for="Dimension.LenghtLeft" class="form-control" placeholder="....meters">
-                    <span asp-validation-for="Dimension.LenghtLeft" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Dimension.LenghtCenter">Center</label>
-                    <input asp-for="Dimension.LenghtCenter" class="form-control" placeholder="....meters">
-                    <span asp-validation-for="Dimension.LenghtCenter" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Dimension.LenghtRight">Right</label>
-                    <input asp-for="Dimension.LenghtRight" class="form-control" placeholder="....meters">
-                    <span asp-validation-for="Dimension.LenghtRight" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Dimension.LenghtG">G Side</label>
-                    <input asp-for="Dimension.LenghtG" class="form-control" placeholder="....meters">
-                    <span asp-validation-for="Dimension.LenghtG" class="small text-danger"></span>
-                </div>
-            }
-            @if (Model.CategoryId == 6)
-            {
-                <div class="form-group">
-                    <label asp-for="Dimension.LenghtLeft">First</label>
-                    <input asp-for="Dimension.LenghtLeft" class="form-control" placeholder="....meters">
-                    <span asp-validation-for="Dimension.LenghtLeft" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Dimension.LenghtCenter">Second</label>
-                    <input asp-for="Dimension.LenghtCenter" class="form-control" placeholder="....meters">
-                    <span asp-validation-for="Dimension.LenghtCenter" class="small text-danger"></span>
-                </div>
-            }
+
+           
+
             <div class="form-group">
                 <label asp-for="Images"></label>
                 <input asp-for="Images" class="form-control" />
@@ -121,7 +26,7 @@
 
             <div class="form-group">
                 <label asp-for="Price"></label>
-                <input asp-for="Price" class="form-control" placeholder="....Euros">
+                <input asp-for="Price" class="form-control" placeholder="...Euros">
                 <span asp-validation-for="Price" class="small text-danger"></span>
             </div>
 
@@ -136,7 +41,11 @@
                 <textarea asp-for="Description" rows="4" class="form-control" placeholder="Аdditional information about the kitchen..."></textarea>
                 <span asp-validation-for="Description" class="small text-danger"></span>
             </div>
-
+             <div class="form-group">
+                <label asp-for="KitchenMeter"></label>
+                <input asp-for="KitchenMeter" class="form-control" placeholder="....meters">
+                <span asp-validation-for="KitchenMeter" class="small text-danger"></span>
+            </div>
             <div>
                 <label asp-for="ColorsId">Colors</label>
                 <select asp-for="ColorsId" class="selectpicker" multiple data-live-search="true">
@@ -148,11 +57,10 @@
                 <a asp-controller="Colors" asp-action="Add" class="btn btn-primary btn-lg">Add Color</a>
             </div>
 
-            <div class="h5 font-weight-bold text-center">Type of Kitchen Cabinet Doors:</div>
             <select asp-for="TypeOfDoorMaterial" asp-items="Html.GetEnumSelectList<TypeOfDoorMaterial>()">
                 <option selected="selected" value="">Select material of kitchen</option>
             </select>
-           
+
             <div>
                 <label asp-for="МanufacturerId"></label>
                 <select asp-for="МanufacturerId" class="form-control">
@@ -164,11 +72,12 @@
                 <span asp-validation-for="МanufacturerId" class="small text-danger"></span>
                 <a asp-controller="Manufacturers" asp-action="Add" class="btn btn-primary btn-lg">Add Manufacturer</a>
             </div>
+            <input class="btn btn-primary mt-3" type="submit" value="Save" />
         </form>
     </div>
 </div>
 
-<input class="btn btn-primary mt-3" type="submit" value="Save" />
+
 
 
 

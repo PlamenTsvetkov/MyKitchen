@@ -1,4 +1,5 @@
-﻿@model EditKitchenInputModel
+﻿@using MyKitchen.Data.Models.Enum
+@model EditKitchenInputModel
 
 @{
     ViewBag.Title = "Edit Kitchen";
@@ -32,27 +33,16 @@
                 <textarea asp-for="Description" rows="4" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="small text-danger"></span>
             </div>
-
-            <div class="h5 font-weight-bold text-center">Type of Kitchen Cabinet Doors:</div>
-            <div class="form-group">
-                <div>
-                    <input asp-for="TypeOfDoorMaterial" type="radio" id="MelamineFaced" value="MelamineFaced" checked>
-                    <label for="MelamineFaced">MelamineFaced</label>
-                </div>
-                <div>
-                    <input asp-for="TypeOfDoorMaterial" type="radio" id="Hardwood" value="Hardwood">
-                    <label for="Hardwood">Hardwood</label>
-                </div>
-                <div>
-                    <input asp-for="TypeOfDoorMaterial" type="radio" id="VinylWrapped" value="VinylWrapped">
-                    <label for="VinylWrapped">Vinyl Wrapped</label>
-                </div>
-                <div>
-                    <input asp-for="TypeOfDoorMaterial" type="radio" id="HighGloss" value="HighGloss">
-                    <label for="HighGloss">High Gloss</label>
-                </div>
+             <div class="form-group">
+                <label asp-for="KitchenMeter"></label>
+                <input asp-for="KitchenMeter" class="form-control" placeholder="....meters">
+                <span asp-validation-for="KitchenMeter" class="small text-danger"></span>
             </div>
-            <span asp-validation-for="TypeOfDoorMaterial" class="text-danger"></span>
+
+             <select asp-for="TypeOfDoorMaterial" asp-items="Html.GetEnumSelectList<TypeOfDoorMaterial>()">
+                <option selected="selected" value="">Select material of kitchen</option>
+            </select>
+
             <div class="form-group">
                 <label asp-for="МanufacturerId"></label>
                 <select asp-for="МanufacturerId" class="form-control">

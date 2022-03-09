@@ -1,6 +1,5 @@
 ﻿namespace MyKitchen.Models.Kitchens
 {
-    using MyKitchen.Models.Dimension;
     using MyKitchen.Services.Colors.Models;
     using System.ComponentModel.DataAnnotations;
 
@@ -14,10 +13,6 @@
         public IEnumerable<int> ColorsId { get; init; }
 
         public IEnumerable<KitchenColorServiceModel> Colors { get; set; }
-
-
-        public DimensionFormModel Dimension { get; set; }
-
 
     }
 }

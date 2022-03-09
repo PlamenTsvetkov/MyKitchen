@@ -12,7 +12,6 @@
         }
         public DbSet<Category> Categories { get; init; }
         public DbSet<Color> Colors { get; init; }
-        public DbSet<Dimensions> Dimensions { get; init; }
         public DbSet<Image> Images { get; init; }
         public DbSet<Kitchen> Kitchens { get; init; }
         public DbSet<KitchensColors> KitchensColors { get; init; }
@@ -52,12 +51,6 @@
             .HasForeignKey(i => i.KitchenId)
             .OnDelete(DeleteBehavior.Restrict);
 
-            builder
-            .Entity<Kitchen>()
-            .HasOne(k => k.Dimensions)
-            .WithOne(d => d.Kitchen)
-            .HasForeignKey<Kitchen>(k => k.DimensionId)
-            .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<KitchensColors>()
                     .HasKey(kc => new { kc.KitchenId, kc.ColorId });

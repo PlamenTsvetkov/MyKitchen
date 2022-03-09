@@ -28,7 +28,7 @@
         {
             IQueryable<Category> query =
                 this.db.Categories
-                .OrderBy(x => x.Name);
+                .OrderBy(x => x.Name );
             if (count.HasValue)
             {
                 query = query.Take(count.Value);
