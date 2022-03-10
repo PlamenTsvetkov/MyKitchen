@@ -39,6 +39,17 @@
                 <span asp-validation-for="KitchenMeter" class="small text-danger"></span>
             </div>
 
+             <div>
+                <label asp-for="ColorsId">Colors</label>
+                <select asp-for="ColorsId" class="selectpicker" multiple data-live-search="true">
+                    @foreach (var color in Model.Colors)
+                    {
+                        <option value="@color.Id">@color.Name</option>
+                    }
+                </select>
+                <a asp-controller="Colors" asp-action="Add" class="btn btn-primary btn-lg">Add Color</a>
+            </div>
+
              <select asp-for="TypeOfDoorMaterial" asp-items="Html.GetEnumSelectList<TypeOfDoorMaterial>()">
                 <option selected="selected" value="">Select material of kitchen</option>
             </select>

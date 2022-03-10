@@ -21,8 +21,12 @@
         public DbSet<Address> Addresses { get; init; }
         public DbSet<Vote> Votes { get; init; }
         public DbSet<Comment> Comments { get; init; }
+        public DbSet<KitchensUsers> KitchensUsers { get; init; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<KitchensUsers>()
+                    .HasKey(ku => new { ku.KitchenId, ku.UserId });
+
             builder
                .Entity<Kitchen>()
                .HasOne(k => k.Мanufacturer)

@@ -44,9 +44,13 @@
                     opt.MapFrom(x => x.Votes.Count() == 0 ? 0 : x.Votes.Average(v => v.Value)))
                .ForMember(x => x.KitchensColorsColor,
               opt => opt.MapFrom(x => x.KitchensColors.Select(c => c.Color)));
-            this.CreateMap<Kitchen, EditKitchenInputModel>();
+            this.CreateMap<Kitchen, EditKitchenInputModel>()
+                .ForMember(x => x.ColorsId, opt =>
+                    opt.MapFrom(x => x.KitchensColors.Select(c=>c.ColorId))); 
             this.CreateMap<Comment, PostCommentViewModel>();
-            this.CreateMap<Manufacturer, ManufacturerInListViewModel>();
+            this.CreateMap<Manufacturer, ManufacturerInListViewModel>()
+                .ForMember(x => x.KitchensCount, opt =>
+                    opt.MapFrom(x => x.Kitchens.Count(k => k.IsDeleted == false))); 
 
 
         }

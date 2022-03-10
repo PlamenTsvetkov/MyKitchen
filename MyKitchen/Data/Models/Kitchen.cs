@@ -40,6 +40,8 @@
 
         public double KitchenMeter { get; set; }
 
+        public ICollection<KitchensUsers> KitchensUsers { get; init; }
+
         public virtual ICollection<KitchensColors> KitchensColors { get; set; }
         public virtual ICollection<Vote> Votes { get; set; }
 

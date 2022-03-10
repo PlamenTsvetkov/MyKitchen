@@ -1,6 +1,7 @@
 ﻿namespace MyKitchen.Models.Kitchens
 {
     using MyKitchen.Data.Models.Enum;
+    using MyKitchen.Services.Colors.Models;
     using MyKitchen.Services.Manufacturers.Models;
     using System.ComponentModel.DataAnnotations;
 
@@ -36,13 +37,10 @@
 
         public double KitchenMeter { get; set; }
 
-        //[Display(Name = "Colors")]
+        [Display(Name = "Colors")]
 
-        //public IEnumerable<int> ColorsId { get; init; }
+        public IEnumerable<int> ColorsId { get; init; }
 
-        //public IEnumerable<KitchenColorServiceModel> Colors { get; set; }
-
-
-        //public DimensionFormModel Dimension { get; set; }
+        public IEnumerable<KitchenColorServiceModel> Colors { get; set; }
     }
 }

@@ -18,6 +18,8 @@
 
         public ICollection<Kitchen> Kitchens { get; init; }
 
+        public ICollection<KitchensUsers> KitchensUsers { get; init; }
+
         public ICollection<Manufacturer> Manufacturers { get; set; }
 
         public virtual ICollection<Vote> Votes { get; set; }

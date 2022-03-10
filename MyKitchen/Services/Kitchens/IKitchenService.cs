@@ -16,6 +16,10 @@
 
         IEnumerable<T> GetAllByManufacturerId<T>(int manufacturerId, int page, int itemsPerPage = 12);
 
+        IEnumerable<T> GetAllByUserId<T>(string userId, int page, int itemsPerPage = 12);
+
+        int GetCountByUserId(string userId);
+
         IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12);
 
         int GetCount();
@@ -25,6 +29,10 @@
         Task UpdateAsync(int id, EditKitchenInputModel input);
 
         Task DeleteAsync(int id);
+
+        void AddKitchenToUserCollection(int kitchenId, string userId);
+
+        IEnumerable<T> GetAllInCollectionByUserId<T>(string userId, int page, int itemsPerPage = 12);
     }
 }
 

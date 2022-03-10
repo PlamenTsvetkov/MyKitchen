@@ -47,7 +47,7 @@
             });
         }
         [HttpPost]
-        public async Task<IActionResult> Add(int id,KitchenFormModel kitchen)
+        public async Task<IActionResult> Add(int id, KitchenFormModel kitchen)
         {
             kitchen.CategoryId = id;
             var user = await this.userManager.GetUserAsync(this.User);
@@ -90,7 +90,7 @@
                 return this.NotFound();
             }
 
-            
+
             const int ItemsPerPage = 3;
             var viewModel = new KitchensListViewModel
             {
@@ -99,7 +99,28 @@
                 ItemsCount = this.kitchenService.GetCount(),
                 Kitchens = this.kitchenService.GetAll<KitchenInListViewModel>(id, ItemsPerPage),
                 Action = nameof(All),
-        };
+            };
+
+            return this.View(viewModel);
+        }
+
+        public  IActionResult My(int id = 1)
+        {
+            if (id <= 0)
+            {
+                return this.NotFound();
+            }
+
+            var userId =   this.userManager.GetUserId(this.User);
+            const int ItemsPerPage = 3;
+            var viewModel = new KitchensListViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                ItemsCount = this.kitchenService.GetCountByUserId(userId),
+                Kitchens = this.kitchenService.GetAllByUserId<KitchenInListViewModel>(userId , id, ItemsPerPage),
+                Action = nameof(My),
+            };
 
             return this.View(viewModel);
         }
@@ -113,11 +134,10 @@
         public IActionResult Edit(int id)
         {
             var inputModel = this.kitchenService.GetById<EditKitchenInputModel>(id);
-            return View(new EditKitchenInputModel
-            {
-                Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>(),
-                Categories = this.categoriesService.GetAll<KitchenCategoriesServiceModel>(),
-            });
+            inputModel.Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>();
+            inputModel.Categories = this.categoriesService.GetAll<KitchenCategoriesServiceModel>();
+            inputModel.Colors = this.colorService.GetAll<KitchenColorServiceModel>();
+            return this.View(inputModel);
         }
 
         [HttpPost]
@@ -126,7 +146,8 @@
             if (!this.ModelState.IsValid)
             {
                 input.Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>();
-               input.Categories = this.categoriesService.GetAll<KitchenCategoriesServiceModel>();
+                input.Categories = this.categoriesService.GetAll<KitchenCategoriesServiceModel>();
+                input.Colors = this.colorService.GetAll<KitchenColorServiceModel>();
                 return this.View(input);
             }
 
@@ -140,6 +161,35 @@
             await this.kitchenService.DeleteAsync(id);
             return this.RedirectToAction(nameof(this.All));
         }
+
+        [Authorize]
+        public IActionResult AddToCollection(int id)
+        {
+            var userId = this.userManager.GetUserId(this.User);
+
+            this.kitchenService.AddKitchenToUserCollection(id, userId);
+
+            return RedirectToAction(nameof(this.Collection));
+        }
+
+        [Authorize]
+        public IActionResult Collection(int id = 1)
+        {
+            var userId = this.userManager.GetUserId(this.User);
+
+            const int ItemsPerPage = 3;
+            var viewModel = new KitchensListViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                ItemsCount = this.kitchenService.GetCountByUserId(userId),
+                Kitchens = this.kitchenService.GetAllInCollectionByUserId<KitchenInListViewModel>(userId, id, ItemsPerPage),
+                Action = nameof(My),
+            };
+
+            return this.View(viewModel);
+        }
+
 
     }
 }

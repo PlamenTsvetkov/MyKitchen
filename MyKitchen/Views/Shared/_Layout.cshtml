@@ -9,9 +9,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="~/css/style.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" asp-append-version="true" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MyKitchen.styles.css" asp-append-version="true" />
+    <link href="~/lib/datatables/media/css/jquery.dataTables.min.css" asp-append-version="true" rel="stylesheet"/>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"  />
+    <link href="~/css/site.css" asp-append-version="true" rel="stylesheet"  />
+    <link href="~/MyKitchen.styles.css" asp-append-version="true" rel="stylesheet"  />
 </head>
 <body>
 
@@ -30,6 +31,10 @@
 
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li> <a class="dropdown-item" asp-controller="Kitchens" asp-action="All">All Kitchens</a></li>
+                                 <li><hr class="dropdown-divider"></hr></li>
+                                 <li> <a class="dropdown-item" asp-controller="Kitchens" asp-action="My">My Kitchens</a></li>
+                                <li><hr class="dropdown-divider"></hr></li>
+                                <li> <a class="dropdown-item" asp-controller="Kitchens" asp-action="Collection" >Collection</a></li>
                                 <li><hr class="dropdown-divider"></hr></li>
                                 <li> <a class="dropdown-item" asp-controller="Categories" asp-action="ByName" asp-route-name="L-Shaped kitchen">L-Shaped kitchen</a></li>
                                 <li> <a class="dropdown-item" asp-controller="Categories" asp-action="ByName" asp-route-name="U-Shaped kitchen">U-Shaped kitchen</a></li>

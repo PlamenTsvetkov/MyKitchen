@@ -1,0 +1,17 @@
+﻿@model KitchensListViewModel
+
+@{
+    ViewBag.Title = "My Collection";
+}
+
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success">@this.TempData["Message"]</div>
+}
+
+<h1 class="text-center mt-2">@ViewBag.Title</h1>
+
+<partial name="_KitchensPartial" model="@Model.Kitchens" />
+
+<hr />
+<partial name="_PagingPartial" model="@Model" />
