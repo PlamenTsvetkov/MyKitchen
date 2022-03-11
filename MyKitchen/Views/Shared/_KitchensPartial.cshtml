@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<KitchenInListViewModel>
 
+    @if (!Model.Any())
+{
+    <h2 class="text-center">No kitchen found !</h2>
+}
 <div class="row">
     @foreach (var kitchen in Model)
     {
@@ -14,7 +18,14 @@
                     <h5 class="card-title text-center">Average vote: @kitchen.AverageVote</h5>
                     <h5 class="card-title text-center">Comment count: @kitchen.CommentsCount</h5>
                     <a asp-controller="Kitchens" asp-action="Details" asp-route-id="@kitchen.Id" class="btn btn-primary">View</a>
-                     <a asp-controller="Kitchens" asp-action="AddToCollection" asp-route-id="@kitchen.Id" class="btn btn-block btn-success">Add to Collection</a>
+                    @if (this.ViewContext.RouteData.Values["action"].ToString() != "Collection")
+                    {
+                        <a asp-controller="Kitchens" asp-action="AddToCollection" asp-route-id="@kitchen.Id" class="btn btn-block btn-success">Add to Collection</a>
+                    }
+                    @if(this.ViewContext.RouteData.Values["action"].ToString()=="Collection")
+                    {
+                        <a asp-controller="Kitchens" asp-action="RemoveFromCollection" asp-route-id="@kitchen.Id" class="btn btn-block btn-danger">Remove from Collection</a>
+                    }
                 </div>
             </div>
         </div>

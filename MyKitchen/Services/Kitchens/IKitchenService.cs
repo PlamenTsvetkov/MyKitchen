@@ -33,6 +33,10 @@
         void AddKitchenToUserCollection(int kitchenId, string userId);
 
         IEnumerable<T> GetAllInCollectionByUserId<T>(string userId, int page, int itemsPerPage = 12);
+
+        int GetCollectionCountByUserId(string userId);
+
+        void RemoveKitchenToUserCollection(int kitchenId, string userId);
     }
 }
 

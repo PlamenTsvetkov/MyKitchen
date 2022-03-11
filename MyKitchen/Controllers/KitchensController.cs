@@ -37,19 +37,63 @@
             this.userManager = userManager;
             this.environment = environment;
         }
-        public IActionResult Add(int id)
+        //public IActionResult Add(int id)
+        //{
+        //    return View(new KitchenFormModel
+        //    {
+        //        Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>(),
+        //        Colors = this.colorService.GetAll<KitchenColorServiceModel>(),
+        //        CategoryId = id
+        //    });
+        //}
+        //[HttpPost]
+        //public async Task<IActionResult> Add(int id, KitchenFormModel kitchen)
+        //{
+        //    kitchen.CategoryId = id;
+        //    var user = await this.userManager.GetUserAsync(this.User);
+        //    kitchen.UserId = user.Id;
+        //    if (!this.categoriesService.CategoryExists(kitchen.CategoryId))
+        //    {
+        //        this.ModelState.AddModelError(nameof(kitchen.CategoryId), "Category does not exist.");
+        //    }
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        kitchen.Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>();
+        //        kitchen.Colors = this.colorService.GetAll<KitchenColorServiceModel>();
+        //        return View(kitchen);
+        //    }
+
+        //    try
+        //    {
+        //        await this.kitchenService.AddAsync(kitchen, user.Id, $"{this.environment.WebRootPath}/images");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        this.ModelState.AddModelError(string.Empty, ex.Message);
+        //        kitchen.Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>();
+        //        kitchen.Colors = this.colorService.GetAll<KitchenColorServiceModel>();
+        //        return View(kitchen);
+        //    }
+
+        //    this.TempData["Message"] = "Kitchen added successfully.";
+
+        //    // TODO: Redirect to recipe info page
+        //    return this.RedirectToAction("All");
+
+        //}
+        public IActionResult Add()
         {
             return View(new KitchenFormModel
             {
                 Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>(),
                 Colors = this.colorService.GetAll<KitchenColorServiceModel>(),
-                CategoryId = id
+                Categories= this.categoriesService.GetAll<KitchenCategoriesServiceModel>(),
             });
         }
         [HttpPost]
-        public async Task<IActionResult> Add(int id, KitchenFormModel kitchen)
+        public async Task<IActionResult> Add( KitchenFormModel kitchen)
         {
-            kitchen.CategoryId = id;
             var user = await this.userManager.GetUserAsync(this.User);
             kitchen.UserId = user.Id;
             if (!this.categoriesService.CategoryExists(kitchen.CategoryId))
@@ -61,6 +105,7 @@
             {
                 kitchen.Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>();
                 kitchen.Colors = this.colorService.GetAll<KitchenColorServiceModel>();
+                kitchen.Categories = this.categoriesService.GetAll<KitchenCategoriesServiceModel>();
                 return View(kitchen);
             }
 
@@ -73,6 +118,7 @@
                 this.ModelState.AddModelError(string.Empty, ex.Message);
                 kitchen.Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>();
                 kitchen.Colors = this.colorService.GetAll<KitchenColorServiceModel>();
+                kitchen.Categories = this.categoriesService.GetAll<KitchenCategoriesServiceModel>();
                 return View(kitchen);
             }
 
@@ -169,6 +215,8 @@
 
             this.kitchenService.AddKitchenToUserCollection(id, userId);
 
+            this.TempData["Message"] = "Kitchen added successfully in your collection.";
+
             return RedirectToAction(nameof(this.Collection));
         }
 
@@ -182,12 +230,22 @@
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
-                ItemsCount = this.kitchenService.GetCountByUserId(userId),
+                ItemsCount = this.kitchenService.GetCollectionCountByUserId(userId),
                 Kitchens = this.kitchenService.GetAllInCollectionByUserId<KitchenInListViewModel>(userId, id, ItemsPerPage),
-                Action = nameof(My),
+                Action = nameof(Collection),
             };
 
             return this.View(viewModel);
+        }
+
+        [Authorize]
+        public IActionResult RemoveFromCollection(int id)
+        {
+            var userId = this.userManager.GetUserId(this.User);
+
+            this.kitchenService.RemoveKitchenToUserCollection(id, userId);
+
+            return this.RedirectToAction(nameof(this.Collection));
         }
 
 

@@ -15,31 +15,41 @@
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
         <h2 class="heading-margin text-center">@ViewBag.Title</h2>
         <form method="post" id="editForm" enctype="multipart/form-data">
-           
+            <div class="form-group">
+                <label asp-for="CategoryId"></label>
+                <select asp-for="CategoryId" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    <option selected="selected" value="">Select category</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CategoryId" class="small text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Price"></label>
-                <input asp-for="Price" class="form-control">
+                <input asp-for="Price" class="form-control" placeholder="...Euros">
                 <span asp-validation-for="Price" class="small text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="PreparationTime"></label>
-                <input asp-for="PreparationTime" class="form-control">
+                <input asp-for="PreparationTime" class="form-control" placeholder="....Days">
                 <span asp-validation-for="PreparationTime" class="small text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Description"></label>
-                <textarea asp-for="Description" rows="4" class="form-control"></textarea>
+                <textarea asp-for="Description" rows="4" class="form-control" placeholder="Аdditional information about the kitchen..."></textarea>
                 <span asp-validation-for="Description" class="small text-danger"></span>
             </div>
-             <div class="form-group">
+            <div class="form-group">
                 <label asp-for="KitchenMeter"></label>
                 <input asp-for="KitchenMeter" class="form-control" placeholder="....meters">
                 <span asp-validation-for="KitchenMeter" class="small text-danger"></span>
             </div>
-
-             <div>
+            <div>
                 <label asp-for="ColorsId">Colors</label>
                 <select asp-for="ColorsId" class="selectpicker" multiple data-live-search="true">
                     @foreach (var color in Model.Colors)
@@ -49,31 +59,23 @@
                 </select>
                 <a asp-controller="Colors" asp-action="Add" class="btn btn-primary btn-lg">Add Color</a>
             </div>
-
-             <select asp-for="TypeOfDoorMaterial" asp-items="Html.GetEnumSelectList<TypeOfDoorMaterial>()">
-                <option selected="selected" value="">Select material of kitchen</option>
-            </select>
+            <div class="form-group">
+                <select asp-for="TypeOfDoorMaterial" asp-items="Html.GetEnumSelectList<TypeOfDoorMaterial>()" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    <option selected="selected" value="">Select material of kitchen</option>
+                </select>
+            </div>
 
             <div class="form-group">
                 <label asp-for="МanufacturerId"></label>
-                <select asp-for="МanufacturerId" class="form-control">
+                <select asp-for="МanufacturerId" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    <option selected="selected" value="">Select manufacturer</option>
                     @foreach (var manufacturer in Model.Manufacturers)
                     {
                         <option value="@manufacturer.Id">@manufacturer.Name</option>
                     }
                 </select>
                 <span asp-validation-for="МanufacturerId" class="small text-danger"></span>
-                 <a asp-controller="Manufacturers" asp-action="Add" class="btn btn-primary btn-lg">Add Manufacturer</a>
-            </div>
-            <div>
-                <label asp-for="CategoryId"></label>
-                <select asp-for="CategoryId" class="form-control">
-                    @foreach (var category in Model.Categories)
-                    {
-                        <option value="@category.Id">@category.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="CategoryId" class="small text-danger"></span>
+                <a asp-controller="Manufacturers" asp-action="Add" class="btn btn-primary btn-lg">Add Manufacturer</a>
             </div>
             <input type="hidden" asp-for="Id" />
             

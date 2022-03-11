@@ -21,7 +21,6 @@
             this.CreateMap<Category, IndexCategoryViewModel>()
                  .ForMember(x => x.KitchensCount, opt =>
                     opt.MapFrom(x => x.Kitchens.Count(k=>k.IsDeleted==false)));
-            this.CreateMap<Category, KitchenCategoryFormModel>();
             this.CreateMap<Category, CategoryViewModel>();
             this.CreateMap<Category, KitchenCategoriesServiceModel>();
             this.CreateMap<Kitchen, KitchensInCategoryViewModel>()

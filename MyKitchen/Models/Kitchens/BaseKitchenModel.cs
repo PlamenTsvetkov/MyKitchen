@@ -1,6 +1,7 @@
 ﻿namespace MyKitchen.Models.Kitchens
 {
     using MyKitchen.Data.Models.Enum;
+    using MyKitchen.Services.Categories.Models;
     using MyKitchen.Services.Colors.Models;
     using MyKitchen.Services.Manufacturers.Models;
     using System.ComponentModel.DataAnnotations;
@@ -23,7 +24,7 @@
 
         public int CategoryId { get; set; }
 
-        public KitchenCategoryFormModel Category { get; set; }
+        public IEnumerable<KitchenCategoriesServiceModel> Categories { get; set; }
 
         public decimal Price { get; set; }
 

@@ -7,9 +7,6 @@
 <div style="text-align: center;">
     <img src="@Model.ImageUrl" width="100" class="mr-3" alt="@Model.Name">
 </div>
-<div style="text-align:center">
-    <a asp-controller="Kitchens" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-primary btn-lg">Add your kitchen</a>
-</div>
 <div class="alert alert-info">
     @Model.Description
 </div>

@@ -22,7 +22,7 @@
 
         public int GetCount()
         {
-            return this.db.Kitchens.Count(k=>k.IsDeleted==false);
+            return this.db.Kitchens.Count(k => k.IsDeleted == false);
         }
 
         public async Task AddAsync(KitchenFormModel input, string userId, string imagePath)
@@ -153,7 +153,7 @@
             kitchen.TypeOfDoorMaterial = input.TypeOfDoorMaterial;
             kitchen.KitchenMeter = input.KitchenMeter;
 
-           var kitchenColors = this.db.KitchensColors.Where(k=>k.KitchenId==id).ToList();
+            var kitchenColors = this.db.KitchensColors.Where(k => k.KitchenId == id).ToList();
             this.db.RemoveRange(kitchenColors);
 
             foreach (var color in input.ColorsId)
@@ -209,13 +209,35 @@
 
         public IEnumerable<T> GetAllInCollectionByUserId<T>(string userId, int page, int itemsPerPage = 12)
         {
-            var kitchens = this.db.Users
-             .Where(u=>u.Id==userId)
-             .Select(u=>u.KitchensUsers.Select(u=>u.Kitchen))
+            var kitchens = this.db.Kitchens
+             .SelectMany(k=>k.KitchensUsers)
+             .Where(k=>k.UserId==userId)
+             .Select(k => k.Kitchen)
              .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
              .ProjectTo<T>(this.mapper.ConfigurationProvider)
              .ToList();
             return kitchens;
+        }
+
+        public int GetCollectionCountByUserId(string userId)
+          => this.db.KitchensUsers
+            .Where(x => x.UserId == userId)
+            .Count();
+
+        public void RemoveKitchenToUserCollection(int kitchenId, string userId)
+        {
+            var kitchenUser = this.db
+                 .KitchensUsers
+                 .Where(up => up.UserId == userId &&
+                            up.KitchenId == kitchenId)
+                 .FirstOrDefault();
+            if (kitchenUser == null)
+            {
+                return;
+            }
+
+            this.db.KitchensUsers.Remove(kitchenUser);
+            this.db.SaveChanges();
         }
     }
 }
