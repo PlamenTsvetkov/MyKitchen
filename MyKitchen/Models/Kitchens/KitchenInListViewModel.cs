@@ -2,7 +2,7 @@
 {
     using MyKitchen.Data.Models.Enum;
 
-    public class KitchenInListViewModel 
+    public class KitchenInListViewModel : IKitchenModel
     {
         public int Id { get; set; }
 
@@ -15,6 +15,7 @@
         public decimal Price { get; set; }
 
         public int PreparationTime { get; set; }
+        public double KitchenMeter { get; set; } 
 
         public string Description { get; set; }
         public string МanufacturerName { get; set; }

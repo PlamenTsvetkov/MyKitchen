@@ -17,11 +17,13 @@
           ErrorMessage = "The field Description must be a string with a minimum length of {2}.")]
         public string Description { get; set; }
 
+        [Display(Name = "Мanufacturer")]
         public int МanufacturerId { get; set; }
         public IEnumerable<KitchenManufacturerServiceModel> Manufacturers { get; set; }
 
         public string UserId { get; set; }
 
+        [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
         public IEnumerable<KitchenCategoriesServiceModel> Categories { get; set; }
@@ -36,6 +38,7 @@
         [Required]
         public TypeOfDoorMaterial TypeOfDoorMaterial { get; set; }
 
+        [Display(Name = "Kitchen Meter")]
         public double KitchenMeter { get; set; }
 
         [Display(Name = "Colors")]

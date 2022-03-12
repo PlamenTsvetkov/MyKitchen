@@ -22,7 +22,7 @@
 
         public int GetCount()
         {
-            return this.db.Kitchens.Count(k => k.IsDeleted == false);
+            return this.db.Kitchens.Count(k => k.IsDeleted == false && k.IsPublic);
         }
 
         public async Task AddAsync(KitchenFormModel input, string userId, string imagePath)
@@ -38,6 +38,7 @@
                 TypeOfDoorMaterial = input.TypeOfDoorMaterial,
                 МanufacturerId = input.МanufacturerId,
                 KitchenMeter = input.KitchenMeter,
+                IsPublic=false,
             };
 
             foreach (var color in input.ColorsId)
@@ -76,10 +77,26 @@
             await this.db.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12)
+        public IEnumerable<T> GetAll<T>(
+            int page, 
+            int itemsPerPage = 12,
+            bool publicOnly = true)
         {
             var kitchens = this.db.Kitchens
-                .Where(k => k.IsDeleted == false)
+                .Where(c => !publicOnly || c.IsPublic)
+               .OrderByDescending(x => x.Id)
+               .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+               .ProjectTo<T>(this.mapper.ConfigurationProvider)
+               .ToList();
+            return kitchens;
+        }
+        public int GetCountAdmin()
+        {
+            return this.db.Kitchens.Count();
+        }
+        public IEnumerable<T> GetAllA<T>(int page, int itemsPerPage = 12)
+        {
+            var kitchens = this.db.Kitchen
                .OrderByDescending(x => x.Id)
                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                .ProjectTo<T>(this.mapper.ConfigurationProvider)
@@ -91,7 +108,7 @@
         {
             var query = this.db.Kitchens
                 .OrderByDescending(x => x.CreatedOn)
-                .Where(x => x.CategoryId == categoryId && x.IsDeleted == false).Skip(skip);
+                .Where(k => k.CategoryId == categoryId && k.IsDeleted == false && k.IsPublic).Skip(skip);
             if (take.HasValue)
             {
                 query = query.Take(take.Value);
@@ -114,13 +131,13 @@
 
         public int GetCountByCategoryId(int categoryId)
         => this.db.Kitchens
-                .Count(x => x.CategoryId == categoryId && x.IsDeleted == false);
+                .Count(k => k.CategoryId == categoryId && k.IsDeleted == false && k.IsPublic);
 
         public IEnumerable<T> GetAllByManufacturerId<T>(int manufacturerId, int page, int itemsPerPage = 12)
         {
             var kitchens = this.db.Kitchens
               .OrderByDescending(x => x.Id)
-              .Where(x => x.МanufacturerId == manufacturerId && x.IsDeleted == false)
+              .Where(k => k.МanufacturerId == manufacturerId && k.IsDeleted == false && k.IsPublic)
               .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
               .ProjectTo<T>(this.mapper.ConfigurationProvider)
               .ToList();
@@ -129,13 +146,13 @@
 
         public int GetCountByManufacturerId(int manufacturerId)
             => this.db.Kitchens
-                .Count(x => x.МanufacturerId == manufacturerId && x.IsDeleted == false);
+                .Count(k => k.МanufacturerId == manufacturerId && k.IsDeleted == false && k.IsPublic);
 
         public IEnumerable<T> GetAllByCategoryId<T>(int categoryId, int page, int itemsPerPage = 12)
         {
             var kitchens = this.db.Kitchens
              .OrderByDescending(x => x.Id)
-             .Where(x => x.CategoryId == categoryId && x.IsDeleted == false)
+             .Where(k => k.CategoryId == categoryId && k.IsDeleted == false && k.IsPublic)
              .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
              .ProjectTo<T>(this.mapper.ConfigurationProvider)
              .ToList();
@@ -152,6 +169,7 @@
             kitchen.Price = input.Price;
             kitchen.TypeOfDoorMaterial = input.TypeOfDoorMaterial;
             kitchen.KitchenMeter = input.KitchenMeter;
+            kitchen.IsPublic = false;
 
             var kitchenColors = this.db.KitchensColors.Where(k => k.KitchenId == id).ToList();
             this.db.RemoveRange(kitchenColors);
@@ -180,7 +198,7 @@
         {
             var kitchens = this.db.Kitchens
              .OrderByDescending(x => x.Id)
-             .Where(x => x.UserId == userId && x.IsDeleted == false)
+             .Where(k => k.UserId == userId && k.IsDeleted == false)
              .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
              .ProjectTo<T>(this.mapper.ConfigurationProvider)
              .ToList();
@@ -189,7 +207,7 @@
 
         public int GetCountByUserId(string userId)
         => this.db.Kitchens
-                .Count(x => x.UserId == userId && x.IsDeleted == false);
+                .Count(k => k.UserId == userId && k.IsDeleted == false);
 
         public void AddKitchenToUserCollection(int kitchenId, string userId)
         {
@@ -239,6 +257,17 @@
             this.db.KitchensUsers.Remove(kitchenUser);
             this.db.SaveChanges();
         }
+
+        public bool IsByUser(int kitchenId, string userId)
+         => this.db
+                .Kitchens
+                .Any(k => k.Id == kitchenId && k.UserId == userId);
+
+        public int GetLastKitchenIdByUserId(string userId)
+        => this.db.Kitchens
+                .Where(k=>k.UserId==userId)
+                .OrderByDescending(k=>k.Id)
+                .FirstOrDefault().Id;
     }
 }
 

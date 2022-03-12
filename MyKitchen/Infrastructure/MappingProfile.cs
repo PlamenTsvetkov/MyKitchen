@@ -20,7 +20,7 @@
         {
             this.CreateMap<Category, IndexCategoryViewModel>()
                  .ForMember(x => x.KitchensCount, opt =>
-                    opt.MapFrom(x => x.Kitchens.Count(k=>k.IsDeleted==false)));
+                    opt.MapFrom(x => x.Kitchens.Count(k=>k.IsDeleted==false && k.IsPublic)));
             this.CreateMap<Category, CategoryViewModel>();
             this.CreateMap<Category, KitchenCategoriesServiceModel>();
             this.CreateMap<Kitchen, KitchensInCategoryViewModel>()
@@ -49,7 +49,7 @@
             this.CreateMap<Comment, PostCommentViewModel>();
             this.CreateMap<Manufacturer, ManufacturerInListViewModel>()
                 .ForMember(x => x.KitchensCount, opt =>
-                    opt.MapFrom(x => x.Kitchens.Count(k => k.IsDeleted == false))); 
+                    opt.MapFrom(x => x.Kitchens.Count(k => k.IsDeleted == false && k.IsPublic))); 
 
 
         }

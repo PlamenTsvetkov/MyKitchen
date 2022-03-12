@@ -14,6 +14,8 @@
     using MyKitchen.Services.Manufacturers;
     using MyKitchen.Services.Manufacturers.Models;
 
+    using MyKitchen.Infrastructure.Extensions;
+
     public class KitchensController : Controller
     {
         private readonly IManufacturersService manufacturersService;
@@ -122,10 +124,10 @@
                 return View(kitchen);
             }
 
-            this.TempData["Message"] = "Kitchen added successfully.";
+            this.TempData["Message"] = "Your kitchen was added and is awaiting for approval.";
+            var kitchenId = kitchenService.GetLastKitchenIdByUserId(user.Id);
 
-            // TODO: Redirect to recipe info page
-            return this.RedirectToAction("All");
+            return RedirectToAction(nameof(Details), new { id = kitchenId, information = kitchen.GetInformation() });
 
         }
 
@@ -171,15 +173,28 @@
             return this.View(viewModel);
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(int id, string information)
         {
-            var recipe = this.kitchenService.GetById<SingleKitchenViewModel>(id);
-            return this.View(recipe);
+            var kitchen = this.kitchenService.GetById<SingleKitchenViewModel>(id);
+
+            if (information != kitchen.GetInformation())
+            {
+                return BadRequest();
+            }
+
+            return this.View(kitchen);
         }
 
         public IActionResult Edit(int id)
         {
             var inputModel = this.kitchenService.GetById<EditKitchenInputModel>(id);
+            var userId = this.User.Id();
+
+            if (!this.kitchenService.IsByUser(id, userId))
+            {
+                return Unauthorized();
+            }
+
             inputModel.Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>();
             inputModel.Categories = this.categoriesService.GetAll<KitchenCategoriesServiceModel>();
             inputModel.Colors = this.colorService.GetAll<KitchenColorServiceModel>();
@@ -187,18 +202,30 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, EditKitchenInputModel input)
+        public async Task<IActionResult> Edit(int id, EditKitchenInputModel kitchen)
         {
-            if (!this.ModelState.IsValid)
+            var userId = this.User.Id();
+            if (!this.categoriesService.CategoryExists(kitchen.CategoryId))
             {
-                input.Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>();
-                input.Categories = this.categoriesService.GetAll<KitchenCategoriesServiceModel>();
-                input.Colors = this.colorService.GetAll<KitchenColorServiceModel>();
-                return this.View(input);
+                this.ModelState.AddModelError(nameof(kitchen.CategoryId), "Category does not exist.");
+            }
+            if (!this.kitchenService.IsByUser(id, userId))
+            {
+                return Unauthorized();
             }
 
-            await this.kitchenService.UpdateAsync(id, input);
-            return this.RedirectToAction(nameof(this.Details), new { id });
+            if (!this.ModelState.IsValid)
+            {
+                kitchen.Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>();
+                kitchen.Categories = this.categoriesService.GetAll<KitchenCategoriesServiceModel>();
+                kitchen.Colors = this.colorService.GetAll<KitchenColorServiceModel>();
+                return this.View(kitchen);
+            }
+
+            await this.kitchenService.UpdateAsync(id, kitchen);
+            this.TempData["Message"] = "Your Kitchen was edited and is awaiting for approval.";
+
+            return RedirectToAction(nameof(Details), new { id = id, information = kitchen.GetInformation() });
         }
 
         [HttpPost]

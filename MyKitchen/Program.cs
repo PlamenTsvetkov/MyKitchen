@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MyKitchen.Controllers;
 using MyKitchen.Data;
 using MyKitchen.Data.Models;
 using MyKitchen.Infrastructure.Extensions;
@@ -30,9 +31,11 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.Password.RequireUppercase = false;
     options.Password.RequiredLength = 6;
 })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<MyKitchenDbContext>();
 
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddAntiforgery(option=>
 {
     option.HeaderName = "X-CSRF-TOKEN";
@@ -72,6 +75,19 @@ app.UseHttpsRedirection()
     .UseRouting()
     .UseAuthentication()
     .UseAuthorization();
+
+
+app.MapControllerRoute(
+              name: "Areas",
+              pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+                        name: "Kitchen Details",
+                        pattern: "/Kitchens/Details/{id}/{information}",
+                        defaults: new
+                        {
+                            controller = typeof(KitchensController).GetControllerName(),
+                            action = nameof(KitchensController.Details)
+                        });
 
 app.MapControllerRoute(
     "manufacturerKitchens",

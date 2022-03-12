@@ -5,7 +5,7 @@
     using MyKitchen.Models.Colors;
     using MyKitchen.Models.Comments;
 
-    public class SingleKitchenViewModel
+    public class SingleKitchenViewModel : IKitchenModel
     {
         public int Id { get; init; }
 

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<KitchenInListViewModel>
+﻿
+@model IEnumerable<KitchenInListViewModel>
 
     @if (!Model.Any())
 {
@@ -17,8 +18,8 @@
                     <h5 class="card-title text-center">Material: @kitchen.TypeOfDoorMaterial.ToString()</h5>
                     <h5 class="card-title text-center">Average vote: @kitchen.AverageVote</h5>
                     <h5 class="card-title text-center">Comment count: @kitchen.CommentsCount</h5>
-                    <a asp-controller="Kitchens" asp-action="Details" asp-route-id="@kitchen.Id" class="btn btn-primary">View</a>
-                    @if (this.ViewContext.RouteData.Values["action"].ToString() != "Collection")
+                    <a class="btn btn-primary" asp-controller="Kitchens" asp-action="Details" asp-route-id="@kitchen.Id" asp-route-information="@kitchen.GetInformation()">View</a>
+                    @if (this.ViewContext.RouteData.Values["action"].ToString() != "Collection" && this.ViewContext.RouteData.Values["action"].ToString() != "My")
                     {
                         <a asp-controller="Kitchens" asp-action="AddToCollection" asp-route-id="@kitchen.Id" class="btn btn-block btn-success">Add to Collection</a>
                     }

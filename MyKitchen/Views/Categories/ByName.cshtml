@@ -14,59 +14,53 @@
 
 <partial name="_KitchensPartial" model="@Model.Kitchens" />
 
-<hr />
-@if (!Model.Kitchens.Any())
-{
-    <h2 class="text-center">No kitchen found by the given category!</h2>
-}
-else
-{
-    <nav>
-        <ul class="pagination justify-content-center">
-            @if (this.Model.CurrentPage == 1)
-            {
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">Previous</a>
-                </li>
-            }
-            else
-            {
-                <li class="page-item">
-                    <a class="page-link"
+
+<nav>
+    <ul class="pagination justify-content-center">
+        @if (this.Model.CurrentPage == 1)
+        {
+            <li class="page-item disabled">
+                <a class="page-link" href="#">Previous</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link"
                asp-route="kitchenCategory"
                asp-route-name="@this.Model.Name"
                asp-route-page="@(this.Model.CurrentPage - 1)">Previous</a>
-                </li>
-            }
+            </li>
+        }
 
-            @for (int i = 1; i <= this.Model.PagesCount; i++)
-            {
-                var active = i == this.Model.CurrentPage ? "active" : string.Empty;
-                <li class="page-item @active">
-                    <a class="page-link"
+        @for (int i = 1; i <= this.Model.PagesCount; i++)
+        {
+            var active = i == this.Model.CurrentPage ? "active" : string.Empty;
+            <li class="page-item @active">
+                <a class="page-link"
                asp-route="kitchenCategory"
                asp-route-name="@this.Model.Name"
                asp-route-page="@i">@i</a>
-                </li>
-            }
+            </li>
+        }
 
-            @if (this.Model.CurrentPage == this.Model.PagesCount)
-            {
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            }
-            else
-            {
-                <li class="page-item">
-                    <a class="page-link"
+        @if (this.Model.CurrentPage == this.Model.PagesCount)
+        {
+            <li class="page-item disabled">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link"
                asp-route="kitchenCategory"
                asp-route-name="@this.Model.Name"
                asp-route-page="@(this.Model.CurrentPage + 1)">Next</a>
-                </li>
-            }
-        </ul>
-    </nav>
-}
+            </li>
+        }
+    </ul>
+</nav>
+
 
 

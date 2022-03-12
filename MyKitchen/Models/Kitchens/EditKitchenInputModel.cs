@@ -3,7 +3,7 @@
     using MyKitchen.Data.Models;
     using MyKitchen.Services.Categories.Models;
 
-    public class EditKitchenInputModel : BaseKitchenModel
+    public class EditKitchenInputModel : BaseKitchenModel , IKitchenModel
     { 
         public int Id { get; set; }
         public virtual ICollection<KitchensColors> KitchensColors { get; set; }

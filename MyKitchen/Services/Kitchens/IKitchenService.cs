@@ -19,12 +19,18 @@
         IEnumerable<T> GetAllByUserId<T>(string userId, int page, int itemsPerPage = 12);
 
         int GetCountByUserId(string userId);
+     
 
         IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12);
+
+        int GetCountAdmin();
+
+        IEnumerable<T> GetAllA<T>(int page, int itemsPerPage = 12, bool publicOnly = true);
 
         int GetCount();
 
         T GetById<T>(int id);
+        int GetLastKitchenIdByUserId(string userId);
 
         Task UpdateAsync(int id, EditKitchenInputModel input);
 
@@ -37,6 +43,8 @@
         int GetCollectionCountByUserId(string userId);
 
         void RemoveKitchenToUserCollection(int kitchenId, string userId);
+
+        bool IsByUser(int kitchenId, string userId);
     }
 }
 

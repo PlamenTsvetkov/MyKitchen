@@ -48,6 +48,10 @@
         }
     }
 }
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success">@this.TempData["Message"]</div>
+}
 <div class="single-recipe-layout1">
     <div class="ctg-name">@Model.CategoryName</div>
     <h2 class="item-title">@this.ViewData["Title"]</h2>
