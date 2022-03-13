@@ -27,6 +27,8 @@
         [MaxLength(PhoneNumberMaxLength)]
         public string PhoneNumber { get; set; }
 
+        public bool IsPublic { get; set; }
+
         [Required]
         public string AddedByUserId { get; set; }
 

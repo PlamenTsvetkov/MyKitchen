@@ -39,51 +39,6 @@
             this.userManager = userManager;
             this.environment = environment;
         }
-        //public IActionResult Add(int id)
-        //{
-        //    return View(new KitchenFormModel
-        //    {
-        //        Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>(),
-        //        Colors = this.colorService.GetAll<KitchenColorServiceModel>(),
-        //        CategoryId = id
-        //    });
-        //}
-        //[HttpPost]
-        //public async Task<IActionResult> Add(int id, KitchenFormModel kitchen)
-        //{
-        //    kitchen.CategoryId = id;
-        //    var user = await this.userManager.GetUserAsync(this.User);
-        //    kitchen.UserId = user.Id;
-        //    if (!this.categoriesService.CategoryExists(kitchen.CategoryId))
-        //    {
-        //        this.ModelState.AddModelError(nameof(kitchen.CategoryId), "Category does not exist.");
-        //    }
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        kitchen.Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>();
-        //        kitchen.Colors = this.colorService.GetAll<KitchenColorServiceModel>();
-        //        return View(kitchen);
-        //    }
-
-        //    try
-        //    {
-        //        await this.kitchenService.AddAsync(kitchen, user.Id, $"{this.environment.WebRootPath}/images");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        this.ModelState.AddModelError(string.Empty, ex.Message);
-        //        kitchen.Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>();
-        //        kitchen.Colors = this.colorService.GetAll<KitchenColorServiceModel>();
-        //        return View(kitchen);
-        //    }
-
-        //    this.TempData["Message"] = "Kitchen added successfully.";
-
-        //    // TODO: Redirect to recipe info page
-        //    return this.RedirectToAction("All");
-
-        //}
         public IActionResult Add()
         {
             return View(new KitchenFormModel
@@ -190,7 +145,7 @@
             var inputModel = this.kitchenService.GetById<EditKitchenInputModel>(id);
             var userId = this.User.Id();
 
-            if (!this.kitchenService.IsByUser(id, userId))
+            if (!this.kitchenService.IsByUser(id, userId) && !User.IsAdmin())
             {
                 return Unauthorized();
             }
@@ -209,7 +164,7 @@
             {
                 this.ModelState.AddModelError(nameof(kitchen.CategoryId), "Category does not exist.");
             }
-            if (!this.kitchenService.IsByUser(id, userId))
+            if (!this.kitchenService.IsByUser(id, userId) && !User.IsAdmin())
             {
                 return Unauthorized();
             }
@@ -222,8 +177,9 @@
                 return this.View(kitchen);
             }
 
-            await this.kitchenService.UpdateAsync(id, kitchen);
-            this.TempData["Message"] = "Your Kitchen was edited and is awaiting for approval.";
+            await this.kitchenService.UpdateAsync(id, kitchen, this.User.IsAdmin());
+
+            this.TempData["Message"] = $"You car was edited{(this.User.IsAdmin() ? string.Empty : " and is awaiting for approval")}!";
 
             return RedirectToAction(nameof(Details), new { id = id, information = kitchen.GetInformation() });
         }
@@ -231,8 +187,22 @@
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
+            var userId = this.User.Id();
+
+            if (!this.kitchenService.IsByUser(id, userId) && !User.IsAdmin())
+            {
+                return Unauthorized();
+            }
             await this.kitchenService.DeleteAsync(id);
-            return this.RedirectToAction(nameof(this.All));
+            if (User.IsAdmin())
+            {
+                return this.RedirectToAction("All", "Kitchens", new { area = "Admin" });
+            }
+            else
+            {
+                return this.RedirectToAction(nameof(this.All));
+            }
+            
         }
 
         [Authorize]

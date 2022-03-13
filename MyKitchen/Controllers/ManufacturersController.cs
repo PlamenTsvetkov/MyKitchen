@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using MyKitchen.Data.Models;
+    using MyKitchen.Infrastructure.Extensions;
     using MyKitchen.Models.Cityes;
     using MyKitchen.Models.Countries;
     using MyKitchen.Models.Kitchens;
@@ -60,6 +61,57 @@
             this.TempData["Message"] = "Manufacturer added successfully.";
 
             return this.RedirectToAction("All");
+        }
+
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            return this.View(new ManufacturerFormModel
+            {
+                Countries = countryService.GetAll<AllCountryModel>(),
+                Cities = citiesService.GetAll<AllCityModel>(),
+            });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(int id, ManufacturerFormModel input)
+        {
+            var userId = this.User.Id();
+
+            if (!this.ModelState.IsValid)
+            {
+                input.Countries = this.countryService.GetAll<AllCountryModel>();
+                input.Cities = this.citiesService.GetAll<AllCityModel>();
+                return this.View(input);
+            }
+            if (!User.IsAdmin())
+            {
+                return Unauthorized();
+            }
+
+            await manufacturersService.UpdateAsync(id,
+                                            input.Name, 
+                                            input.Email, 
+                                            input.Website, 
+                                            input.PhoneNumber, 
+                                            userId, 
+                                            input.CountryId, 
+                                            input.CityId, 
+                                            input.Address.Name, 
+                                            input.Address.Number, 
+                                            this.User.IsAdmin());
+
+            this.TempData["Message"] = "Manufacturer edited successfully.";
+
+            if (User.IsAdmin())
+            {
+                return this.RedirectToAction("All", "Kitchens", new { area = "Admin" });
+            }
+            else
+            {
+                return this.RedirectToAction(nameof(this.All));
+            }
         }
 
         public IActionResult All(int id = 1)

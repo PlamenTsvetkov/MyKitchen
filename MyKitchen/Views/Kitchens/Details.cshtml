@@ -81,8 +81,8 @@
                 </li>
                 <li class="single-meta">
                     <form method="post" asp-action="Delete" id="deleteForm" asp-route-id="@Model.Id">
+                      <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
                     </form>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
                 </li>
             </ul>
         </div>

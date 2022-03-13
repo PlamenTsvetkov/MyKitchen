@@ -20,10 +20,12 @@
         [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = "Manufacturer {0} must be between {2} and {1} characters long")]
         public string PhoneNumber { get; set; }
 
+        [Display(Name = "Country")]
         public int CountryId { get; init; }
 
         public IEnumerable<AllCountryModel> Countries { get; set; }
 
+        [Display(Name = "City")]
         public int CityId { get; init; }
 
         public IEnumerable<AllCityModel> Cities { get; set; }

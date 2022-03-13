@@ -14,13 +14,8 @@
 
         public IActionResult All(int id = 1)
         {
-            var cars = this.kitchenService
-                .GetAllA(publicOnly: false)
-                .Cars;
+            const int ItemsPerPage = 12;
 
-            return View(cars);
-
-            const int ItemsPerPage = 3;
             var viewModel = new KitchensListViewModel
             {
                 ItemsPerPage = ItemsPerPage,
@@ -41,4 +36,4 @@
         }
     }
 }
-}
+

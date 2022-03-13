@@ -9,10 +9,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="~/css/style.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" asp-append-version="true" />
-    <link href="~/lib/datatables/media/css/jquery.dataTables.min.css" asp-append-version="true" rel="stylesheet"/>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"  />
-    <link href="~/css/site.css" asp-append-version="true" rel="stylesheet"  />
-    <link href="~/MyKitchen.styles.css" asp-append-version="true" rel="stylesheet"  />
+    <link href="~/lib/datatables/media/css/jquery.dataTables.min.css" asp-append-version="true" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" asp-append-version="true" rel="stylesheet" />
+    <link href="~/MyKitchen.styles.css" asp-append-version="true" rel="stylesheet" />
 </head>
 <body>
 
@@ -25,37 +25,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Kitchens</a>
-
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li> <a class="dropdown-item" asp-controller="Kitchens" asp-action="Add">Add Kitchens</a></li>
-                                 <li><hr class="dropdown-divider"></hr></li>
-                                <li> <a class="dropdown-item" asp-controller="Kitchens" asp-action="All">All Kitchens</a></li>
-                                 <li><hr class="dropdown-divider"></hr></li>
-                                 <li> <a class="dropdown-item" asp-controller="Kitchens" asp-action="My">My Kitchens</a></li>
-                                <li><hr class="dropdown-divider"></hr></li>
-                                <li> <a class="dropdown-item" asp-controller="Kitchens" asp-action="Collection" >Collection</a></li>
-                                <li><hr class="dropdown-divider"></hr></li>
-                                <li> <a class="dropdown-item" asp-controller="Categories" asp-action="ByName" asp-route-name="L-Shaped kitchen">L-Shaped kitchen</a></li>
-                                <li> <a class="dropdown-item" asp-controller="Categories" asp-action="ByName" asp-route-name="U-Shaped kitchen">U-Shaped kitchen</a></li>
-                                <li> <a class="dropdown-item" asp-controller="Categories" asp-action="ByName" asp-route-name="Island kitchen">Island kitchen</a></li>
-                                <li> <a class="dropdown-item" asp-controller="Categories" asp-action="ByName" asp-route-name="One-wall kitchen">One-wall kitchen</a></li>
-                                <li> <a class="dropdown-item" asp-controller="Categories" asp-action="ByName" asp-route-name="G-Shape Kitchen">G-Shape Kitchen</a></li>
-                                <li> <a class="dropdown-item" asp-controller="Categories" asp-action="ByName" asp-route-name="Galley Kitchen">Galley Kitchen</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Manufacturers</a>
-
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li> <a class="dropdown-item" asp-controller="Manufacturers" asp-action="All">All Manufacturers</a></li>
-                                <li><hr class="dropdown-divider"></hr></li>
-                                <li> <a class="dropdown-item" asp-controller="Manufacturers" asp-action="Add">Add Manufacturer</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                   
+                    <partial name="_NavPartial" />
                     <partial name="_LoginPartial" />
                 </div>
             </div>

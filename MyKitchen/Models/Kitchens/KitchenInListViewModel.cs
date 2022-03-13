@@ -22,8 +22,8 @@
 
         public double AverageVote { get; set; }
         public int CommentsCount { get; set; }
-
-
+        public bool IsPublic { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
 

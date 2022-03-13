@@ -83,7 +83,7 @@
             bool publicOnly = true)
         {
             var kitchens = this.db.Kitchens
-                .Where(c => !publicOnly || c.IsPublic)
+                .Where(k =>  k.IsPublic && k.IsDeleted==false)
                .OrderByDescending(x => x.Id)
                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                .ProjectTo<T>(this.mapper.ConfigurationProvider)
@@ -94,9 +94,9 @@
         {
             return this.db.Kitchens.Count();
         }
-        public IEnumerable<T> GetAllA<T>(int page, int itemsPerPage = 12)
+        public IEnumerable<T> GetAllA<T>(int page, int itemsPerPage = 12, bool publicOnly = true)
         {
-            var kitchens = this.db.Kitchen
+            var kitchens = this.db.Kitchens
                .OrderByDescending(x => x.Id)
                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                .ProjectTo<T>(this.mapper.ConfigurationProvider)
@@ -159,7 +159,7 @@
             return kitchens;
         }
 
-        public async Task UpdateAsync(int id, EditKitchenInputModel input)
+        public async Task UpdateAsync(int id, EditKitchenInputModel input, bool isPublic)
         {
             var kitchen = this.db.Kitchens.FirstOrDefault(x => x.Id == id);
             kitchen.CategoryId = input.CategoryId;
@@ -169,7 +169,7 @@
             kitchen.Price = input.Price;
             kitchen.TypeOfDoorMaterial = input.TypeOfDoorMaterial;
             kitchen.KitchenMeter = input.KitchenMeter;
-            kitchen.IsPublic = false;
+            kitchen.IsPublic = isPublic;
 
             var kitchenColors = this.db.KitchensColors.Where(k => k.KitchenId == id).ToList();
             this.db.RemoveRange(kitchenColors);
@@ -268,6 +268,21 @@
                 .Where(k=>k.UserId==userId)
                 .OrderByDescending(k=>k.Id)
                 .FirstOrDefault().Id;
+
+        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void ChangeVisility(int kitchenId)
+        {
+            var kitchen = this.db.Kitchens.Find(kitchenId);
+
+            kitchen.IsPublic = !kitchen.IsPublic;
+
+            this.db.SaveChanges();
+        }
     }
 }
 
