@@ -23,6 +23,7 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IManufacturersService manufacturersService;
 
+        public const int manufacturerPerPage = 6;
         public ManufacturersController(ICountriesService countryService,
             ICitiesService citiesService,
             IKitchenService kitchenService,
@@ -45,18 +46,18 @@
         }
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Add(ManufacturerFormModel input)
+        public async Task<IActionResult> Add(ManufacturerFormModel manufacturer)
         {
             if (!this.ModelState.IsValid)
             {
-                input.Countries = this.countryService.GetAll<AllCountryModel>();
-                input.Cities = this.citiesService.GetAll<AllCityModel>();
-                return this.View(input);
+                manufacturer.Countries = this.countryService.GetAll<AllCountryModel>();
+                manufacturer.Cities = this.citiesService.GetAll<AllCityModel>();
+                return this.View(manufacturer);
             }
 
             var userId =  this.userManager.GetUserId(this.User);
 
-            manufacturersService.Create(input.Name, input.Email, input.Website, input.PhoneNumber, userId , input.CountryId, input.CityId, input.Address.Name, input.Address.Number);
+            manufacturersService.Create(manufacturer.Name, manufacturer.Email, manufacturer.Website, manufacturer.PhoneNumber, userId , manufacturer.CountryId, manufacturer.CityId, manufacturer.Address.Name, manufacturer.Address.Number);
 
             this.TempData["Message"] = "Manufacturer added successfully.";
 
@@ -75,15 +76,15 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, ManufacturerFormModel input)
+        public async Task<IActionResult> Edit(int id, ManufacturerFormModel manufacturer)
         {
             var userId = this.User.Id();
 
             if (!this.ModelState.IsValid)
             {
-                input.Countries = this.countryService.GetAll<AllCountryModel>();
-                input.Cities = this.citiesService.GetAll<AllCityModel>();
-                return this.View(input);
+                manufacturer.Countries = this.countryService.GetAll<AllCountryModel>();
+                manufacturer.Cities = this.citiesService.GetAll<AllCityModel>();
+                return this.View(manufacturer);
             }
             if (!User.IsAdmin())
             {
@@ -91,15 +92,15 @@
             }
 
             await manufacturersService.UpdateAsync(id,
-                                            input.Name, 
-                                            input.Email, 
-                                            input.Website, 
-                                            input.PhoneNumber, 
+                                            manufacturer.Name, 
+                                            manufacturer.Email, 
+                                            manufacturer.Website, 
+                                            manufacturer.PhoneNumber, 
                                             userId, 
-                                            input.CountryId, 
-                                            input.CityId, 
-                                            input.Address.Name, 
-                                            input.Address.Number, 
+                                            manufacturer.CountryId, 
+                                            manufacturer.CityId, 
+                                            manufacturer.Address.Name, 
+                                            manufacturer.Address.Number, 
                                             this.User.IsAdmin());
 
             this.TempData["Message"] = "Manufacturer edited successfully.";
@@ -140,13 +141,12 @@
                 return this.NotFound();
             }
 
-            const int ItemsPerPage = 3;
             var viewModel = new KitchensListViewModel
             {
-                ItemsPerPage = ItemsPerPage,
+                ItemsPerPage = manufacturerPerPage,
                 PageNumber = id,
                 ItemsCount = this.kitchenService.GetCountByManufacturerId(manufacturerId),
-                Kitchens = this.kitchenService.GetAllByManufacturerId<KitchenInListViewModel>(manufacturerId, id, ItemsPerPage),
+                Kitchens = this.kitchenService.GetAllByManufacturerId<KitchenInListViewModel>(manufacturerId, id, manufacturerPerPage),
                 Action = nameof(AllKitchens),
             };
             return this.View(viewModel);

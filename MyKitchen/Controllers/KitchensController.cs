@@ -16,6 +16,7 @@
 
     using MyKitchen.Infrastructure.Extensions;
 
+    using static WebConstants;
     public class KitchensController : Controller
     {
         private readonly IManufacturersService manufacturersService;
@@ -94,8 +95,8 @@
             }
 
 
-            const int ItemsPerPage = 3;
-            var viewModel = new KitchensListViewModel
+            const int ItemsPerPage = kitchenPerPage;
+            var kitchens = new KitchensListViewModel
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
@@ -104,7 +105,7 @@
                 Action = nameof(All),
             };
 
-            return this.View(viewModel);
+            return this.View(kitchens);
         }
 
         public  IActionResult My(int id = 1)
@@ -115,8 +116,8 @@
             }
 
             var userId =   this.userManager.GetUserId(this.User);
-            const int ItemsPerPage = 3;
-            var viewModel = new KitchensListViewModel
+            const int ItemsPerPage = kitchenPerPage;
+            var myKitchens = new KitchensListViewModel
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
@@ -125,7 +126,7 @@
                 Action = nameof(My),
             };
 
-            return this.View(viewModel);
+            return this.View(myKitchens);
         }
 
         public IActionResult Details(int id, string information)
@@ -142,7 +143,7 @@
 
         public IActionResult Edit(int id)
         {
-            var inputModel = this.kitchenService.GetById<EditKitchenInputModel>(id);
+            var kitchen = this.kitchenService.GetById<EditKitchenInputModel>(id);
             var userId = this.User.Id();
 
             if (!this.kitchenService.IsByUser(id, userId) && !User.IsAdmin())
@@ -150,10 +151,10 @@
                 return Unauthorized();
             }
 
-            inputModel.Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>();
-            inputModel.Categories = this.categoriesService.GetAll<KitchenCategoriesServiceModel>();
-            inputModel.Colors = this.colorService.GetAll<KitchenColorServiceModel>();
-            return this.View(inputModel);
+            kitchen.Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>();
+            kitchen.Categories = this.categoriesService.GetAll<KitchenCategoriesServiceModel>();
+            kitchen.Colors = this.colorService.GetAll<KitchenColorServiceModel>();
+            return this.View(kitchen);
         }
 
         [HttpPost]
@@ -222,8 +223,8 @@
         {
             var userId = this.userManager.GetUserId(this.User);
 
-            const int ItemsPerPage = 3;
-            var viewModel = new KitchensListViewModel
+            const int ItemsPerPage = kitchenPerPage;
+            var kitchens = new KitchensListViewModel
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
@@ -232,7 +233,7 @@
                 Action = nameof(Collection),
             };
 
-            return this.View(viewModel);
+            return this.View(kitchens);
         }
 
         [Authorize]

@@ -4,15 +4,21 @@
     using Microsoft.AspNetCore.Mvc;
     using MyKitchen.Models;
     using MyKitchen.Models.Home;
+    using MyKitchen.Models.Kitchens;
     using MyKitchen.Services.Categories;
+    using MyKitchen.Services.Kitchens;
 
     public class HomeController : Controller
     {
         private readonly ICategoriesService categoriesService;
+        private readonly IKitchenService kitchenService;
 
-        public HomeController(ICategoriesService categoriesService)
+        public const int kitchenPerHome = 3;
+        public HomeController(ICategoriesService categoriesService,
+            IKitchenService kitchenService)
         {
             this.categoriesService = categoriesService;
+            this.kitchenService = kitchenService;
         }
         public IActionResult Index()
         {
@@ -21,7 +27,8 @@
             {
                 Categories =
                     this.categoriesService.GetAll<IndexCategoryViewModel>(),
-                
+                Kitchens = this.kitchenService.GetRandom<HomeKitchensViewModel>(kitchenPerHome).ToList(),
+
             };
             return this.View(viewModel);
         }

@@ -14,7 +14,13 @@
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
         <h2 class="heading-margin text-center">@ViewBag.Title</h2>
+
         <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="Images"></label>
+                <input asp-for="Images" class="form-control" />
+                <span asp-validation-for="Images" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="CategoryId"></label>
                 <select asp-for="CategoryId" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
@@ -25,11 +31,6 @@
                     }
                 </select>
                 <span asp-validation-for="CategoryId" class="small text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Images"></label>
-                <input asp-for="Images" class="form-control" />
-                <span asp-validation-for="Images" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -82,6 +83,7 @@
                 <span asp-validation-for="МanufacturerId" class="small text-danger"></span>
                 <a asp-controller="Manufacturers" asp-action="Add" class="btn btn-primary btn-lg">Add Manufacturer</a>
             </div>
+           
             <input class="btn btn-primary mt-3" type="submit" value="Save" />
         </form>
     </div>

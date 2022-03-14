@@ -26,12 +26,12 @@
 
         public IActionResult ByName(string name, int page = 1)
         {
-            
-                var viewModel = this.categoriesService.GetByName<CategoryViewModel>(name);
-                if (viewModel == null)
-                {
-                    return this.NotFound();
-                }
+
+            var viewModel = this.categoriesService.GetByName<CategoryViewModel>(name);
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
 
 
             viewModel.Kitchens = this.kitchenService.GetByCategoryId<KitchenInListViewModel>(viewModel.Id, ItemsPerPage, (page - 1) * ItemsPerPage);
@@ -46,15 +46,6 @@
             viewModel.CurrentPage = page;
 
             return this.View(viewModel);
-
-            //const int ItemsPerPage = 2;
-            //viewModel.Action = nameof(ByName);
-            //viewModel.ItemsPerPage = ItemsPerPage;
-            //viewModel.PageNumber = id;
-            //viewModel.ItemsCount = this.kitchenService.GetCountByCategoryId(viewModel.Id);
-            //viewModel.Kitchens = this.kitchenService.GetAllByCategoryId<KitchenInListViewModel>(viewModel.Id, id, ItemsPerPage);
-            //viewModel.Action=nameof(ByName);
-            //return this.View(viewModel);
         }
     }
 }

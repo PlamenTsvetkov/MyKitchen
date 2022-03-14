@@ -47,6 +47,8 @@
         bool IsByUser(int kitchenId, string userId);
 
         void ChangeVisility(int kitchenId);
+
+        IEnumerable<T> GetRandom<T>(int count);
     }
 }
 

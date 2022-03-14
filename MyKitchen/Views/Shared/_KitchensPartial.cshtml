@@ -13,13 +13,13 @@
                 <img class="card-img-top" src="@kitchen.ImageUrl" alt="@kitchen.Price @kitchen.PreparationTime - @kitchen.TypeOfDoorMaterial.ToString() (@kitchen.CategoryName)" width="300", height="600">
                 <div class="card-body text-center">
                     <h5 class="card-title text-center">Kitchen Category: @kitchen.CategoryName</h5>
-                    <h5 class="card-title text-center">Price: @kitchen.Price</h5>
-                    <h5 class="card-title text-center">Preparation Time: @kitchen.PreparationTime</h5>
-                    <h5 class="card-title text-center">Material: @kitchen.TypeOfDoorMaterial.ToString()</h5>
-                    <h5 class="card-title text-center">Average vote: @kitchen.AverageVote</h5>
-                    <h5 class="card-title text-center">Comment count: @kitchen.CommentsCount</h5>
+                    <h5 class="card-title text-center"><i class="fa-solid fa-comment-dollar"></i> Price: @kitchen.Price euros</h5>
+                    <h5 class="card-title text-center"><i class="far fa-clock"></i> Preparation Time: @kitchen.PreparationTime days</h5>
+                    <h5 class="card-title text-center"> <i class="fa fa-list-ol"></i> Material: @kitchen.TypeOfDoorMaterial.ToString()</h5>
+                    <h5 class="card-title text-center"><i class="fa-solid fa-thumbs-up"></i> Average vote: @kitchen.AverageVote</h5>
+                    <h5 class="card-title text-center"><i class="fa-solid fa-comment-dots"></i> Comment count: @kitchen.CommentsCount</h5>
                     <a class="btn btn-primary" asp-controller="Kitchens" asp-action="Details" asp-route-id="@kitchen.Id" asp-route-information="@kitchen.GetInformation()">View</a>
-                    @if (this.ViewContext.RouteData.Values["action"].ToString() != "Collection" && this.ViewContext.RouteData.Values["action"].ToString() != "My")
+                    @if (this.ViewContext.RouteData.Values["action"].ToString() != "Collection" && this.ViewContext.RouteData.Values["action"].ToString() != "My" && !this.User.IsAdmin())
                     {
                         <a asp-controller="Kitchens" asp-action="AddToCollection" asp-route-id="@kitchen.Id" class="btn btn-block btn-success">Add to Collection</a>
                     }

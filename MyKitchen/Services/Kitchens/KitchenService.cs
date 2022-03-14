@@ -38,7 +38,7 @@
                 TypeOfDoorMaterial = input.TypeOfDoorMaterial,
                 МanufacturerId = input.МanufacturerId,
                 KitchenMeter = input.KitchenMeter,
-                IsPublic=false,
+                IsPublic = false,
             };
 
             foreach (var color in input.ColorsId)
@@ -78,12 +78,12 @@
         }
 
         public IEnumerable<T> GetAll<T>(
-            int page, 
+            int page,
             int itemsPerPage = 12,
             bool publicOnly = true)
         {
             var kitchens = this.db.Kitchens
-                .Where(k =>  k.IsPublic && k.IsDeleted==false)
+                .Where(k => k.IsPublic && k.IsDeleted == false)
                .OrderByDescending(x => x.Id)
                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                .ProjectTo<T>(this.mapper.ConfigurationProvider)
@@ -228,8 +228,8 @@
         public IEnumerable<T> GetAllInCollectionByUserId<T>(string userId, int page, int itemsPerPage = 12)
         {
             var kitchens = this.db.Kitchens
-             .SelectMany(k=>k.KitchensUsers)
-             .Where(k=>k.UserId==userId)
+             .SelectMany(k => k.KitchensUsers)
+             .Where(k => k.UserId == userId)
              .Select(k => k.Kitchen)
              .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
              .ProjectTo<T>(this.mapper.ConfigurationProvider)
@@ -265,14 +265,10 @@
 
         public int GetLastKitchenIdByUserId(string userId)
         => this.db.Kitchens
-                .Where(k=>k.UserId==userId)
-                .OrderByDescending(k=>k.Id)
+                .Where(k => k.UserId == userId)
+                .OrderByDescending(k => k.Id)
                 .FirstOrDefault().Id;
 
-        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12)
-        {
-            throw new NotImplementedException();
-        }
 
 
         public void ChangeVisility(int kitchenId)
@@ -282,6 +278,15 @@
             kitchen.IsPublic = !kitchen.IsPublic;
 
             this.db.SaveChanges();
+        }
+
+        public IEnumerable<T> GetRandom<T>(int count)
+        {
+            return this.db.Kitchens
+               .OrderBy(x => Guid.NewGuid())
+               .Take(count)
+               .ProjectTo<T>(this.mapper.ConfigurationProvider)
+               .ToList();
         }
     }
 }
