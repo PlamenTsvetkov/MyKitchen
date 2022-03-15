@@ -54,6 +54,8 @@ builder.Services.AddTransient<ICommentsService, CommentsService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddMemoryCache();
+
 
 var app = builder.Build();
 

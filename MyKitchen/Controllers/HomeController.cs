@@ -2,6 +2,7 @@
 {
     using System.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Memory;
     using MyKitchen.Models;
     using MyKitchen.Models.Home;
     using MyKitchen.Models.Kitchens;
@@ -12,25 +13,42 @@
     {
         private readonly ICategoriesService categoriesService;
         private readonly IKitchenService kitchenService;
+        private readonly IMemoryCache cache;
 
         public const int kitchenPerHome = 3;
+
         public HomeController(ICategoriesService categoriesService,
-            IKitchenService kitchenService)
+            IKitchenService kitchenService,
+            IMemoryCache cache)
         {
             this.categoriesService = categoriesService;
             this.kitchenService = kitchenService;
+            this.cache = cache;
         }
+
         public IActionResult Index()
         {
-            this.TempData["InfoMessage"] = "Thank you for visiting home page.";
-            var viewModel = new IndexViewModel
-            {
-                Categories =
-                    this.categoriesService.GetAll<IndexCategoryViewModel>(),
-                Kitchens = this.kitchenService.GetRandom<HomeKitchensViewModel>(kitchenPerHome).ToList(),
+            const string indexViewCasheKey = "IndexViewCasheKey";
 
-            };
-            return this.View(viewModel);
+            var indexViewModel = this.cache.Get<IndexViewModel>(indexViewCasheKey);
+
+            if (indexViewModel == null)
+            {
+                indexViewModel = new IndexViewModel
+                {
+                    Categories =
+                   this.categoriesService.GetAll<IndexCategoryViewModel>(),
+                    Kitchens = this.kitchenService.GetRandom<HomeKitchensViewModel>(kitchenPerHome).ToList(),
+
+                };
+
+                var cacheOptions = new MemoryCacheEntryOptions()
+                   .SetAbsoluteExpiration(TimeSpan.FromMinutes(3));
+
+                this.cache.Set(indexViewCasheKey, indexViewModel, cacheOptions);
+            }
+           
+            return this.View(indexViewModel);
         }
 
 

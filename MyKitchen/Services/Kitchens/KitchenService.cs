@@ -283,6 +283,7 @@
         public IEnumerable<T> GetRandom<T>(int count)
         {
             return this.db.Kitchens
+                .Where(k=>k.IsPublic)
                .OrderBy(x => Guid.NewGuid())
                .Take(count)
                .ProjectTo<T>(this.mapper.ConfigurationProvider)
