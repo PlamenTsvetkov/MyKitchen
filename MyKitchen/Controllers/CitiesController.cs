@@ -1,11 +1,13 @@
 ﻿namespace MyKitchen.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using MyKitchen.Models.Cityes;
     using MyKitchen.Models.Countries;
     using MyKitchen.Services.Cities;
     using MyKitchen.Services.Countries;
 
+   
     public class CitiesController : Controller
     {
         private readonly ICountriesService countriesService;
@@ -18,6 +20,7 @@
             this.citiesService = citiesService;
         }
 
+        [Authorize]
         public IActionResult Add()
         {
             return this.View(new CityFormModel
@@ -26,6 +29,7 @@
             });
         }
         [HttpPost]
+        [Authorize]
         public IActionResult Add(CityFormModel city)
         {
             if (!this.countriesService.CountryExists(city.CountryId))

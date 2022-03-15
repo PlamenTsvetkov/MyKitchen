@@ -40,6 +40,8 @@
             this.userManager = userManager;
             this.environment = environment;
         }
+
+        [Authorize]
         public IActionResult Add()
         {
             return View(new KitchenFormModel
@@ -49,7 +51,9 @@
                 Categories= this.categoriesService.GetAll<KitchenCategoriesServiceModel>(),
             });
         }
+
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Add( KitchenFormModel kitchen)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -108,6 +112,7 @@
             return this.View(kitchens);
         }
 
+        [Authorize]
         public  IActionResult My(int id = 1)
         {
             if (id <= 0)

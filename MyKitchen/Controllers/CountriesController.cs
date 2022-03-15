@@ -1,5 +1,6 @@
 ﻿namespace MyKitchen.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using MyKitchen.Models.Countries;
     using MyKitchen.Services.Countries;
@@ -12,12 +13,16 @@
         {
             this.countriesService = countriesService;
         }
+
+        [Authorize]
         public IActionResult Add()
         {
             return this.View();
         }
+
         [HttpPost]
-        public async Task<IActionResult> Add(CountryFormModel country)
+        [Authorize]
+        public IActionResult Add(CountryFormModel country)
         {
            
             if (!ModelState.IsValid)

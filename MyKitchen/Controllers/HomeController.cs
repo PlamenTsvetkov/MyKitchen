@@ -9,6 +9,8 @@
     using MyKitchen.Services.Categories;
     using MyKitchen.Services.Kitchens;
 
+    using static WebConstants.Cache;
+
     public class HomeController : Controller
     {
         private readonly ICategoriesService categoriesService;
@@ -28,9 +30,7 @@
 
         public IActionResult Index()
         {
-            const string indexViewCasheKey = "IndexViewCasheKey";
-
-            var indexViewModel = this.cache.Get<IndexViewModel>(indexViewCasheKey);
+            var indexViewModel = this.cache.Get<IndexViewModel>(IndexViewCasheKey);
 
             if (indexViewModel == null)
             {
@@ -45,7 +45,7 @@
                 var cacheOptions = new MemoryCacheEntryOptions()
                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(3));
 
-                this.cache.Set(indexViewCasheKey, indexViewModel, cacheOptions);
+                this.cache.Set(IndexViewCasheKey, indexViewModel, cacheOptions);
             }
            
             return this.View(indexViewModel);
