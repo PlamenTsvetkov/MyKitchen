@@ -18,7 +18,7 @@
                     <h5 class="card-title text-center"> <i class="fa fa-list-ol"></i> Material: @kitchen.TypeOfDoorMaterial.ToString()</h5>
                     <h5 class="card-title text-center"><i class="fa-solid fa-thumbs-up"></i> Average vote: @kitchen.AverageVote</h5>
                     <h5 class="card-title text-center"><i class="fa-solid fa-comment-dots"></i> Comment count: @kitchen.CommentsCount</h5>
-                    <a class="btn btn-primary" asp-controller="Kitchens" asp-action="Details" asp-route-id="@kitchen.Id" asp-route-information="@kitchen.GetInformation()">View</a>
+                    <a class="btn btn-primary"asp-route-information="@kitchen.GetInformation()">View</a>
                     @if (this.ViewContext.RouteData.Values["action"].ToString() != "Collection" && this.ViewContext.RouteData.Values["action"].ToString() != "My" && !this.User.IsAdmin())
                     {
                         <a asp-controller="Kitchens" asp-action="AddToCollection" asp-route-id="@kitchen.Id" class="btn btn-block btn-success">Add to Collection</a>

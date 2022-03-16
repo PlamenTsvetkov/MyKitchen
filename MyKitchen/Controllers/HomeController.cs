@@ -45,7 +45,7 @@
                 var cacheOptions = new MemoryCacheEntryOptions()
                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(3));
 
-                this.cache.Set(IndexViewCasheKey, indexViewModel, cacheOptions);
+                //this.cache.Set(IndexViewCasheKey, indexViewModel, cacheOptions);
             }
            
             return this.View(indexViewModel);
