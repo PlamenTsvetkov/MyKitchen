@@ -39,7 +39,7 @@
 
             var userId = this.userManager.GetUserId(this.User);
             await this.commentsService.Create(input.KitchenId, userId, input.Content, parentId);
-            return this.RedirectToAction("Details", "Kitchens", new { id = input.KitchenId });
+            return this.RedirectToAction("Details", "Kitchens", new { id = input.KitchenId, information = input.GetInformation });
         }
     }
 }

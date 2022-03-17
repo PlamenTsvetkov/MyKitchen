@@ -4,5 +4,6 @@
     public interface IColorsService
     {
         IEnumerable<T> GetAll<T>(int? count = null);
+        void Create(string name);
     }
 }

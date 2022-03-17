@@ -7,5 +7,6 @@
         public int ParentId { get; set; }
 
         public string Content { get; set; }
+        public string GetInformation { get; set; }
     }
 }

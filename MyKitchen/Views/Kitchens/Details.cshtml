@@ -125,12 +125,12 @@
                 <div class="feature-wrap">
                     <div class="media">
                         <div class="feature-icon">
-                            <i class="fa-solid fa-hammer"></i>
+                            <i class="fa-solid fa-ruler"></i>
                         </div>
                         <div class="media-body space-sm">
-                            <div class="feature-title">MANUFACTURER</div>
+                            <div class="feature-title">KITCHEN METER</div>
                             <div class="feature-sub-title">
-                                @Model.МanufacturerName
+                                @Model.KitchenMeter Meters
                             </div>
                         </div>
                     </div>
@@ -140,11 +140,13 @@
                 <div class="feature-wrap">
                     <div class="media">
                         <div class="feature-icon">
-                            <i class="fa fa-list-ol"></i>
+                            <i class="fa-solid fa-hammer"></i>
                         </div>
                         <div class="media-body space-sm">
-                            <div class="feature-title">MATERIAL</div>
-                            <div class="feature-sub-title">@Model.TypeOfDoorMaterial.ToString()</div>
+                            <div class="feature-title">MANUFACTURER</div>
+                            <div class="feature-sub-title">
+                                @Model.МanufacturerName
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -167,6 +169,12 @@
                             <label for="checkbox1">@color.Name</label>
                         </div>
                     }
+                </div>
+                   <div class="ingridients-wrap">
+                    <h3 class="item-title"><i class="fa fa-list-ol"></i>Material</h3>
+                       <div class="checkbox checkbox-primary">
+                       <label for="checkbox1">@Model.TypeOfDoorMaterial.ToString()</label>
+                       </div>
                 </div>
             </div>
             <div class="card-body">
@@ -195,6 +203,7 @@
 <div>
     <form asp-controller="Comments" asp-action="Create" method="post" id="AddCommentForm" style="display: none">
         <input type="hidden" name="KitchenId" value="@this.Model.Id" />
+        <input type="hidden" name="GetInformation" value="@this.Model.GetInformation()" />
         <input type="hidden" name="ParentId" value="0" />
         <div>
             <label for="Content"></label>

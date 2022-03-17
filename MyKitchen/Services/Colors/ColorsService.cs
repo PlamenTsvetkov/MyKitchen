@@ -18,6 +18,20 @@
             this.db = db;
             this.mapper = mapper;
         }
+
+        public void Create(string name)
+        {
+            var color = this.db.Colors.FirstOrDefault(x => x.Name == name);
+
+            if (color == null)
+            {
+                color = new Color { Name = name };
+            }
+
+            this.db.Colors.Add(color);
+            this.db.SaveChanges();
+        }
+
         public IEnumerable<T> GetAll<T>(int? count = null)
         {
             IQueryable<Color> query =
