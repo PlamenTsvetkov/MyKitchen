@@ -100,6 +100,7 @@
 
 
             const int ItemsPerPage = kitchenPerPage;
+
             var kitchens = new KitchensListViewModel
             {
                 ItemsPerPage = ItemsPerPage,

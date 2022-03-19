@@ -24,11 +24,12 @@
         {
             var country = this.db.Countries.FirstOrDefault(x => x.Name == name);
 
-            if (country == null)
+            if (country != null)
             {
-                country = new Country { Name = name };
+                return;
             }
 
+            country = new Country { Name = name };
             this.db.Countries.Add(country);
             this.db.SaveChanges();
         }

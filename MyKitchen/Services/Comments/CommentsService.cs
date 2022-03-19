@@ -28,9 +28,9 @@
 
         public bool IsInPostId(int commentId, int kitchenId)
         {
-            var commentPostId = this.db.Comments.Where(x => x.Id == commentId)
+            var commentKitchenId = this.db.Comments.Where(x => x.Id == commentId)
                 .Select(x => x.KitchenId).FirstOrDefault();
-            return commentPostId == kitchenId;
+            return commentKitchenId == kitchenId;
         }
     }
 }

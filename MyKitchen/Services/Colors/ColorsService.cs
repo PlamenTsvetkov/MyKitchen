@@ -23,11 +23,13 @@
         {
             var color = this.db.Colors.FirstOrDefault(x => x.Name == name);
 
-            if (color == null)
+            if (color != null)
             {
-                color = new Color { Name = name };
+                return;
             }
 
+
+            color = new Color { Name = name };
             this.db.Colors.Add(color);
             this.db.SaveChanges();
         }
