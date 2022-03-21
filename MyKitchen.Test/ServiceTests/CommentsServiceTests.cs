@@ -3,6 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using MyKitchen.Data;
     using MyKitchen.Services.Comments;
+    using MyKitchen.Test.Mocks;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -16,10 +17,7 @@
         public async Task CreateCommentShouldCreateComment()
         {
             //Arrange
-            var options = new DbContextOptionsBuilder<MyKitchenDbContext>()
-                    .UseInMemoryDatabase(databaseName: "Comment_Database")
-                    .Options;
-            var db = new MyKitchenDbContext(options);
+            var db = DatabaseMock.Instance;
 
             var service = new CommentsService(db);
 
@@ -38,10 +36,7 @@
         public async Task WhenCheckIsIsInKitchensIdShouldТoReturnTheCorrectResult()
         {
             //Arrange
-            var options = new DbContextOptionsBuilder<MyKitchenDbContext>()
-                    .UseInMemoryDatabase(databaseName: "Comment2_Database")
-                    .Options;
-            var db = new MyKitchenDbContext(options);
+            var db = DatabaseMock.Instance;
 
             var service = new CommentsService(db);
 

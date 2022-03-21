@@ -1,9 +1,7 @@
 ﻿namespace MyKitchen.Controllers
 {
-    using System.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
-    using MyKitchen.Models;
     using MyKitchen.Models.Home;
     using MyKitchen.Models.Kitchens;
     using MyKitchen.Services.Categories;
@@ -36,18 +34,18 @@
             {
                 indexViewModel = new IndexViewModel
                 {
-                    Categories =
-                   this.categoriesService.GetAll<IndexCategoryViewModel>(),
+                    Categories = this.categoriesService.GetAll<IndexCategoryViewModel>(),
                     Kitchens = this.kitchenService.GetRandom<HomeKitchensViewModel>(kitchenPerHome).ToList(),
 
                 };
-
                 var cacheOptions = new MemoryCacheEntryOptions()
                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(3));
 
                 this.cache.Set(IndexViewCasheKey, indexViewModel, cacheOptions);
             }
-           
+
+
+
             return this.View(indexViewModel);
         }
 

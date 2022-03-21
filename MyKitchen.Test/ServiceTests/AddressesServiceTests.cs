@@ -3,6 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using MyKitchen.Data;
     using MyKitchen.Services.Addresses;
+    using MyKitchen.Test.Mocks;
     using System.Linq;
     using Xunit;
 
@@ -12,10 +13,7 @@
         public void CreateAddressShouldCreateAddress()
         {
             //Arrange
-            var options = new DbContextOptionsBuilder<MyKitchenDbContext>()
-                    .UseInMemoryDatabase(databaseName: "CreateAddress_Database")
-                    .Options;
-            var db = new MyKitchenDbContext(options);
+            var db = DatabaseMock.Instance;
 
             var service = new AddressesService(db, null);
           
@@ -33,11 +31,7 @@
         public void WhenCreateAddressWithTheSameNameDoNotCreateIt()
         {
             //Arrange
-            var options = new DbContextOptionsBuilder<MyKitchenDbContext>()
-                    .UseInMemoryDatabase(databaseName: "Address_CreateAddress2_Database")
-                    .Options;
-
-            var db = new MyKitchenDbContext(options);
+            var db =  DatabaseMock.Instance;
 
             var service = new AddressesService(db, null);
 

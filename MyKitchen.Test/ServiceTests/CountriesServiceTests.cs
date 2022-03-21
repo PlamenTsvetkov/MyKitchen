@@ -3,6 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using MyKitchen.Data;
     using MyKitchen.Services.Countries;
+    using MyKitchen.Test.Mocks;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -16,10 +17,7 @@
         public void CreateCountryShouldCreateCountry()
         {
             //Arrange
-            var options = new DbContextOptionsBuilder<MyKitchenDbContext>()
-                    .UseInMemoryDatabase(databaseName: "Country_Database")
-                    .Options;
-            var db = new MyKitchenDbContext(options);
+            var db = DatabaseMock.Instance;
 
             var service = new CountriesService(db,null);
 
@@ -39,10 +37,7 @@
         public void WhenCheckIfThereIsAnCountryТoReturnTheCorrectResult()
         {
             //Arrange
-            var options = new DbContextOptionsBuilder<MyKitchenDbContext>()
-                    .UseInMemoryDatabase(databaseName: "Country2_Database")
-                    .Options;
-            var db = new MyKitchenDbContext(options);
+            var db = DatabaseMock.Instance;
 
             var service = new CountriesService(db, null);
 

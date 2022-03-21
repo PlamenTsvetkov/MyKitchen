@@ -4,6 +4,7 @@
     using MyKitchen.Data;
     using MyKitchen.Services.Addresses;
     using MyKitchen.Services.Manufacturers;
+    using MyKitchen.Test.Mocks;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -17,10 +18,7 @@
         public void CreateManufacturerShouldCreateManufacturer()
         {
             //Arrange
-            var options = new DbContextOptionsBuilder<MyKitchenDbContext>()
-                    .UseInMemoryDatabase(databaseName: "Manufacturer_Database")
-                    .Options;
-            var db = new MyKitchenDbContext(options);
+            var db = DatabaseMock.Instance;
 
             var serviceAddresses = new AddressesService(db, null);
 
@@ -40,10 +38,7 @@
         public void WhenCreateSeveralManufacturersMustGiveTheCorrectCount()
         {
             //Arrange
-            var options = new DbContextOptionsBuilder<MyKitchenDbContext>()
-                    .UseInMemoryDatabase(databaseName: "Manufacturer2_Database")
-                    .Options;
-            var db = new MyKitchenDbContext(options);
+            var db = DatabaseMock.Instance;
 
             var serviceAddresses = new AddressesService(db, null);
 
@@ -63,10 +58,7 @@
         public void WhenCreateSeveralPublicManufacturersMustGiveTheCorrectCount()
         {
             //Arrange
-            var options = new DbContextOptionsBuilder<MyKitchenDbContext>()
-                    .UseInMemoryDatabase(databaseName: "Manufacturer2_Database")
-                    .Options;
-            var db = new MyKitchenDbContext(options);
+            var db = DatabaseMock.Instance;
 
             var serviceAddresses = new AddressesService(db, null);
 
@@ -94,10 +86,7 @@
         public async Task WhenUpdateManufacturersMustGiveTheCorrectCount()
         {
             //Arrange
-            var options = new DbContextOptionsBuilder<MyKitchenDbContext>()
-                    .UseInMemoryDatabase(databaseName: "Manufacturer2_Database")
-                    .Options;
-            var db = new MyKitchenDbContext(options);
+            var db = DatabaseMock.Instance;
 
             var serviceAddresses = new AddressesService(db, null);
 

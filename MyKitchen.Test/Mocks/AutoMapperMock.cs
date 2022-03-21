@@ -3,7 +3,19 @@
     using AutoMapper;
     using MyKitchen.Infrastructure;
 
-    public class AutoMapperMock
+    public static class AutoMapperMock
     {
+        public static IMapper Instance
+        {
+            get
+            {
+                var mapperConfiguration = new MapperConfiguration(config =>
+                {
+                    config.AddProfile<MappingProfile>();
+                });
+                return new Mapper(mapperConfiguration);
+
+            }
+        }
     }
 }

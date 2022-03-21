@@ -2,7 +2,9 @@
 {
     using Microsoft.EntityFrameworkCore;
     using MyKitchen.Data;
+    using MyKitchen.Models.Cityes;
     using MyKitchen.Services.Cities;
+    using MyKitchen.Test.Mocks;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -14,12 +16,9 @@
         public void CreatCityShouldCreateCity()
         {
             //Arrange
-            var options = new DbContextOptionsBuilder<MyKitchenDbContext>()
-                    .UseInMemoryDatabase(databaseName: "CreateCity_Database")
-                    .Options;
-            var db = new MyKitchenDbContext(options);
+            var db = DatabaseMock.Instance;
 
-            var service = new CitiesService(db, null,null);
+            var service = new CitiesService(db, null);
 
             service.Create("Varna", 1);
             service.Create("Sofia", 1);
@@ -30,6 +29,52 @@
 
             //Assert
             Assert.Equal(2, citiesCount);
+        }
+
+        [Fact]
+        public void GetAllCitiesShouldReturnAllCities()
+        {
+            //Arrange
+            var db = DatabaseMock.Instance;
+            var mapper = AutoMapperMock.Instance;
+
+            var service = new CitiesService(db, mapper);
+
+            service.Create("Varna", 1);
+            service.Create("Sofia", 1);
+            service.Create("Sofia", 1);
+
+            db.SaveChanges();
+
+            //Act
+            var result = service.GetAll<AllCityModel>();
+
+            //Assert
+            Assert.Equal(2, result.Count());
+        }
+
+        [Fact]
+        public void GetByCountryIdCitiesShouldReturnAllCitiesByCountry()
+        {
+            //Arrange
+            var db = DatabaseMock.Instance;
+            var mapper = AutoMapperMock.Instance;
+
+            var service = new CitiesService(db, mapper);
+
+            service.Create("Varna", 1);
+            service.Create("Sofia", 1);
+            service.Create("Sofia", 1);
+            service.Create("Plovdiv", 1);
+            service.Create("Veliko Turnovo", 1);
+
+            db.SaveChanges();
+
+            //Act
+            var result = service.GetByCountryId<AllCityModel>(1);
+
+            //Assert
+            Assert.Equal(4, result.Count());
         }
     }
 }
