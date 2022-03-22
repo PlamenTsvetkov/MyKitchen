@@ -1,6 +1,5 @@
 ﻿namespace MyKitchen.Services.Comments
 {
-    using AutoMapper;
     using MyKitchen.Data;
     using MyKitchen.Data.Models;
 

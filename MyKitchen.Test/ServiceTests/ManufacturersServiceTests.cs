@@ -2,6 +2,8 @@
 {
     using Microsoft.EntityFrameworkCore;
     using MyKitchen.Data;
+    using MyKitchen.Models.Countries;
+    using MyKitchen.Models.Manufacturers;
     using MyKitchen.Services.Addresses;
     using MyKitchen.Services.Manufacturers;
     using MyKitchen.Test.Mocks;
@@ -67,11 +69,8 @@
             service.Create("Plamen", "mail", "Site", "phoneNumber", "userId", 1, 1, "Niderle", "number 5");
             service.Create("Ivanov EOOD", "mail", "Site", "phoneNumber", "userId", 1, 1, "Niderle", "number 5");
 
-            var manufacturer1 = db.Manufacturers.Where(m=>m.Id==1).FirstOrDefault();
-            var manufacturer2 = db.Manufacturers.Where(m=>m.Id==2).FirstOrDefault();
-
-            manufacturer1.IsPublic = true;
-            manufacturer2.IsPublic = true;
+            service.ChangeVisility(1);
+            service.ChangeVisility(2);
 
             db.SaveChanges();
 
@@ -94,13 +93,10 @@
 
             service.Create("Plamen", "mail", "Site", "phoneNumber", "userId", 1, 1, "Niderle", "number 5");
             service.Create("Ivanov EOOD", "mail", "Site", "phoneNumber", "userId", 1, 1, "Niderle", "number 5");
-           
 
-            var manufacturer1 = db.Manufacturers.Where(m => m.Id == 1).FirstOrDefault();
-            var manufacturer2 = db.Manufacturers.Where(m => m.Id == 2).FirstOrDefault();
 
-            manufacturer1.IsPublic = true;
-            manufacturer2.IsPublic = true;
+            service.ChangeVisility(1);
+            service.ChangeVisility(2);
 
             db.SaveChanges();
 
@@ -115,5 +111,7 @@
             //Assert
             Assert.Equal(fixAddres, manufacturerAdressNumber);
         }
+
+
     }
 }

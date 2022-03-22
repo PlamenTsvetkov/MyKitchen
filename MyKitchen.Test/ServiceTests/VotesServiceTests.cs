@@ -1,8 +1,7 @@
 ﻿namespace MyKitchen.Test.ServiceTests
 {
-    using Microsoft.EntityFrameworkCore;
-    using MyKitchen.Data;
     using MyKitchen.Services.Vote;
+    using MyKitchen.Test.Mocks;
     using System.Linq;
     using System.Threading.Tasks;
     using Xunit;
@@ -13,10 +12,7 @@
         public async Task WhenUserVotes2TimesOnly1VoteShouldBeCounted()
         {
             //Arrange
-            var options = new DbContextOptionsBuilder<MyKitchenDbContext>()
-                   .UseInMemoryDatabase(databaseName: "Vote_Database")
-                   .Options;
-            var db = new MyKitchenDbContext(options);
+            var db = DatabaseMock.Instance;
 
             var service = new VotesService(db);
             
@@ -39,10 +35,7 @@
         public async Task When2UsersVoteForTheSameRecipeTheAverageVoteShouldBeCorrect()
         {
             //Arrange
-            var options = new DbContextOptionsBuilder<MyKitchenDbContext>()
-                  .UseInMemoryDatabase(databaseName: "Vote2_Database")
-                  .Options;
-            var db = new MyKitchenDbContext(options);
+            var db = DatabaseMock.Instance;
 
             var service = new VotesService(db);
 

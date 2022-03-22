@@ -2,6 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using MyKitchen.Data;
+    using MyKitchen.Models.Countries;
     using MyKitchen.Services.Countries;
     using MyKitchen.Test.Mocks;
     using System;
@@ -53,6 +54,52 @@
             //Assert
             Assert.True(resultTrue);
             Assert.False(resultFalse);
+        }
+
+        [Fact]
+        public void GetAllCountriesShouldReturnAllCountries()
+        {
+            //Arrange
+            var db = DatabaseMock.Instance;
+            var mapper = AutoMapperMock.Instance;
+
+            var service = new CountriesService(db, mapper);
+
+            service.Create("Bulgaria");
+            service.Create("Rusia");
+            service.Create("Ukraine");
+            service.Create("Bulgaria");
+
+            db.SaveChanges();
+
+            //Act
+            var result = service.GetAll<AllCountryModel>();
+
+            //Assert
+            Assert.Equal(3, result.Count());
+        }
+
+        [Fact]
+        public void GetCountryByIdShouldReturnCurrectCountry()
+        {
+            //Arrange
+            var db = DatabaseMock.Instance;
+            var mapper = AutoMapperMock.Instance;
+
+            var service = new CountriesService(db, mapper);
+
+            service.Create("Bulgaria");
+            service.Create("Rusia");
+            service.Create("Ukraine");
+            service.Create("Bulgaria");
+
+            db.SaveChanges();
+
+            //Act
+            var result = service.GetById<AllCountryModel>(3).Name;
+
+            //Assert
+            Assert.Equal("Ukraine", result);
         }
     }
 }

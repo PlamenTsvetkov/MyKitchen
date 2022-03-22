@@ -46,5 +46,7 @@
         public IEnumerable<int> ColorsId { get; init; }
 
         public IEnumerable<KitchenColorServiceModel> Colors { get; set; }
+
+        public bool IsPublic { get; set; }
     }
 }
