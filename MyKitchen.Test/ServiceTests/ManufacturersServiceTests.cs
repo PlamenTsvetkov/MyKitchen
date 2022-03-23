@@ -82,7 +82,7 @@
         }
 
         [Fact]
-        public async Task WhenUpdateManufacturersMustGiveTheCorrectCount()
+        public async Task WhenUpdateManufacturersShouldUpdateManufacturer()
         {
             //Arrange
             var db = DatabaseMock.Instance;

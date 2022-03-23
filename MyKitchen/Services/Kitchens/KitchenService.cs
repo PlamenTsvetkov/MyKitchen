@@ -39,6 +39,7 @@
                 МanufacturerId = input.МanufacturerId,
                 KitchenMeter = input.KitchenMeter,
                 IsPublic = false,
+                IsDeleted=false,
             };
 
             foreach (var color in input.ColorsId)
@@ -84,7 +85,7 @@
         {
             var kitchens = this.db.Kitchens
                 .Where(k => k.IsPublic && k.IsDeleted == false)
-               .OrderByDescending(x => x.Id)
+               .OrderByDescending(k => k.Id)
                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                .ProjectTo<T>(this.mapper.ConfigurationProvider)
                .ToList();
