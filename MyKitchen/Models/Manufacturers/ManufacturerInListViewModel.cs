@@ -21,5 +21,8 @@
 
         public string PhoneNumber { get; set; }
         public bool IsPublic { get; set; }
+        public string AddedByUserId { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

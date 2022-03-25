@@ -16,6 +16,8 @@
             string addressNumber);
         IEnumerable<T> GetAllWithPaging<T>(int page, int itemsPerPage = 12, bool publicOnly = true);
 
+        T GetById<T>(int id);
+
         int GetCount(bool publicOnly = true);
 
         void ChangeVisility(int manufacturerId);
@@ -31,6 +33,10 @@
             string addressName,
             string addressNumber,
             bool isPublic);
+
+        bool IsByUser(int manufacturerId, string userId);
+
+        Task DeleteAsync(int id);
     }
 }
    

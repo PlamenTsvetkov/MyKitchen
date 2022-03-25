@@ -6,10 +6,8 @@
     using MyKitchen.Models.Kitchens;
     using MyKitchen.Services.Kitchens;
     using MyKitchen.Test.Mocks;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using Xunit;
 
@@ -82,52 +80,52 @@
             Assert.Equal(1, kitchensCount);
         }
 
-        [Fact]
-        public async Task GetAllKitchenShouldReturnAllPublicKitchen()
-        {
-            //Arrange
-            var db = DatabaseMock.Instance;
-            var mapper = AutoMapperMock.Instance;
-            var fileMock = new Mock<IFormFile>();
-            var file = fileMock.Object;
-            var fileName = "test.png";
-            fileMock.Setup(_ => _.FileName).Returns(fileName);
-            var service = new KitchenService(db, mapper);
+        //[Fact]
+        //public async Task GetAllKitchenShouldReturnAllPublicKitchen()
+        //{
+        //    //Arrange
+        //    var db = DatabaseMock.Instance;
+        //    var mapper = AutoMapperMock.Instance;
+        //    var fileMock = new Mock<IFormFile>();
+        //    var file = fileMock.Object;
+        //    var fileName = "test.png";
+        //    fileMock.Setup(_ => _.FileName).Returns(fileName);
+        //    var service = new KitchenService(db, mapper);
 
-            var kitchen = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
+        //    var kitchen = new KitchenFormModel
+        //    {
+        //        CategoryId = 1,
+        //        Description = "1",
+        //        KitchenMeter = 3,
+        //        Price = 15000,
+        //        МanufacturerId = 1,
+        //        ColorsId = new List<int> { 1, 2 },
+        //        Images = new List<IFormFile> { file }
                 
-            };
-            var kitchen2 = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
+        //    };
+        //    var kitchen2 = new KitchenFormModel
+        //    {
+        //        CategoryId = 1,
+        //        Description = "1",
+        //        KitchenMeter = 3,
+        //        Price = 15000,
+        //        МanufacturerId = 1,
+        //        ColorsId = new List<int> { 1, 2 },
+        //        Images = new List<IFormFile> { file }
+        //    };
 
-            await service.AddAsync(kitchen, "1", "Kitchen");
-            await service.AddAsync(kitchen2, "1", "Kitchen2");
-            var kitchen1 = db.Kitchens.Where(k => k.Id == 1).FirstOrDefault();
-            kitchen1.IsPublic = true;
-            db.SaveChanges();
+        //    await service.AddAsync(kitchen, "1", "Kitchen");
+        //    await service.AddAsync(kitchen2, "1", "Kitchen2");
+        //    var kitchen1 = db.Kitchens.Where(k => k.Id == 1).FirstOrDefault();
+        //    kitchen1.IsPublic = true;
+        //    db.SaveChanges();
 
-            //Act
-            var kitchensCount = service.GetAll<KitchenInListViewModel>(1).Count();
+        //    //Act
+        //    var kitchensCount = service.GetAll<KitchenInListViewModel>(1).Count();
 
-            //Assert
-            Assert.Equal(1, kitchensCount);
-        }
+        //    //Assert
+        //    Assert.Equal(1, kitchensCount);
+        //}
 
         [Fact]
         public async Task GetCountAdminShouldReturnAllKitchensCount()
@@ -564,38 +562,6 @@
             Assert.Equal(1,lastKitchenIdByUser);
         }
 
-        [Fact]
-        public async Task GetRandomShouldWork()
-        {
-            //Arrange
-            var db = DatabaseMock.Instance;
-            var mapper = AutoMapperMock.Instance;
-            var fileMock = new Mock<IFormFile>();
-            var file = fileMock.Object;
-            var fileName = "test.png";
-            fileMock.Setup(_ => _.FileName).Returns(fileName);
-            var service = new KitchenService(db, mapper);
-
-            var kitchen = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
-
-            await service.AddAsync(kitchen, "1", "Kitchen");
-            await service.AddAsync(kitchen, "2", "Kitchen");
-            await service.AddAsync(kitchen, "3", "Kitchen");
-
-            //Act
-            var randomKitchensCount = service.GetRandom<HomeKitchensViewModel>(2).Count();
-
-            //Assert
-            Assert.Equal(2, randomKitchensCount);
-        }
+        
     }
 }

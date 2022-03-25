@@ -14,18 +14,6 @@
         }
         public IActionResult All(int id = 1)
         {
-            //const int ItemsPerPage = 12;
-
-            //var viewModel = new KitchensListViewModel
-            //{
-            //    ItemsPerPage = ItemsPerPage,
-            //    PageNumber = id,
-            //    ItemsCount = this.kitchenService.GetCountAdmin(),
-            //    Kitchens = this.kitchenService.GetAllA<KitchenInListViewModel>(id, ItemsPerPage, publicOnly: false),
-            //    Action = nameof(All),
-            //};
-
-            //return this.View(viewModel);
 
             if (id <= 0)
             {
@@ -50,5 +38,7 @@
 
             return RedirectToAction(nameof(All));
         }
+
+
     }
 }

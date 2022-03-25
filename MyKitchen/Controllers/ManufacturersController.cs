@@ -67,11 +67,16 @@
         [Authorize]
         public IActionResult Edit(int id)
         {
-            return this.View(new ManufacturerFormModel
+            var manufacturer = this.manufacturersService.GetById<EditManufacturerInputModel>(id);
+            var userId = this.User.Id();
+
+            if (!this.manufacturersService.IsByUser(id, userId) && !User.IsAdmin())
             {
-                Countries = countryService.GetAll<AllCountryModel>(),
-                Cities = citiesService.GetAll<AllCityModel>(),
-            });
+                return Unauthorized();
+            }
+            manufacturer.Countries = countryService.GetAll<AllCountryModel>();
+            manufacturer.Cities = citiesService.GetAll<AllCityModel>();
+            return this.View(manufacturer);
         }
 
         [HttpPost]
@@ -79,6 +84,11 @@
         public async Task<IActionResult> Edit(int id, ManufacturerFormModel manufacturer)
         {
             var userId = this.User.Id();
+
+            if (!this.manufacturersService.IsByUser(id, userId) && !User.IsAdmin())
+            {
+                return Unauthorized();
+            }
 
             if (!this.ModelState.IsValid)
             {
@@ -107,7 +117,7 @@
 
             if (User.IsAdmin())
             {
-                return this.RedirectToAction("All", "Kitchens", new { area = "Admin" });
+                return this.RedirectToAction("All", "Manufacturers", new { area = "Admin" });
             }
             else
             {
@@ -150,6 +160,27 @@
                 Action = nameof(AllKitchens),
             };
             return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var userId = this.User.Id();
+
+            if (!this.manufacturersService.IsByUser(id, userId) || !User.IsAdmin())
+            {
+                return Unauthorized();
+            }
+            await this.manufacturersService.DeleteAsync(id);
+            if (User.IsAdmin())
+            {
+                return this.RedirectToAction("All", "Manufacturers", new { area = "Admin" });
+            }
+            else
+            {
+                return this.RedirectToAction(nameof(this.All));
+            }
+
         }
     }
 }

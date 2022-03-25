@@ -27,6 +27,8 @@
                  .ForMember(x => x.ImageUrl,
                opt => opt.MapFrom(x => "/images/kitchens/" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension));
             this.CreateMap<Manufacturer, KitchenManufacturerServiceModel>();
+            this.CreateMap<Manufacturer, EditManufacturerInputModel>();
+            this.CreateMap<Address, ManufacturerAddressFormModel>();
             this.CreateMap<Color, KitchenColorServiceModel>();
             this.CreateMap<Country, AllCountryModel>();
             this.CreateMap<City, AllCityModel>();

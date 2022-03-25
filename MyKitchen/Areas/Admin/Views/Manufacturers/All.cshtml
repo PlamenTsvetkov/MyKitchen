@@ -19,6 +19,7 @@
             <th scope="col">Email</th>
             <th scope="col">Website</th>
             <th scope="col">PhoneNumber</th>
+            <th scope="col" >Deleted</th>
             <th scope="col">Approved</th>
             <th scope="col"></th>
         </tr>
@@ -34,10 +35,14 @@
             <td scope="col">@manufacturer.Email</td>
             <td scope="col">@manufacturer.Website</td>
             <td scope="col">@manufacturer.PhoneNumber</td>
+              <td scope="col">@(manufacturer.IsDeleted ? "Yes" : "No")</td>
             <td scope="col">@(manufacturer.IsPublic ? "Yes" : "No")</td>
             <td scope="col">
-                <a asp-area="" asp-controller="Kitchens" asp-action="Edit" asp-route-id="@manufacturer.Id" class="btn btn-warning float-right ml-3">Edit</a>
+                <a asp-area="" asp-controller="Manufacturers" asp-action="Edit" asp-route-id="@manufacturer.Id" class="btn btn-warning float-right ml-3">Edit</a>
                 <a asp-area="Admin" asp-controller="Manufacturers" asp-action="ChangeVisibility" asp-route-id="@manufacturer.Id" class="btn btn-info float-right ml-3">@(manufacturer.IsPublic ? "Hide" : "Show")</a>
+                  <form method="post" asp-area="" asp-controller="Manufacturers" asp-action="Delete" asp-route-id="@manufacturer.Id">
+                      <button class="btn btn-danger float-right ml-3">Delete</button>
+                    </form>
             </td>
         </tr>
         }

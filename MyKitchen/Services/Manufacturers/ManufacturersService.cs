@@ -55,7 +55,7 @@
         {
             IQueryable<Manufacturer> query =
                 this.db.Manufacturers
-                .Where(m => m.IsPublic)
+                .Where(m => m.IsPublic && m.IsDeleted == false)
                 .OrderBy(x => x.Name);
             if (count.HasValue)
             {
@@ -69,16 +69,31 @@
         {
             var manufacturers = this.db.Manufacturers
                .OrderByDescending(x => x.Id)
-               .Where(m => !publicOnly || m.IsPublic)
+               .Where(m => !publicOnly || m.IsPublic && m.IsDeleted == false)
                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                .ProjectTo<T>(this.mapper.ConfigurationProvider)
                .ToList();
             return manufacturers;
         }
 
+        public T GetById<T>(int id)
+        {
+            var manufacturer = this.db.Manufacturers
+               .Where(x => x.Id == id)
+              .ProjectTo<T>(this.mapper.ConfigurationProvider)
+              .FirstOrDefault();
+
+            return manufacturer;
+        }
+
         public int GetCount(bool publicOnly = true)
             => this.db.Manufacturers
-                .Count(m => !publicOnly || m.IsPublic);
+                .Count(m => !publicOnly || m.IsPublic && m.IsDeleted==false);
+
+        public bool IsByUser(int manufacturerId, string userId)
+        => this.db
+                .Manufacturers
+                .Any(m => m.Id == manufacturerId && m.AddedByUserId == userId);
 
         public async Task UpdateAsync(int id, string name, string email, string website, string phoneNumber, string userId, int countryId, int cityId, string addressName, string addressNumber, bool isPublic)
         {
@@ -90,11 +105,23 @@
             manufacturer.AddedByUserId = userId;
             manufacturer.IsPublic = isPublic;
 
-            if (addressName!= manufacturer.Address.Name || addressNumber != manufacturer.Address.Number)
+            if (manufacturer.Address == null)
             {
                 var address = addressesService.Create(addressName, addressNumber, cityId, userId);
                 manufacturer.AddressId = address.Id;
             }
+            else if(addressName!= manufacturer.Address.Name || addressNumber != manufacturer.Address.Number)
+            {
+                var address = addressesService.Create(addressName, addressNumber, cityId, userId);
+                manufacturer.AddressId = address.Id;
+            }
+            await this.db.SaveChangesAsync();
+        }
+        public async Task DeleteAsync(int id)
+        {
+            var kitchen = this.db.Manufacturers.FirstOrDefault(x => x.Id == id);
+            kitchen.IsDeleted = true;
+            kitchen.DeletedOn = DateTime.Now;
             await this.db.SaveChangesAsync();
         }
 

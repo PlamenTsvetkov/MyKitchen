@@ -76,16 +76,19 @@
                         <li><span id="averageVoteValue">@Model.AverageVote.ToString("0.0")</span><span> / 5</span> </li>
                     </ul>
                 </li>
-                @if (User.Id() == Model.UserId)
+                @if (User.Identity.IsAuthenticated)
                 {
-                    <li class="single-meta">
-                        <a asp-controller="Kitchens" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-                    </li>
-                    <li class="single-meta">
-                        <form method="post" asp-action="Delete" id="deleteForm" asp-route-id="@Model.Id">
-                            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
-                        </form>
-                    </li>
+                    @if (User.Id() == Model.UserId)
+                    {
+                        <li class="single-meta">
+                            <a asp-controller="Kitchens" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+                        </li>
+                        <li class="single-meta">
+                            <form method="post" asp-action="Delete" id="deleteForm" asp-route-id="@Model.Id">
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                            </form>
+                        </li>
+                    }
                 }
             </ul>
         </div>
