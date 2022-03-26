@@ -44,6 +44,11 @@
                .ProjectTo<T>(this.mapper.ConfigurationProvider).FirstOrDefault();
             return category;
         }
+
+        public int GetCount()
+        {
+            return this.db.Categories.Count();
+        }
     }
 }
 

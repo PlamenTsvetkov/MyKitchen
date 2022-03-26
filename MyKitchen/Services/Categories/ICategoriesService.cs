@@ -9,6 +9,7 @@
         T GetByName<T>(string name);
 
         bool CategoryExists(int categoryId);
+        int GetCount();
     }
 }
 

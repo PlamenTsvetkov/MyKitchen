@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using MyKitchen.Data.Models;
+using MyKitchen.Infrastructure.Extensions;
 
 namespace MyKitchen.Areas.Identity.Pages.Account
 {
@@ -116,6 +117,10 @@ namespace MyKitchen.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    if (User.IsAdmin())
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
+                    }
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

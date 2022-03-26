@@ -186,7 +186,7 @@
 
             await this.kitchenService.UpdateAsync(id, kitchen, this.User.IsAdmin());
 
-            this.TempData["Message"] = $"You car was edited{(this.User.IsAdmin() ? string.Empty : " and is awaiting for approval")}!";
+            this.TempData["Message"] = $"You kitchen was edited{(this.User.IsAdmin() ? string.Empty : " and is awaiting for approval")}!";
 
             return RedirectToAction(nameof(Details), new { id = id, information = kitchen.GetInformation() });
         }

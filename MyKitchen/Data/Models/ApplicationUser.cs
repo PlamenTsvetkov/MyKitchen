@@ -14,6 +14,8 @@
         }
         public string Name { get; set; }
 
+        public bool IsAdmin { get; set; }
+
         public ICollection<Image> Images { get; init; }
 
         public ICollection<Kitchen> Kitchens { get; init; }

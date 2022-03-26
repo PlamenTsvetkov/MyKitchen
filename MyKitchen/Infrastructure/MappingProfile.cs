@@ -13,6 +13,7 @@
     using MyKitchen.Models.Comments;
     using MyKitchen.Models.Manufacturers;
     using MyKitchen.Services.Categories.Models;
+    using MyKitchen.Models.Users;
 
     public class MappingProfile : Profile
     {
@@ -22,6 +23,8 @@
                  .ForMember(x => x.KitchensCount, opt =>
                     opt.MapFrom(x => x.Kitchens.Count(k=>k.IsDeleted==false && k.IsPublic)));
             this.CreateMap<Category, CategoryViewModel>();
+            this.CreateMap<ApplicationUser, UserInListViewModel>();
+            this.CreateMap<ApplicationUser, EditUserViewModel>();
             this.CreateMap<Category, KitchenCategoriesServiceModel>();
             this.CreateMap<Kitchen, KitchensInCategoryViewModel>()
                  .ForMember(x => x.ImageUrl,

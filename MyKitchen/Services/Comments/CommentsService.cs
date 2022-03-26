@@ -25,6 +25,11 @@
             await this.db.SaveChangesAsync();
         }
 
+        public int GetCount()
+        {
+            return this.db.Comments.Count();
+        }
+
         public bool IsInPostId(int commentId, int kitchenId)
         {
             var commentKitchenId = this.db.Comments.Where(x => x.Id == commentId)

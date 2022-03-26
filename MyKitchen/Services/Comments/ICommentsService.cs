@@ -5,5 +5,7 @@
         Task Create(int kitchenId, string userId, string content, int? parentId = null);
 
         bool IsInPostId(int commentId, int kitchenId);
+
+        int GetCount();
     }
 }

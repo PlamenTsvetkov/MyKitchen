@@ -1,0 +1,49 @@
+﻿@model UsersListViewModel
+
+@{
+    ViewBag.Title = "Users Administration";
+}
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success">@this.TempData["Message"]</div>
+}
+<h1>All Manufacturers</h1>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Kitchens Count</th>
+            <th scope="col">Manufacturers Count</th>
+            <th scope="col">Votes Count</th>
+            <th scope="col" >CommentsCount</th>
+            <th scope="col">Admin</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <td scope="col">
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+        <tr>
+            <td scope="col">@user.Id</td>
+            <td scope="col">@user.Name</td>
+            <td scope="col">@user.Email</td>
+            <td scope="col">@user.KitchensCount</td>
+            <td scope="col">@user.ManufacturersCount</td>
+            <td scope="col">@user.VotesCount</td>
+            <td scope="col">@user.CommentsCount</td>
+            <td scope="col">@(user.IsAdmin ? "Yes" : "No")</td>
+            <td scope="col">
+                <a asp-area="Admin" asp-controller="Users" asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning float-right ml-3">Edit</a>
+            </td>
+            <td scope="col">
+              <a asp-area="Admin" asp-controller="Users" asp-action="MakeItAdmin" asp-route-id="@user.Id" class="btn btn-info float-right ml-3">@(user.IsAdmin ? "Make It Admin" : "Make It User")</a>
+        </tr>
+        }
+    </tbody>
+</table>
+<hr />
+<partial name="_PagingPartial" model="@Model" />
