@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
+    using MyKitchen.Infrastructure.Extensions;
     using MyKitchen.Models.Home;
     using MyKitchen.Models.Kitchens;
     using MyKitchen.Services.Categories;
@@ -28,6 +29,10 @@
 
         public IActionResult Index()
         {
+            if (User.IsAdmin())
+            {
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
+            }
             var indexViewModel = this.cache.Get<IndexViewModel>(IndexViewCasheKey);
 
             if (indexViewModel == null)

@@ -4,6 +4,11 @@
     ViewBag.Title = "Admin Index Page";
 }
 
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success">@this.TempData["Message"]</div>
+}
+
 <h1 class="m-0">Dashboard</h1>
 
 <div class="row">
@@ -17,7 +22,7 @@
            <div class="icon">
                 <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a asp-area="Admin" asp-controller="Users" asp-action="All" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 

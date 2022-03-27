@@ -37,10 +37,9 @@
             <td scope="col">@user.CommentsCount</td>
             <td scope="col">@(user.IsAdmin ? "Yes" : "No")</td>
             <td scope="col">
-                <a asp-area="Admin" asp-controller="Users" asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning float-right ml-3">Edit</a>
+                <a asp-area="Admin" asp-controller="Users" asp-action="Edit" asp-route-id="@user.Id" class="btn btn-block btn-outline-success btn-xs">Edit</a>
+                 <a asp-area="Admin" asp-controller="Users" asp-action="Roles" asp-route-id="@user.Id" class="btn btn-block btn-outline-primary btn-xs">Roles</a>
             </td>
-            <td scope="col">
-              <a asp-area="Admin" asp-controller="Users" asp-action="MakeItAdmin" asp-route-id="@user.Id" class="btn btn-info float-right ml-3">@(user.IsAdmin ? "Make It Admin" : "Make It User")</a>
         </tr>
         }
     </tbody>

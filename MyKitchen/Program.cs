@@ -13,6 +13,7 @@ using MyKitchen.Services.Comments;
 using MyKitchen.Services.Countries;
 using MyKitchen.Services.Kitchens;
 using MyKitchen.Services.Manufacturers;
+using MyKitchen.Services.Roles;
 using MyKitchen.Services.Users;
 using MyKitchen.Services.Vote;
 
@@ -57,6 +58,7 @@ builder.Services.AddTransient<IVotesService, VotesService>();
 builder.Services.AddTransient<IAddressesService, AddressesService>();
 builder.Services.AddTransient<ICommentsService, CommentsService>();
 builder.Services.AddTransient<IUsersService, UsersService>();
+builder.Services.AddTransient<IRolesService, RolesService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

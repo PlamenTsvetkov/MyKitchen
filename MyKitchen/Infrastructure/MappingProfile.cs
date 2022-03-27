@@ -14,6 +14,7 @@
     using MyKitchen.Models.Manufacturers;
     using MyKitchen.Services.Categories.Models;
     using MyKitchen.Models.Users;
+    using MyKitchen.Models.Roles;
 
     public class MappingProfile : Profile
     {
@@ -25,6 +26,7 @@
             this.CreateMap<Category, CategoryViewModel>();
             this.CreateMap<ApplicationUser, UserInListViewModel>();
             this.CreateMap<ApplicationUser, EditUserViewModel>();
+            this.CreateMap<ApplicationUser, ApplicationUser>();
             this.CreateMap<Category, KitchenCategoriesServiceModel>();
             this.CreateMap<Kitchen, KitchensInCategoryViewModel>()
                  .ForMember(x => x.ImageUrl,

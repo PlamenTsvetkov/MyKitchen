@@ -117,10 +117,7 @@ namespace MyKitchen.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    if (User.IsAdmin())
-                    {
-                        return RedirectToAction("Index", "Home", new { area = "Admin" });
-                    }
+                   
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

@@ -38,10 +38,10 @@
               <td scope="col">@(manufacturer.IsDeleted ? "Yes" : "No")</td>
             <td scope="col">@(manufacturer.IsPublic ? "Yes" : "No")</td>
             <td scope="col">
-                <a asp-area="" asp-controller="Manufacturers" asp-action="Edit" asp-route-id="@manufacturer.Id" class="btn btn-warning float-right ml-3">Edit</a>
-                <a asp-area="Admin" asp-controller="Manufacturers" asp-action="ChangeVisibility" asp-route-id="@manufacturer.Id" class="btn btn-info float-right ml-3">@(manufacturer.IsPublic ? "Hide" : "Show")</a>
+                <a asp-area="" asp-controller="Manufacturers" asp-action="Edit" asp-route-id="@manufacturer.Id" class="btn btn-block btn-outline-success btn-xs">Edit</a>
+                <a asp-area="Admin" asp-controller="Manufacturers" asp-action="ChangeVisibility" asp-route-id="@manufacturer.Id" class="btn btn-block btn-outline-primary btn-xs">@(manufacturer.IsPublic ? "Hide" : "Show")</a>
                   <form method="post" asp-area="" asp-controller="Manufacturers" asp-action="Delete" asp-route-id="@manufacturer.Id">
-                      <button class="btn btn-danger float-right ml-3">Delete</button>
+                      <a class="btn btn-block btn-outline-danger btn-xs">Delete</a>
                     </form>
             </td>
         </tr>

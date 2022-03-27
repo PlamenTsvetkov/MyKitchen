@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using MyKitchen.Data.Models;
     using MyKitchen.Models.Users;
     using MyKitchen.Services.Users;
@@ -63,6 +64,43 @@
             else
             {
                 this.TempData["Message"] = "Error!";
+            }
+
+            return this.RedirectToAction("All", "Users", new { area = "Admin" });
+        }
+
+        public IActionResult Roles(string id)
+        {
+            var user = usersService.GetUserById<ApplicationUser>(id);
+            var model = new UsersRolesViewModel()
+            {
+                UserId = user.Id,
+                Name = user.Name
+            };
+
+
+            ViewBag.RoleItems = roleManager.Roles
+                .ToList()
+                .Select(r => new SelectListItem()
+                {
+                    Text = r.Name,
+                    Value = r.Name,
+                    Selected = userManager.IsInRoleAsync(user, r.Name).Result
+                }).ToList();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Roles(UsersRolesViewModel model)
+        {
+            var user = usersService.GetUserById<ApplicationUser>(model.UserId);
+            var userRoles = await userManager.GetRolesAsync(user);
+            await userManager.RemoveFromRolesAsync(user, userRoles);
+
+            if (model.RoleNames?.Length > 0)
+            {
+                await userManager.AddToRolesAsync(user, model.RoleNames);
             }
 
             return this.RedirectToAction("All", "Users", new { area = "Admin" });
