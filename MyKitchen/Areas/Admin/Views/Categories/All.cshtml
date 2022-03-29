@@ -1,0 +1,41 @@
+﻿@model CategoriesListViewModel
+@{
+    ViewBag.Title = "All Categories";
+}
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success">@this.TempData["Message"]</div>
+}
+<h1 class="heading-margin text-center">@ViewBag.Title</h1>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+             <th scope="col">Image</th>
+            <th scope="col">ShortDescription</th>
+            <th scope="col">Kitchens in category</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model.Categories)
+        {
+        <tr>
+            <td scope="col">@category.Id</td>
+            <td scope="col">@category.Name</td>
+            <td scope="col"><img src="@category.ImageUrl" width="100" /></td>
+            <td scope="col">@category.ShortDescription</td>
+            <td scope="col">@category.KitchensCount</td>
+            <td scope="col">
+                <a asp-area="Admin" asp-controller="Categories" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-block btn-outline-success btn-xs">Edit</a>
+                  <form method="post" asp-area="Admin" asp-controller="Categories" asp-action="Delete" asp-route-id="@category.Id">
+                      <a class="btn btn-block btn-outline-danger btn-xs">Delete</a>
+                    </form>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<hr />
+<partial name="_PagingPartial" model="@Model" />

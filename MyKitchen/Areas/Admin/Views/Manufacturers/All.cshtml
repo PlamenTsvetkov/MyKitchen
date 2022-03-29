@@ -2,13 +2,16 @@
 
 
 @{
-    ViewBag.Title = "Manufacturers Administration";
+    ViewBag.Title = "All Manufacturer";
 }
 @if (this.TempData.ContainsKey("Message"))
 {
     <div class="alert alert-success">@this.TempData["Message"]</div>
 }
-<h1>All Manufacturers</h1>
+
+
+<h1 class="heading-margin text-center">@ViewBag.Title</h1>
+
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>

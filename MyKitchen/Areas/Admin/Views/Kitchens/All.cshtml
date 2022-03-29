@@ -2,10 +2,11 @@
 
 
 @{
-    ViewBag.Title = "Kitchens Administration";
+    ViewBag.Title = "All Kitchens";
 }
 
-<h1>All Kitchens</h1>
+<h1 class="heading-margin text-center">@ViewBag.Title</h1>
+
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>
@@ -24,6 +25,7 @@
             <th scope="col"></th>
         </tr>
     </thead>
+
     <tbody>
         @foreach (var kitchen in Model.Kitchens)
         {
