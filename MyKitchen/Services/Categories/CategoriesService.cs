@@ -104,6 +104,8 @@
         {
             var category = this.db.Categories.FirstOrDefault(x => x.Id == id);
 
+            this.db.Remove(category);
+
             await this.db.SaveChangesAsync();
         }
     }

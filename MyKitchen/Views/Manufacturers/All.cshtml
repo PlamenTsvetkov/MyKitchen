@@ -10,6 +10,7 @@
 }
 
 <h1 class="text-center mt-2">All Manufacturers</h1>
+
 <div class="row">
     @foreach (var manufacturer in Model.Manufacturers)
     {
@@ -17,10 +18,10 @@
             <div class="card mb-3" style="width: 25rem; height:18rem">
                 <div class="card-body text-center">
                     <h5 class="card-title text-center">Name: @manufacturer.Name </h5>
-                    <h5 class="card-title text-center"><i class="fa-solid fa-desktop"></i> Website: @manufacturer.Website</h5>
-                    <h5 class="card-title text-center"><i class="fa-solid fa-envelope"></i> Email: @manufacturer.Email</h5>
-                    <h5 class="card-title text-center"><i class="fa-solid fa-phone"></i> Phone Number: @manufacturer.PhoneNumber</h5>
-                    <h6 class="card-title text-center"><i class="fa-solid fa-map-location-dot"></i> Address: @manufacturer.AddressCityCountryName  @manufacturer.AddressCityName @manufacturer.AddressName @manufacturer.AddressNumber</h6>
+                    <h5 class="card-title text-center"><i class="fa-solid fa-desktop"></i> Website: @(manufacturer.Website==null ? "None" : manufacturer.Website)</h5>
+                    <h5 class="card-title text-center"><i class="fa-solid fa-envelope"></i> Email: @(manufacturer.Email==null ? "None" : manufacturer.Email)</h5>
+                    <h5 class="card-title text-center"><i class="fa-solid fa-phone"></i> Phone Number: @(manufacturer.PhoneNumber==null ? "None" : manufacturer.PhoneNumber)</h5>
+                    <h6 class="card-title text-center"><i class="fa-solid fa-map-location-dot"></i> Address: @manufacturer.AddressCityCountryName,  @manufacturer.AddressCityName@(manufacturer.AddressName==null ? string.Empty : $", {manufacturer.AddressName}") @(manufacturer.AddressNumber==null ? string.Empty : $", {manufacturer.AddressNumber}")</h6>
                         <a asp-controller="Manufacturers" asp-action="AllKitchens" asp-route-manufacturerId="@manufacturer.Id" asp-route-pageId=1 class="btn btn-primary">See all kitchens: @manufacturer.KitchensCount</a>
                     @if (User.Id() == manufacturer.AddedByUserId || User.IsAdmin())
                     {
