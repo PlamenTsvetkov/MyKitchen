@@ -290,6 +290,22 @@
                .ProjectTo<T>(this.mapper.ConfigurationProvider)
                .ToList();
         }
+
+        public IEnumerable<T> GetAllWithPagingByManufacturerName<T>(int page, int itemsPerPage = 12, string manufacturerName = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<T> GetAllManufacturerName<T>(int page, string manufacturerName , int itemsPerPage = 12 )
+        {
+            var kitchens = this.db.Kitchens
+                .Where(k=>k.Мanufacturer.Name== manufacturerName)
+               .OrderByDescending(x => x.Id)
+               .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+               .ProjectTo<T>(this.mapper.ConfigurationProvider)
+               .ToList();
+            return kitchens;
+        }
     }
 }
 

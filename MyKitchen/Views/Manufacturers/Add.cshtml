@@ -21,8 +21,8 @@
 
 
             <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <a asp-controller="Countries" asp-action="Add" class="btn btn-block btn-outline-primary btn-xs"><i class="fas fa-plus"></i>Add Country</a>
+                <div class="input-group-prepend mb-3">
+                    <a asp-controller="Countries" asp-action="Add"   class="btn btn-block btn-outline-primary btn-xs"><i class="fas fa-plus"></i>Add Country</a>
                 </div>
                 <select asp-for="CountryId" class="form-select  mb-3" aria-label=".form-select-lg example">
                     <option selected="selected" value="">Select country</option>
@@ -34,9 +34,8 @@
                 <span asp-validation-for="CountryId" class="small text-danger"></span>
             </div>
 
-
             <div class="input-group mb-3">
-                <div class="input-group-prepend">
+                <div class="input-group-prepend mb-3">
                     <a asp-controller="Cities" asp-action="Add" class="btn btn-block btn-outline-primary btn-xs"><i class="fas fa-plus"></i>Add city</a>
                 </div>
                 <select asp-for="CityId" class="form-select  mb-3" aria-label=".form-select-lg example">

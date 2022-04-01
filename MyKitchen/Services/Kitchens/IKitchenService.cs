@@ -49,6 +49,8 @@
         void ChangeVisility(int kitchenId);
 
         IEnumerable<T> GetRandom<T>(int count);
+
+        IEnumerable<T> GetAllManufacturerName<T>(int page, string manufacturerName, int itemsPerPage = 12);
     }
 }
 

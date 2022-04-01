@@ -36,17 +36,16 @@
             return users;
         }
 
-        public T GetUserById<T>(string id)
+        public ApplicationUser GetUserById(string id)
         {
                 var user = this.db.Users
                    .Where(x => x.Id == id)
-                  .ProjectTo<T>(this.mapper.ConfigurationProvider)
                   .FirstOrDefault();
 
                 return user;
         }
 
-        public bool UpdateUser(EditUserViewModel model)
+        public bool UpdateUser(ApplicationUser model)
         {
             bool result = false;
             var user =  this.db.Users.FirstOrDefault(u=>u.Id==model.Id);

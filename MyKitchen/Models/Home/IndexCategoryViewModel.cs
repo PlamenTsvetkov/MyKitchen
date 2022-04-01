@@ -7,6 +7,10 @@
 
         public string Description { get; init; }
 
+        public string ShortDescription => this.Description.Length > 300
+                        ? this.Description.Substring(0, 300) + "..."
+                        : this.Description;
+
         public string ImageUrl { get; init; }
 
         public int KitchensCount { get; init; }

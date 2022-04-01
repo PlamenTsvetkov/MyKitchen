@@ -8,62 +8,77 @@
         <h2 class="heading-margin text-center">@ViewBag.Title</h2>
           <div asp-validation-summary="All" class="text-danger"></div>
         <form method="post">
-            <div class="form-group">
-                <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-control" />
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="col-form-label mb-3" for="inputSuccess">
+                    <i class="fas fa-check"></i> Name
+                </label>
+                <input asp-for="Name" type="text" class="form-control is-valid" id="inputSuccess" placeholder="Name ...">
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
-            <div class="form-group" >
-                <label asp-for="CountryId"></label>
-                <select asp-for="CountryId" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend mb-3">
+                    <a asp-controller="Countries" asp-action="Add"   class="btn btn-block btn-outline-primary btn-xs"><i class="fas fa-plus"></i>Add Country</a>
+                </div>
+                <select asp-for="CountryId" class="form-select  mb-3" aria-label=".form-select-lg example">
+                    <option selected="selected" value="">Select country</option>
                     @foreach (var country in Model.Countries)
                     {
                         <option value="@country.Id">@country.Name</option>
                     }
                 </select>
-                <a asp-controller="Countries" asp-action="Add" class="btn btn-primary btn-lg">Add Country</a>
                 <span asp-validation-for="CountryId" class="small text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="CityId"></label>
-                <select asp-for="CityId"  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend mb-3">
+                    <a asp-controller="Cities" asp-action="Add" class="btn btn-block btn-outline-primary btn-xs "><i class="fas fa-plus"></i>Add city</a>
+                </div>
+                <select asp-for="CityId" class="form-select  mb-3" aria-label=".form-select-lg example">
+                    <option selected="selected" value="">Select city</option>
                     @foreach (var city in Model.Cities)
                     {
                         <option value="@city.Id">@city.Name</option>
                     }
                 </select>
                 <span asp-validation-for="CityId" class="small text-danger"></span>
-                <a asp-controller="Cities" asp-action="Add" class="btn btn-primary btn-lg">Add city</a>
             </div>
-            <div class="form-group">
+
+
+            <div class="form-group mb-3">
                 <label asp-for="Email">Email</label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" class="form-control" placeholder="Manufacturer Email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mb-3">
                 <label asp-for="Website">Website</label>
-                <input asp-for="Website" class="form-control" />
+                <input asp-for="Website" class="form-control" placeholder="www.manufacturer.website..." />
                 <span asp-validation-for="Website" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mb-3">
                 <label asp-for="PhoneNumber"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
+                <input asp-for="PhoneNumber" class="form-control" placeholder="Phone number 0888..." />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mb-3">
                 <label asp-for="Address.Name">Address Name</label>
-                <input asp-for="Address.Name" class="form-control" />
+                <input asp-for="Address.Name" class="form-control" placeholder="Address name..." />
                 <span asp-validation-for="Address.Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mb-3">
                 <label asp-for="Address.Number">Address Number</label>
-                <input asp-for="Address.Number" class="form-control" />
+                <input asp-for="Address.Number" class="form-control" placeholder="Address number..." />
                 <span asp-validation-for="Address.Number" class="text-danger"></span>
             </div>
 
-            <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            <div class="text-center">
+                <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Save</button>
+            </div>
 
         </form>
     </div>

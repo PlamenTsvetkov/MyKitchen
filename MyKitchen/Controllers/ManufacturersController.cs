@@ -3,7 +3,6 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
     using MyKitchen.Data.Models;
     using MyKitchen.Infrastructure.Extensions;
     using MyKitchen.Models.Cityes;
@@ -44,6 +43,7 @@
                 Cities = citiesService.GetAll<AllCityModel>(),
             });
         }
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Add(ManufacturerFormModel manufacturer)
@@ -96,7 +96,7 @@
                 manufacturer.Cities = this.citiesService.GetAll<AllCityModel>();
                 return this.View(manufacturer);
             }
-            if (!User.IsAdmin())
+            if (!this.manufacturersService.IsByUser(id, userId) && !User.IsAdmin() && !User.IsAManufacturer())
             {
                 return Unauthorized();
             }

@@ -15,18 +15,27 @@
     @foreach (var manufacturer in Model.Manufacturers)
     {
         <div class="col-md-4">
-            <div class="card mb-3" style="width: 25rem; height:18rem">
+            <div class="card mb-3" style="width: 25rem; height:20rem">
                 <div class="card-body text-center">
                     <h5 class="card-title text-center">Name: @manufacturer.Name </h5>
                     <h5 class="card-title text-center"><i class="fa-solid fa-desktop"></i> Website: @(manufacturer.Website==null ? "None" : manufacturer.Website)</h5>
                     <h5 class="card-title text-center"><i class="fa-solid fa-envelope"></i> Email: @(manufacturer.Email==null ? "None" : manufacturer.Email)</h5>
                     <h5 class="card-title text-center"><i class="fa-solid fa-phone"></i> Phone Number: @(manufacturer.PhoneNumber==null ? "None" : manufacturer.PhoneNumber)</h5>
                     <h6 class="card-title text-center"><i class="fa-solid fa-map-location-dot"></i> Address: @manufacturer.AddressCityCountryName,  @manufacturer.AddressCityName@(manufacturer.AddressName==null ? string.Empty : $", {manufacturer.AddressName}") @(manufacturer.AddressNumber==null ? string.Empty : $", {manufacturer.AddressNumber}")</h6>
-                        <a asp-controller="Manufacturers" asp-action="AllKitchens" asp-route-manufacturerId="@manufacturer.Id" asp-route-pageId=1 class="btn btn-primary">See all kitchens: @manufacturer.KitchensCount</a>
-                    @if (User.Id() == manufacturer.AddedByUserId || User.IsAdmin())
+
+                    <a asp-controller="Manufacturers" asp-action="AllKitchens" asp-route-manufacturerId="@manufacturer.Id" asp-route-pageId=1 class="btn btn-primary mb-2">See all kitchens: @manufacturer.KitchensCount</a>
+
+                    @if (User.Identity.IsAuthenticated)
                     {
-                            <a asp-controller="Manufacturers" asp-action="Edit" asp-route-id="@manufacturer.Id" class="btn btn-warning">Edit</a>
-                            <a asp-controller="Manufacturers" asp-action="Delete" asp-route-id="@manufacturer.Id" class="btn btn-danger">Delete</a>
+                        @if (User.Id() == manufacturer.AddedByUserId || User.IsAdmin())
+                        {
+                            <a asp-controller="Manufacturers" asp-action="Edit" asp-route-id="@manufacturer.Id" class="btn btn-warning mb-2">Edit</a>
+
+                            <form method="post"  asp-controller="Manufacturers" asp-action="Delete" asp-route-id="@manufacturer.Id">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                            
+                        }
                     }
                 </div>
             </div>

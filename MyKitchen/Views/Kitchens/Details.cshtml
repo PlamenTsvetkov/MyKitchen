@@ -78,15 +78,15 @@
                 </li>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    @if (User.Id() == Model.UserId)
+                    @if (User.Id() == Model.UserId || User.IsAdmin())
                     {
                         <li class="single-meta">
                             <a asp-controller="Kitchens" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
                         </li>
                         <li class="single-meta">
-                            <form method="post" asp-action="Delete" id="deleteForm" asp-route-id="@Model.Id">
-                                <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                            <form method="post" asp-controller="Kitchens" asp-action="Delete" id="deleteForm" asp-route-id="@Model.Id">
                             </form>
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
                         </li>
                     }
                 }

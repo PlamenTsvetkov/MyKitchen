@@ -28,7 +28,7 @@
             <td scope="col">@category.ShortDescription</td>
             <td scope="col">@category.KitchensCount</td>
             <td scope="col">
-                <a asp-area="Admin" asp-controller="Categories" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-block btn-outline-success btn-xs">Edit</a>
+                <a asp-area="Admin" asp-controller="Categories" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-block btn-outline-success btn-xs mb-2">Edit</a>
                     <form method="post" asp-area="Admin" asp-controller="Categories" asp-action="Delete" asp-route-id="@category.Id">
                       <button class="btn btn-block btn-outline-danger btn-xs">Delete</button>
                     </form>

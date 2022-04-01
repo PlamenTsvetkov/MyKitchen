@@ -37,6 +37,10 @@
         bool IsByUser(int manufacturerId, string userId);
 
         Task DeleteAsync(int id);
+
+        int GetPublicKitchenCountByName(string manufacturerName);
+        int GetNotPublicKitchenCountByName(string manufacturerName);
+
     }
 }
    

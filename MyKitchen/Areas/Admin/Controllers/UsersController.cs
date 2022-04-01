@@ -7,7 +7,6 @@
     using MyKitchen.Models.Users;
     using MyKitchen.Services.Users;
 
-    using static MyKitchen.Areas.Admin.AdminConstants;
     public class UsersController : AdminController
     {
         private readonly IUsersService usersService;
@@ -44,13 +43,13 @@
 
         public IActionResult Edit(string id)
         {
-            var user =  usersService.GetUserById<EditUserViewModel>(id);
+            var user =  usersService.GetUserById(id);
 
             return View(user);
         }
 
         [HttpPost]
-        public IActionResult Edit(EditUserViewModel model)
+        public IActionResult Edit(ApplicationUser model)
         {
             if (!ModelState.IsValid)
             {
@@ -71,7 +70,7 @@
 
         public IActionResult Roles(string id)
         {
-            var user = usersService.GetUserById<ApplicationUser>(id);
+            var user = usersService.GetUserById(id);
             var model = new UsersRolesViewModel()
             {
                 UserId = user.Id,
@@ -94,7 +93,7 @@
         [HttpPost]
         public async Task<IActionResult> Roles(UsersRolesViewModel model)
         {
-            var user = usersService.GetUserById<ApplicationUser>(model.UserId);
+            var user = usersService.GetUserById(model.UserId);
             var userRoles = await userManager.GetRolesAsync(user);
             await userManager.RemoveFromRolesAsync(user, userRoles);
 

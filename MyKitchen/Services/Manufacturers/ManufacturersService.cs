@@ -125,6 +125,20 @@
             await this.db.SaveChangesAsync();
         }
 
+        public int GetPublicKitchenCountByName(string manufacturerName)
+        {
+            return this.db.Kitchens
+                .Where(k => k.IsPublic && k.Мanufacturer.Name == manufacturerName).Count();
+                
+        }
+
+        public int GetNotPublicKitchenCountByName(string manufacturerName)
+        {
+            return this.db.Kitchens
+                .Where(k => !k.IsPublic && k.Мanufacturer.Name == manufacturerName).Count();
+
+        }
+
     }
 }
 

@@ -152,7 +152,7 @@
             var kitchen = this.kitchenService.GetById<EditKitchenInputModel>(id);
             var userId = this.User.Id();
 
-            if (!this.kitchenService.IsByUser(id, userId) && !User.IsAdmin())
+            if (!this.kitchenService.IsByUser(id, userId) && !User.IsAdmin() && !User.IsAManufacturer())
             {
                 return Unauthorized();
             }
@@ -171,7 +171,7 @@
             {
                 this.ModelState.AddModelError(nameof(kitchen.CategoryId), "Category does not exist.");
             }
-            if (!this.kitchenService.IsByUser(id, userId) && !User.IsAdmin())
+            if (!this.kitchenService.IsByUser(id, userId) && !User.IsAdmin() && !User.IsAManufacturer())
             {
                 return Unauthorized();
             }
@@ -196,14 +196,19 @@
         {
             var userId = this.User.Id();
 
-            if (!this.kitchenService.IsByUser(id, userId) && !User.IsAdmin())
+            if (!this.kitchenService.IsByUser(id, userId) && !User.IsAdmin() && !User.IsAManufacturer())
             {
                 return Unauthorized();
             }
             await this.kitchenService.DeleteAsync(id);
+
             if (User.IsAdmin())
             {
                 return this.RedirectToAction("All", "Kitchens", new { area = "Admin" });
+            }
+            else if(User.IsAManufacturer())
+            {
+                return this.RedirectToAction("All", "Kitchens", new { area = "Manufacturer" });
             }
             else
             {

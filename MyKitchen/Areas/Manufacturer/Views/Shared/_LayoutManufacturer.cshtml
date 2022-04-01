@@ -61,7 +61,7 @@
 
             <!-- Sidebar -->
             <div class="sidebar">
-                <partial name="_LoginPartialAdmin" />
+                <partial name="_LoginPartialManufacturer" />
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
@@ -69,25 +69,7 @@
                         <!-- Add icons to the links using the .nav-icon class
                              with font-awesome or any other icon font library -->
 
-                        <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="Roles" asp-action="Add" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Add Role
-                                    <span class="right badge badge-danger">New</span>
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="Categories" asp-action="Add" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Add Category
-                                    <span class="right badge badge-danger">New</span>
-                                </p>
-                            </a>
-                        </li>
+                        
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -97,7 +79,7 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-
+            
             <div class="content">
                 <div class="container-fluid">
                     @RenderBody()

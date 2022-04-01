@@ -33,6 +33,10 @@
             {
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
+            if (User.IsAManufacturer())
+            {
+                return RedirectToAction("Index", "Home", new { area = "Manufacturer" });
+            }
             var indexViewModel = this.cache.Get<IndexViewModel>(IndexViewCasheKey);
 
             if (indexViewModel == null)
