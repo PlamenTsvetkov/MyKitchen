@@ -167,7 +167,7 @@
         {
             var userId = this.User.Id();
 
-            if (!this.manufacturersService.IsByUser(id, userId) || !User.IsAdmin())
+            if (!this.manufacturersService.IsByUser(id, userId) && !User.IsAdmin())
             {
                 return Unauthorized();
             }

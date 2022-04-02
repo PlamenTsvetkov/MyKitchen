@@ -90,6 +90,7 @@ app.UseHttpsRedirection()
 app.MapControllerRoute(
               name: "Areas",
               pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
 app.MapControllerRoute(
                         name: "Kitchen Details",
                         pattern: "/Kitchens/Details/{id}/{information}",
@@ -103,13 +104,16 @@ app.MapControllerRoute(
     "manufacturerKitchens",
      "{controller}/{action}/{manufacturerId}/{pageId}",
       new { controller = "Manufacturer", action = "AllKitchen", manufacturerId = "", pageId = "" });
+
 app.MapControllerRoute(
     "kitchenCategory",
     "k/{name:minlength(3)}",
-    new { controller = "Categories", action = "ByName" });
+    new { controller = "Categories", action = "ByName"});
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
 app.UseAuthentication();
 app.Run();

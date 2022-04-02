@@ -91,9 +91,13 @@
                 .Count(m => !publicOnly || m.IsPublic && m.IsDeleted==false);
 
         public bool IsByUser(int manufacturerId, string userId)
-        => this.db
+        {
+            var addedUser = this.db
                 .Manufacturers
-                .Any(m => m.Id == manufacturerId && m.AddedByUserId == userId);
+                .FirstOrDefault(m => m.Id == manufacturerId && m.AddedByUserId == userId);
+            var result = addedUser==null? false : true;
+            return result;
+        }
 
         public async Task UpdateAsync(int id, string name, string email, string website, string phoneNumber, string userId, int countryId, int cityId, string addressName, string addressNumber, bool isPublic)
         {
