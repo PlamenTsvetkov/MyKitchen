@@ -4,7 +4,6 @@
     using AutoMapper.QueryableExtensions;
     using MyKitchen.Data;
     using MyKitchen.Data.Models;
-    using MyKitchen.Models.Countries;
     using MyKitchen.Services.Addresses;
 
     public class ManufacturersService : IManufacturersService

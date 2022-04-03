@@ -2,14 +2,9 @@
 {
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using Microsoft.AspNetCore.Identity;
     using MyKitchen.Data;
     using MyKitchen.Data.Models;
-    using MyKitchen.Models.Users;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
-
-    using static MyKitchen.Areas.Admin.AdminConstants;
     public class UsersService : IUsersService
     {
         private readonly MyKitchenDbContext db;
