@@ -1,10 +1,11 @@
 ﻿namespace MyKitchen.Models.Kitchens
 {
-    using MyKitchen.Data.Models.Enum;
-    using MyKitchen.Services.Categories.Models;
-    using MyKitchen.Services.Colors.Models;
-    using MyKitchen.Services.Manufacturers.Models;
     using System.ComponentModel.DataAnnotations;
+
+    using MyKitchen.Data.Models.Enum;
+    using MyKitchen.Services.Colors.Models;
+    using MyKitchen.Services.Categories.Models;
+    using MyKitchen.Services.Manufacturers.Models;
 
     using static Data.DataConstants.Kitchen;
 

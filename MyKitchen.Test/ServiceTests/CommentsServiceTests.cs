@@ -1,15 +1,11 @@
 ﻿namespace MyKitchen.Test.ServiceTests
 {
-    using Microsoft.EntityFrameworkCore;
-    using MyKitchen.Data;
-    using MyKitchen.Services.Comments;
-    using MyKitchen.Test.Mocks;
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using Xunit;
+
+    using MyKitchen.Services.Comments;
+    using MyKitchen.Test.Mocks;
 
     public class CommentsServiceTests
     {

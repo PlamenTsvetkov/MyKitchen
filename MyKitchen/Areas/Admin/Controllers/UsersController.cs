@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
+
     using MyKitchen.Data.Models;
     using MyKitchen.Models.Users;
     using MyKitchen.Services.Users;
@@ -21,6 +22,7 @@
             roleManager = _roleManager;
             userManager = _userManager;
         }
+
         public IActionResult All(int id = 1)
         {
 
@@ -55,7 +57,6 @@
             {
                 return View(model);
             }
-
             if (usersService.UpdateUser(model))
             {
                 this.TempData["Message"] = "User was edited!";
@@ -76,7 +77,6 @@
                 UserId = user.Id,
                 Name = user.Name
             };
-
 
             ViewBag.RoleItems = roleManager.Roles
                 .ToList()
@@ -104,7 +104,5 @@
 
             return this.RedirectToAction("All", "Users", new { area = "Admin" });
         }
-
-
     }
 }

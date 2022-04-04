@@ -1,16 +1,11 @@
 ﻿namespace MyKitchen.Test.ServiceTests
 {
-    using Microsoft.EntityFrameworkCore;
-    using MyKitchen.Data;
+    using System.Linq;
+    using Xunit;
+
+    using MyKitchen.Test.Mocks;
     using MyKitchen.Models.Countries;
     using MyKitchen.Services.Countries;
-    using MyKitchen.Test.Mocks;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Xunit;
 
     public class CountriesServiceTests
     {
@@ -22,10 +17,7 @@
 
             var service = new CountriesService(db,null);
 
-            service.Create("Bulgaria");
-            service.Create("Rusia");
-            service.Create("Ukraine");
-            service.Create("Bulgaria");
+            CreateCountries(service);
 
             //Act
             var countriesCount = db.Countries.ToArray().Count();
@@ -42,10 +34,7 @@
 
             var service = new CountriesService(db, null);
 
-            service.Create("Bulgaria");
-            service.Create("Rusia");
-            service.Create("Ukraine");
-            service.Create("Bulgaria");
+            CreateCountries(service);
 
             //Act
             var resultTrue = service.CountryExists(1);
@@ -65,12 +54,7 @@
 
             var service = new CountriesService(db, mapper);
 
-            service.Create("Bulgaria");
-            service.Create("Rusia");
-            service.Create("Ukraine");
-            service.Create("Bulgaria");
-
-            db.SaveChanges();
+            CreateCountries(service);
 
             //Act
             var result = service.GetAll<AllCountryModel>();
@@ -88,18 +72,21 @@
 
             var service = new CountriesService(db, mapper);
 
-            service.Create("Bulgaria");
-            service.Create("Rusia");
-            service.Create("Ukraine");
-            service.Create("Bulgaria");
-
-            db.SaveChanges();
+            CreateCountries(service);
 
             //Act
             var result = service.GetById<AllCountryModel>(3).Name;
 
             //Assert
             Assert.Equal("Ukraine", result);
+        }
+
+        private void CreateCountries(ICountriesService service)
+        {
+            service.Create("Bulgaria");
+            service.Create("Rusia");
+            service.Create("Ukraine");
+            service.Create("Bulgaria");
         }
     }
 }

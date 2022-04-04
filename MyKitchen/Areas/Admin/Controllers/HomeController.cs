@@ -1,6 +1,7 @@
 ﻿namespace MyKitchen.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+
     using MyKitchen.Models.Home;
     using MyKitchen.Services.Categories;
     using MyKitchen.Services.Comments;
@@ -28,6 +29,7 @@
             this.usersService = usersService;
             this.categoriesService = categoriesService;
         }
+
         public IActionResult Index()
         {
             var viewModel = new IndexAdminViewModel
@@ -38,10 +40,9 @@
                 UsersNumber=usersService.GetCount(),
                 CategoryNumber=categoriesService.GetCount(),
             };
+
             return this.View(viewModel);
         }
-
-
     }
 }
 

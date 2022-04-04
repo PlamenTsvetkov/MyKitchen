@@ -1,10 +1,12 @@
 ﻿namespace MyKitchen.Controllers
 {
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+
     using MyKitchen.Models.Countries;
     using MyKitchen.Services.Countries;
 
+    [Authorize]
     public class CountriesController : Controller
     {
         private readonly ICountriesService countriesService;
@@ -14,14 +16,13 @@
             this.countriesService = countriesService;
         }
 
-        [Authorize]
+        
         public IActionResult Add()
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult Add(CountryFormModel country)
         {
            
@@ -34,8 +35,7 @@
 
             this.TempData["Message"] = "Country added successfully.";
 
-            return RedirectToAction(nameof(ManufacturersController.Add), "Manufacturers");
-
+            return this.RedirectToAction(nameof(ManufacturersController.Add), "Manufacturers");
         }
     }
 }

@@ -3,6 +3,7 @@
     public class ManufacturerInListViewModel
     {
         public int Id { get; init; }
+
         public string Name { get; set; }
 
         public int KitchensCount { get; init; }
@@ -20,7 +21,9 @@
         public string Website { get; set; }
 
         public string PhoneNumber { get; set; }
+
         public bool IsPublic { get; set; }
+
         public string AddedByUserId { get; set; }
 
         public bool IsDeleted { get; set; }

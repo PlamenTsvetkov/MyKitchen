@@ -1,8 +1,9 @@
 ﻿namespace MyKitchen.Controllers
 {
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Authorization;
+
     using MyKitchen.Data.Models;
     using MyKitchen.Models.Comments;
     using MyKitchen.Services.Comments;
@@ -12,22 +13,18 @@
         private readonly ICommentsService commentsService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public CommentsController(
-            ICommentsService commentsService,
-            UserManager<ApplicationUser> userManager)
+        public CommentsController(ICommentsService commentsService,
+                                  UserManager<ApplicationUser> userManager)
         {
             this.commentsService = commentsService;
             this.userManager = userManager;
         }
 
-        [HttpPost]
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> Create(CreateCommentInputModel input)
         {
-            var parentId =
-                input.ParentId == 0 ?
-                    (int?)null :
-                    input.ParentId;
+            var parentId =input.ParentId == 0 ? (int?)null : input.ParentId;
 
             if (parentId.HasValue)
             {

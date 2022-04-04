@@ -1,14 +1,12 @@
 ﻿namespace MyKitchen.Test.ServiceTests
 {
-    using Microsoft.EntityFrameworkCore;
-    using MyKitchen.Data;
+    using System.Linq;
+    using Xunit;
+
     using MyKitchen.Data.Models;
     using MyKitchen.Models.Categories;
     using MyKitchen.Services.Categories;
     using MyKitchen.Test.Mocks;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Xunit;
 
     public class CategoriesServiceTests
     {
@@ -124,9 +122,7 @@
 
             var service = new CategoriesService(db, mapper);
 
-
             var name = "L-Shaped kitchen";
-            
             var url = "https://www.cliqstudios.com/media/cms-pages/l-shape-cliqstudios-kitchen-shape1.jpg";
             var description = "The L-shaped kitchen is the most popular design, and is appropriate for any size kitchen. It includes work spaces on two adjoining walls running perpendicular to each other. This layout works well for two cooks working at the same time, since no traffic lanes flow through the work area. If space allows, it is possible to incorporate a center island that doubles as a work space or eating area. The L-Shape kitchen typically opens into another room which makes a great layout for entertaining";
 
@@ -156,9 +152,7 @@
 
             var service = new CategoriesService(db, null);
 
-
             var name = "L-Shaped kitchen";
-
             var url = "https://www.cliqstudios.com/media/cms-pages/l-shape-cliqstudios-kitchen-shape1.jpg";
             var description = "The L-shaped kitchen is the most popular design, and is appropriate for any size kitchen. It includes work spaces on two adjoining walls running perpendicular to each other. This layout works well for two cooks working at the same time, since no traffic lanes flow through the work area. If space allows, it is possible to incorporate a center island that doubles as a work space or eating area. The L-Shape kitchen typically opens into another room which makes a great layout for entertaining";
 

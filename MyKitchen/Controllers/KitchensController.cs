@@ -3,8 +3,9 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+
     using MyKitchen.Data.Models;
-    using MyKitchen.Models.Categories;
+    using MyKitchen.Infrastructure.Extensions;
     using MyKitchen.Models.Kitchens;
     using MyKitchen.Services.Categories;
     using MyKitchen.Services.Categories.Models;
@@ -13,8 +14,6 @@
     using MyKitchen.Services.Kitchens;
     using MyKitchen.Services.Manufacturers;
     using MyKitchen.Services.Manufacturers.Models;
-
-    using MyKitchen.Infrastructure.Extensions;
 
     using static WebConstants;
     public class KitchensController : Controller
@@ -27,11 +26,11 @@
         private readonly IWebHostEnvironment environment;
 
         public KitchensController(IManufacturersService manufacturersService,
-            ICategoriesService categoriesService,
-            IKitchenService kitchenService,
-            IColorsService colorService,
-            UserManager<ApplicationUser> userManager,
-            IWebHostEnvironment environment)
+                                  ICategoriesService categoriesService,
+                                  IKitchenService kitchenService,
+                                  IColorsService colorService,
+                                  UserManager<ApplicationUser> userManager,
+                                  IWebHostEnvironment environment)
         {
             this.manufacturersService = manufacturersService;
             this.categoriesService = categoriesService;
@@ -44,20 +43,22 @@
         [Authorize]
         public IActionResult Add()
         {
-            return View(new KitchenFormModel
+            return this.View(new KitchenFormModel
             {
                 Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>(),
                 Colors = this.colorService.GetAll<KitchenColorServiceModel>(),
-                Categories= this.categoriesService.GetAll<KitchenCategoriesServiceModel>(),
+                Categories = this.categoriesService.GetAll<KitchenCategoriesServiceModel>(),
             });
         }
 
-        [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Add( KitchenFormModel kitchen)
+        [HttpPost]
+        public async Task<IActionResult> Add(KitchenFormModel kitchen)
         {
             var user = await this.userManager.GetUserAsync(this.User);
+
             kitchen.UserId = user.Id;
+
             if (!this.categoriesService.CategoryExists(kitchen.CategoryId))
             {
                 this.ModelState.AddModelError(nameof(kitchen.CategoryId), "Category does not exist.");
@@ -68,7 +69,7 @@
                 kitchen.Manufacturers = this.manufacturersService.GetAll<KitchenManufacturerServiceModel>();
                 kitchen.Colors = this.colorService.GetAll<KitchenColorServiceModel>();
                 kitchen.Categories = this.categoriesService.GetAll<KitchenCategoriesServiceModel>();
-                return View(kitchen);
+                return this.View(kitchen);
             }
 
             try
@@ -85,10 +86,10 @@
             }
 
             this.TempData["Message"] = "Your kitchen was added and is awaiting for approval.";
+
             var kitchenId = kitchenService.GetLastKitchenIdByUserId(user.Id);
 
             return RedirectToAction(nameof(Details), new { id = kitchenId, information = kitchen.GetInformation() });
-
         }
 
         public IActionResult All(int id = 1)
@@ -97,7 +98,6 @@
             {
                 return this.NotFound();
             }
-
 
             const int ItemsPerPage = kitchenPerPage;
 
@@ -114,21 +114,21 @@
         }
 
         [Authorize]
-        public  IActionResult My(int id = 1)
+        public IActionResult My(int id = 1)
         {
             if (id <= 0)
             {
                 return this.NotFound();
             }
 
-            var userId =   this.userManager.GetUserId(this.User);
+            var userId = this.userManager.GetUserId(this.User);
             const int ItemsPerPage = kitchenPerPage;
             var myKitchens = new KitchensListViewModel
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
                 ItemsCount = this.kitchenService.GetCountByUserId(userId),
-                Kitchens = this.kitchenService.GetAllByUserId<KitchenInListViewModel>(userId , id, ItemsPerPage),
+                Kitchens = this.kitchenService.GetAllByUserId<KitchenInListViewModel>(userId, id, ItemsPerPage),
                 Action = nameof(My),
             };
 
@@ -147,6 +147,7 @@
             return this.View(kitchen);
         }
 
+        [Authorize]
         public IActionResult Edit(int id)
         {
             var kitchen = this.kitchenService.GetById<EditKitchenInputModel>(id);
@@ -163,6 +164,7 @@
             return this.View(kitchen);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Edit(int id, EditKitchenInputModel kitchen)
         {
@@ -191,6 +193,7 @@
             return RedirectToAction(nameof(Details), new { id = id, information = kitchen.GetInformation() });
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
@@ -206,7 +209,7 @@
             {
                 return this.RedirectToAction("All", "Kitchens", new { area = "Admin" });
             }
-            else if(User.IsAManufacturer())
+            else if (User.IsAManufacturer())
             {
                 return this.RedirectToAction("All", "Kitchens", new { area = "Manufacturer" });
             }
@@ -214,7 +217,6 @@
             {
                 return this.RedirectToAction(nameof(this.All));
             }
-            
         }
 
         [Authorize]
@@ -256,8 +258,6 @@
 
             return this.RedirectToAction(nameof(this.Collection));
         }
-
-
     }
 }
 

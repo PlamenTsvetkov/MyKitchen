@@ -8,6 +8,5 @@
         {
             public const string IndexViewCasheKey = nameof(IndexViewCasheKey);
         }
-
     }
 }

@@ -1,11 +1,10 @@
 ﻿namespace MyKitchen.Test.ServiceTests
 {
-    using Microsoft.EntityFrameworkCore;
-    using MyKitchen.Data;
-    using MyKitchen.Services.Addresses;
-    using MyKitchen.Test.Mocks;
     using System.Linq;
     using Xunit;
+
+    using MyKitchen.Services.Addresses;
+    using MyKitchen.Test.Mocks;
 
     public class AddressesServiceTests
     {
@@ -15,7 +14,7 @@
             //Arrange
             var db = DatabaseMock.Instance;
 
-            var service = new AddressesService(db, null);
+            var service = new AddressesService(db);
           
             service.Create("Niderle", "1", 1, "4b38713f-6a4c-49fc-8641-8c787c9d2821");
             service.Create("Osmi Mart", "15", 1, "4b38713f-6a4c-49fc-8641-8c787c9d2821");
@@ -33,9 +32,8 @@
             //Arrange
             var db =  DatabaseMock.Instance;
 
-            var service = new AddressesService(db, null);
+            var service = new AddressesService(db);
 
-           
             service.Create("Niderle", "1", 1, "4b38713f-6a4c-49fc-8641-8c787c9d2821");
             service.Create("Osmi Mart", "15", 1, "4b38713f-6a4c-49fc-8641-8c787c9d2821");
             service.Create("Osmi Mart", "15", 1, "4b38713f-6a4c-49fc-8641-8c787c9d2821");

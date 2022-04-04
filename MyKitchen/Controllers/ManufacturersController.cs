@@ -1,8 +1,9 @@
 ﻿namespace MyKitchen.Controllers
 {
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Authorization;
+
     using MyKitchen.Data.Models;
     using MyKitchen.Infrastructure.Extensions;
     using MyKitchen.Models.Cityes;
@@ -16,18 +17,18 @@
 
     public class ManufacturersController : Controller
     {
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly ICountriesService countryService;
         private readonly ICitiesService citiesService;
         private readonly IKitchenService kitchenService;
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly IManufacturersService manufacturersService;
 
         public const int manufacturerPerPage = 6;
         public ManufacturersController(ICountriesService countryService,
-            ICitiesService citiesService,
-            IKitchenService kitchenService,
-            UserManager<ApplicationUser> userManager,
-            IManufacturersService manufacturersService)
+                                       ICitiesService citiesService,
+                                       IKitchenService kitchenService,
+                                       UserManager<ApplicationUser> userManager,
+                                       IManufacturersService manufacturersService)
         {
             this.countryService = countryService;
             this.citiesService = citiesService;
@@ -35,6 +36,8 @@
             this.userManager = userManager;
             this.manufacturersService = manufacturersService;
         }
+
+        [Authorize]
         public IActionResult Add()
         {
             return this.View(new ManufacturerFormModel
@@ -44,9 +47,9 @@
             });
         }
 
-        [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Add(ManufacturerFormModel manufacturer)
+        [HttpPost]
+        public IActionResult Add(ManufacturerFormModel manufacturer)
         {
             if (!this.ModelState.IsValid)
             {
@@ -55,9 +58,9 @@
                 return this.View(manufacturer);
             }
 
-            var userId =  this.userManager.GetUserId(this.User);
+            var userId = this.userManager.GetUserId(this.User);
 
-            manufacturersService.Create(manufacturer.Name, manufacturer.Email, manufacturer.Website, manufacturer.PhoneNumber, userId , manufacturer.CountryId, manufacturer.CityId, manufacturer.Address.Name, manufacturer.Address.Number);
+            manufacturersService.Create(manufacturer.Name, manufacturer.Email, manufacturer.Website, manufacturer.PhoneNumber, userId, manufacturer.CountryId, manufacturer.CityId, manufacturer.Address.Name, manufacturer.Address.Number);
 
             this.TempData["Message"] = "Manufacturer added successfully.";
 
@@ -74,13 +77,15 @@
             {
                 return Unauthorized();
             }
+
             manufacturer.Countries = countryService.GetAll<AllCountryModel>();
             manufacturer.Cities = citiesService.GetAll<AllCityModel>();
+
             return this.View(manufacturer);
         }
 
-        [HttpPost]
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> Edit(int id, ManufacturerFormModel manufacturer)
         {
             var userId = this.User.Id();
@@ -102,15 +107,15 @@
             }
 
             await manufacturersService.UpdateAsync(id,
-                                            manufacturer.Name, 
-                                            manufacturer.Email, 
-                                            manufacturer.Website, 
-                                            manufacturer.PhoneNumber, 
-                                            userId, 
-                                            manufacturer.CountryId, 
-                                            manufacturer.CityId, 
-                                            manufacturer.Address.Name, 
-                                            manufacturer.Address.Number, 
+                                            manufacturer.Name,
+                                            manufacturer.Email,
+                                            manufacturer.Website,
+                                            manufacturer.PhoneNumber,
+                                            userId,
+                                            manufacturer.CountryId,
+                                            manufacturer.CityId,
+                                            manufacturer.Address.Name,
+                                            manufacturer.Address.Number,
                                             this.User.IsAdmin());
 
             this.TempData["Message"] = "Manufacturer edited successfully.";
@@ -132,7 +137,7 @@
                 return this.NotFound();
             }
 
-            const int ItemsPerPage = 6;
+            const int ItemsPerPage = manufacturerPerPage;
             var viewModel = new ManufacturersListViewModel
             {
                 ItemsPerPage = ItemsPerPage,
@@ -144,7 +149,7 @@
             return this.View(viewModel);
         }
 
-        public IActionResult AllKitchens(int manufacturerId, int id=1)
+        public IActionResult AllKitchens(int manufacturerId, int id = 1)
         {
             if (id <= 0)
             {
@@ -171,7 +176,9 @@
             {
                 return Unauthorized();
             }
+
             await this.manufacturersService.DeleteAsync(id);
+
             if (User.IsAdmin())
             {
                 return this.RedirectToAction("All", "Manufacturers", new { area = "Admin" });

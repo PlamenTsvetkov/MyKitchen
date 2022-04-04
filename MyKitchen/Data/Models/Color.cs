@@ -9,6 +9,7 @@
         {
             this.KitchensColors = new HashSet<KitchensColors>();
         }
+
         public int Id { get; init; }
 
         [Required]

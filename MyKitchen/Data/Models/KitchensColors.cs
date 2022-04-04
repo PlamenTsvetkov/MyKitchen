@@ -2,7 +2,6 @@
 {
     public class KitchensColors
     {
-
         public int KitchenId { get; set; }
 
         public virtual Kitchen Kitchen { get; set; }

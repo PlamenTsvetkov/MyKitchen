@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+
     using MyKitchen.Models.Roles;
     using MyKitchen.Services.Roles;
 
@@ -39,7 +40,6 @@
             this.TempData["Message"] = "Role added successfully.";
 
             return RedirectToAction(nameof(HomeController.Index), "Home", new { area = "Admin" });
-
         }
     }
 }

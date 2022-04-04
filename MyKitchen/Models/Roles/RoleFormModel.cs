@@ -1,6 +1,7 @@
 ﻿namespace MyKitchen.Models.Roles
 {
     using System.ComponentModel.DataAnnotations;
+
     using static Data.DataConstants.Role;
     public class RoleFormModel
     {

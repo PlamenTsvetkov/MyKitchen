@@ -16,6 +16,7 @@
         public int Id { get; init; }
 
         public DateTime CreatedOn { get; set; }
+
         [Required]
         public string Description { get; set; }
 
@@ -43,6 +44,7 @@
         public ICollection<KitchensUsers> KitchensUsers { get; init; }
 
         public virtual ICollection<KitchensColors> KitchensColors { get; set; }
+
         public virtual ICollection<Vote> Votes { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
@@ -50,6 +52,7 @@
         public TypeOfDoorMaterial TypeOfDoorMaterial { get; set; }
 
         public bool IsDeleted { get; set; }
+
         public bool IsPublic { get; set; }
 
         public DateTime? DeletedOn { get; set; }

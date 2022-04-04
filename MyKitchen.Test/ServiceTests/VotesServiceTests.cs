@@ -1,10 +1,11 @@
 ﻿namespace MyKitchen.Test.ServiceTests
 {
-    using MyKitchen.Services.Vote;
-    using MyKitchen.Test.Mocks;
     using System.Linq;
     using System.Threading.Tasks;
     using Xunit;
+
+    using MyKitchen.Services.Vote;
+    using MyKitchen.Test.Mocks;
 
     public class VotesServiceTests
     {

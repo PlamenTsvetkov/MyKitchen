@@ -4,45 +4,64 @@
 
     public interface IKitchenService
     {
-        Task AddAsync(KitchenFormModel input, string userId, string imagePath);
+        Task AddAsync(KitchenFormModel input, 
+                      string userId, 
+                      string imagePath);
 
-        IEnumerable<T> GetByCategoryId<T>(int categoryId, int? take = null, int skip = 0);
+        IEnumerable<T> GetByCategoryId<T>(int categoryId,
+                                          int? take = null, 
+                                          int skip = 0);
 
-        IEnumerable<T> GetAllByCategoryId<T>(int categoryId, int page, int itemsPerPage = 12);
+        IEnumerable<T> GetAllByCategoryId<T>(int categoryId, 
+                                             int page, 
+                                             int itemsPerPage = 12);
 
         int GetCountByManufacturerId(int manufacturerId);
 
         int GetCountByCategoryId(int categoryId);
 
-        IEnumerable<T> GetAllByManufacturerId<T>(int manufacturerId, int page, int itemsPerPage = 12);
+        IEnumerable<T> GetAllByManufacturerId<T>(int manufacturerId, 
+                                                 int page, 
+                                                 int itemsPerPage = 12);
 
-        IEnumerable<T> GetAllByUserId<T>(string userId, int page, int itemsPerPage = 12);
+        IEnumerable<T> GetAllByUserId<T>(string userId, 
+                                         int page, 
+                                         int itemsPerPage = 12);
 
         int GetCountByUserId(string userId);
      
 
-        IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12, bool publicOnly = true);
+        IEnumerable<T> GetAll<T>(int page, 
+                                 int itemsPerPage = 12, 
+                                 bool publicOnly = true);
 
         int GetCountAdmin();
 
-        IEnumerable<T> GetAllA<T>(int page, int itemsPerPage = 12, bool publicOnly = true);
+        IEnumerable<T> GetAllA<T>(int page, 
+                                  int itemsPerPage = 12, 
+                                  bool publicOnly = true);
 
         int GetCount();
 
         T GetById<T>(int id);
         int GetLastKitchenIdByUserId(string userId);
 
-        Task UpdateAsync(int id, EditKitchenInputModel input, bool isPublic);
+        Task UpdateAsync(int id, 
+                         EditKitchenInputModel input, 
+                         bool isPublic);
 
         Task DeleteAsync(int id);
 
         void AddKitchenToUserCollection(int kitchenId, string userId);
 
-        IEnumerable<T> GetAllInCollectionByUserId<T>(string userId, int page, int itemsPerPage = 12);
+        IEnumerable<T> GetAllInCollectionByUserId<T>(string userId, 
+                                                     int page, 
+                                                     int itemsPerPage = 12);
 
         int GetCollectionCountByUserId(string userId);
 
-        void RemoveKitchenToUserCollection(int kitchenId, string userId);
+        void RemoveKitchenToUserCollection(int kitchenId, 
+                                           string userId);
 
         bool IsByUser(int kitchenId, string userId);
 
@@ -50,7 +69,9 @@
 
         IEnumerable<T> GetRandom<T>(int count);
 
-        IEnumerable<T> GetAllManufacturerName<T>(int page, string manufacturerName, int itemsPerPage = 12);
+        IEnumerable<T> GetAllManufacturerName<T>(int page, 
+                                                 string manufacturerName, 
+                                                 int itemsPerPage = 12);
     }
 }
 

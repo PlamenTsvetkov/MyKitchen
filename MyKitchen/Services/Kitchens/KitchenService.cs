@@ -2,10 +2,11 @@
 {
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using System.Collections.Generic;
+
     using MyKitchen.Data;
     using MyKitchen.Data.Models;
     using MyKitchen.Models.Kitchens;
-    using System.Collections.Generic;
 
     public class KitchenService : IKitchenService
     {
@@ -14,7 +15,7 @@
         private readonly IMapper mapper;
 
         public KitchenService(MyKitchenDbContext db,
-            IMapper mapper)
+                              IMapper mapper)
         {
             this.db = db;
             this.mapper = mapper;
@@ -39,7 +40,7 @@
                 МanufacturerId = input.МanufacturerId,
                 KitchenMeter = input.KitchenMeter,
                 IsPublic = false,
-                IsDeleted=false,
+                IsDeleted = false,
             };
 
             foreach (var color in input.ColorsId)
@@ -84,24 +85,26 @@
             bool publicOnly = true)
         {
             var kitchens = this.db.Kitchens
-                .Where(k => k.IsPublic && k.IsDeleted == false)
-               .OrderByDescending(k => k.Id)
-               .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
-               .ProjectTo<T>(this.mapper.ConfigurationProvider)
-               .ToList();
+                               .Where(k => k.IsPublic && k.IsDeleted == false)
+                               .OrderByDescending(k => k.Id)
+                               .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                               .ProjectTo<T>(this.mapper.ConfigurationProvider)
+                               .ToList();
             return kitchens;
         }
+
         public int GetCountAdmin()
         {
             return this.db.Kitchens.Count();
         }
+
         public IEnumerable<T> GetAllA<T>(int page, int itemsPerPage = 12, bool publicOnly = true)
         {
             var kitchens = this.db.Kitchens
-               .OrderByDescending(x => x.Id)
-               .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
-               .ProjectTo<T>(this.mapper.ConfigurationProvider)
-               .ToList();
+                                .OrderByDescending(x => x.Id)
+                                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                                .ProjectTo<T>(this.mapper.ConfigurationProvider)
+                                .ToList();
             return kitchens;
         }
 
@@ -110,6 +113,7 @@
             var query = this.db.Kitchens
                 .OrderByDescending(x => x.CreatedOn)
                 .Where(k => k.CategoryId == categoryId && k.IsDeleted == false && k.IsPublic).Skip(skip);
+
             if (take.HasValue)
             {
                 query = query.Take(take.Value);
@@ -123,9 +127,9 @@
         public T GetById<T>(int id)
         {
             var kitchen = this.db.Kitchens
-                .Where(x => x.Id == id)
-               .ProjectTo<T>(this.mapper.ConfigurationProvider)
-               .FirstOrDefault();
+                                .Where(x => x.Id == id)
+                                .ProjectTo<T>(this.mapper.ConfigurationProvider)
+                                .FirstOrDefault();
 
             return kitchen;
         }
@@ -137,11 +141,11 @@
         public IEnumerable<T> GetAllByManufacturerId<T>(int manufacturerId, int page, int itemsPerPage = 12)
         {
             var kitchens = this.db.Kitchens
-              .OrderByDescending(x => x.Id)
-              .Where(k => k.МanufacturerId == manufacturerId && k.IsDeleted == false && k.IsPublic)
-              .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
-              .ProjectTo<T>(this.mapper.ConfigurationProvider)
-              .ToList();
+                           .OrderByDescending(x => x.Id)
+                           .Where(k => k.МanufacturerId == manufacturerId && k.IsDeleted == false && k.IsPublic)
+                           .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                           .ProjectTo<T>(this.mapper.ConfigurationProvider)
+                           .ToList();
             return kitchens;
         }
 
@@ -152,11 +156,12 @@
         public IEnumerable<T> GetAllByCategoryId<T>(int categoryId, int page, int itemsPerPage = 12)
         {
             var kitchens = this.db.Kitchens
-             .OrderByDescending(x => x.Id)
-             .Where(k => k.CategoryId == categoryId && k.IsDeleted == false && k.IsPublic)
-             .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
-             .ProjectTo<T>(this.mapper.ConfigurationProvider)
-             .ToList();
+                             .OrderByDescending(x => x.Id)
+                             .Where(k => k.CategoryId == categoryId && k.IsDeleted == false && k.IsPublic)
+                             .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                             .ProjectTo<T>(this.mapper.ConfigurationProvider)
+                             .ToList();
+
             return kitchens;
         }
 
@@ -198,11 +203,12 @@
         public IEnumerable<T> GetAllByUserId<T>(string userId, int page, int itemsPerPage = 12)
         {
             var kitchens = this.db.Kitchens
-             .OrderByDescending(x => x.Id)
-             .Where(k => k.UserId == userId && k.IsDeleted == false)
-             .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
-             .ProjectTo<T>(this.mapper.ConfigurationProvider)
-             .ToList();
+                             .OrderByDescending(x => x.Id)
+                             .Where(k => k.UserId == userId && k.IsDeleted == false)
+                             .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                             .ProjectTo<T>(this.mapper.ConfigurationProvider)
+                             .ToList();
+                    
             return kitchens;
         }
 
@@ -229,12 +235,13 @@
         public IEnumerable<T> GetAllInCollectionByUserId<T>(string userId, int page, int itemsPerPage = 12)
         {
             var kitchens = this.db.Kitchens
-             .SelectMany(k => k.KitchensUsers)
-             .Where(k => k.UserId == userId)
-             .Select(k => k.Kitchen)
-             .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
-             .ProjectTo<T>(this.mapper.ConfigurationProvider)
-             .ToList();
+                            .SelectMany(k => k.KitchensUsers)
+                            .Where(k => k.UserId == userId)
+                            .Select(k => k.Kitchen)
+                            .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                            .ProjectTo<T>(this.mapper.ConfigurationProvider)
+                            .ToList();
+
             return kitchens;
         }
 
@@ -248,8 +255,9 @@
             var kitchenUser = this.db
                  .KitchensUsers
                  .Where(up => up.UserId == userId &&
-                            up.KitchenId == kitchenId)
+                        up.KitchenId == kitchenId)
                  .FirstOrDefault();
+
             if (kitchenUser == null)
             {
                 return;
@@ -284,26 +292,22 @@
         public IEnumerable<T> GetRandom<T>(int count)
         {
             return this.db.Kitchens
-                .Where(k=>k.IsPublic)
-               .OrderBy(x => Guid.NewGuid())
-               .Take(count)
-               .ProjectTo<T>(this.mapper.ConfigurationProvider)
-               .ToList();
+                        .Where(k => k.IsPublic)
+                        .OrderBy(x => Guid.NewGuid())
+                        .Take(count)
+                        .ProjectTo<T>(this.mapper.ConfigurationProvider)
+                        .ToList();
         }
 
-        public IEnumerable<T> GetAllWithPagingByManufacturerName<T>(int page, int itemsPerPage = 12, string manufacturerName = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<T> GetAllManufacturerName<T>(int page, string manufacturerName , int itemsPerPage = 12 )
+        public IEnumerable<T> GetAllManufacturerName<T>(int page, string manufacturerName, int itemsPerPage = 12)
         {
             var kitchens = this.db.Kitchens
-                .Where(k=>k.Мanufacturer.Name== manufacturerName)
-               .OrderByDescending(x => x.Id)
-               .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
-               .ProjectTo<T>(this.mapper.ConfigurationProvider)
-               .ToList();
+                            .Where(k => k.Мanufacturer.Name == manufacturerName)
+                            .OrderByDescending(x => x.Id)
+                            .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                            .ProjectTo<T>(this.mapper.ConfigurationProvider)
+                            .ToList();
+
             return kitchens;
         }
     }

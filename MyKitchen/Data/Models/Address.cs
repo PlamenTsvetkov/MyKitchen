@@ -14,6 +14,7 @@
         public virtual City City { get; set; }
 
         public string AddedByUserId { get; set; }
+
         public virtual ApplicationUser AddedByUser { get; set; }
 
         public string Name { get; set; }

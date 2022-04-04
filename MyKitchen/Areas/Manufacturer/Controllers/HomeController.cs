@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+
     using MyKitchen.Data.Models;
     using MyKitchen.Models.Home;
     using MyKitchen.Services.Manufacturers;
@@ -30,6 +31,7 @@
                 PublicKitchensNumber = manufacturersService.GetPublicKitchenCountByName(currentUser.Name),
                 NotPublicKitchensNumber = manufacturersService.GetNotPublicKitchenCountByName(currentUser.Name)
             };
+
             return this.View(viewModel);
         }
     }

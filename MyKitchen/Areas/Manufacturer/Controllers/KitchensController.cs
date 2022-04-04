@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+
     using MyKitchen.Data.Models;
     using MyKitchen.Models.Kitchens;
     using MyKitchen.Services.Kitchens;
@@ -16,9 +17,9 @@
         private readonly IKitchenService kitchenService;
 
         public KitchensController(IManufacturersService manufacturersService,
-                              IUsersService usersService,
-                              UserManager<ApplicationUser> userManager, 
-                              IKitchenService kitchenService)
+                                  IUsersService usersService,
+                                  UserManager<ApplicationUser> userManager, 
+                                  IKitchenService kitchenService)
         {
             this.manufacturersService = manufacturersService;
             this.usersService = usersService;

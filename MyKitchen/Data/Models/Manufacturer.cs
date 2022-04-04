@@ -9,6 +9,7 @@
         {
             this.Kitchens = new HashSet<Kitchen>();
         }
+
         public int Id { get; init; }
 
         [Required]
@@ -18,11 +19,13 @@
         public virtual ICollection<Kitchen> Kitchens { get; init; }
 
         public int AddressId { get; set; }
+
         public Address Address { get; set; }
 
         public string Email { get; set; }
 
         public string Website { get; set; }
+
 
         [MaxLength(PhoneNumberMaxLength)]
         public string PhoneNumber { get; set; }

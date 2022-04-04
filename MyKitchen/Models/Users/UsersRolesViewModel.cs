@@ -1,7 +1,5 @@
 ﻿namespace MyKitchen.Models.Users
 {
-    using MyKitchen.Models.Roles;
-
     public class UsersRolesViewModel
     {
         public string UserId { get; set; }

@@ -1,6 +1,7 @@
 ﻿namespace MyKitchen.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+
     using MyKitchen.Models.Manufacturers;
     using MyKitchen.Services.Manufacturers;
 
@@ -12,6 +13,7 @@
         {
             this.manufacturersService = manufacturersService;
         }
+
         public IActionResult All(int id = 1)
         {
 

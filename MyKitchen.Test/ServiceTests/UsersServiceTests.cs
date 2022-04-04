@@ -1,15 +1,12 @@
 ﻿namespace MyKitchen.Test.ServiceTests
 {
-    using Microsoft.EntityFrameworkCore;
     using Moq;
     using MyKitchen.Data.Models;
+    using System.Linq;
+    using Xunit;
     using MyKitchen.Models.Users;
     using MyKitchen.Services.Users;
     using MyKitchen.Test.Mocks;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Xunit;
 
     public class UsersServiceTests
     {

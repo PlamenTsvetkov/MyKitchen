@@ -2,9 +2,10 @@
 {
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using System.Threading.Tasks;
+
     using MyKitchen.Data;
     using MyKitchen.Data.Models;
-    using System.Threading.Tasks;
 
     public class CategoriesService : ICategoriesService
     {

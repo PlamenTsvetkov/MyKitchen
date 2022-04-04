@@ -1,16 +1,16 @@
 ﻿namespace MyKitchen.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+
     using MyKitchen.Models.Kitchens;
     using MyKitchen.Services.Kitchens;
 
     public class KitchensController : AdminController
     {
-
-
         private readonly IKitchenService kitchenService;
 
-        public KitchensController(IKitchenService kitchenService) => this.kitchenService = kitchenService;
+        public KitchensController(IKitchenService kitchenService) 
+            => this.kitchenService = kitchenService;
 
         public IActionResult All(int id = 1)
         {

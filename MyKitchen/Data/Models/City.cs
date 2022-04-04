@@ -9,6 +9,7 @@
             this.Addresses = new HashSet<Address>();
         }
         public int Id { get; init; }
+
         [Required]
         [MaxLength(NameMaxLength)]
         public string Name { get; set; }

@@ -21,13 +21,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<MyKitchenDbContext>(options =>
-    options.UseSqlServer(connectionString));
+                           options.UseSqlServer(connectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
-
     options.Password.RequireDigit = false;
     options.Password.RequireLowercase = false;
     options.Password.RequireNonAlphanumeric = false;
@@ -47,7 +48,6 @@ builder.Services.AddAntiforgery(option=>
     option.HeaderName = "X-CSRF-TOKEN";
 });
 
-
 builder.Services.AddTransient<ICategoriesService, CategoriesService>();
 builder.Services.AddTransient<IKitchenService, KitchenService>();
 builder.Services.AddTransient<IManufacturersService, ManufacturersService>();
@@ -63,7 +63,6 @@ builder.Services.AddTransient<IRolesService, RolesService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddMemoryCache();
-
 
 var app = builder.Build();
 
@@ -86,24 +85,23 @@ app.UseHttpsRedirection()
     .UseAuthentication()
     .UseAuthorization();
 
+app.MapControllerRoute(
+   name: "Areas",
+   pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
-              name: "Areas",
-              pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-app.MapControllerRoute(
-                        name: "Kitchen Details",
-                        pattern: "/Kitchens/Details/{id}/{information}",
-                        defaults: new
-                        {
-                            controller = typeof(KitchensController).GetControllerName(),
-                            action = nameof(KitchensController.Details)
-                        });
+   name: "Kitchen Details",
+   pattern: "/Kitchens/Details/{id}/{information}",
+   defaults: new
+   {
+       controller = typeof(KitchensController).GetControllerName(),
+       action = nameof(KitchensController.Details)
+   });
 
 app.MapControllerRoute(
     "manufacturerKitchens",
-     "{controller}/{action}/{manufacturerId}/{pageId}",
-      new { controller = "Manufacturer", action = "AllKitchen", manufacturerId = "", pageId = "" });
+    "{controller}/{action}/{manufacturerId}/{pageId}",
+    new { controller = "Manufacturer", action = "AllKitchen", manufacturerId = "", pageId = "" });
 
 app.MapControllerRoute(
     "kitchenCategory",

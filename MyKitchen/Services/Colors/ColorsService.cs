@@ -2,6 +2,7 @@
 {
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+
     using MyKitchen.Data;
     using MyKitchen.Data.Models;
 
@@ -10,10 +11,8 @@
         private readonly MyKitchenDbContext db;
         private readonly IMapper mapper;
 
-        public ColorsService(
-            MyKitchenDbContext db,
-            IMapper mapper
-            )
+        public ColorsService(MyKitchenDbContext db,
+                             IMapper mapper)
         {
             this.db = db;
             this.mapper = mapper;
@@ -27,7 +26,6 @@
             {
                 return;
             }
-
 
             color = new Color { Name = name };
             this.db.Colors.Add(color);

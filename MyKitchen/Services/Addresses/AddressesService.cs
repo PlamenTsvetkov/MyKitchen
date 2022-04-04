@@ -1,22 +1,17 @@
 ﻿namespace MyKitchen.Services.Addresses
 {
-    using AutoMapper;
     using MyKitchen.Data;
     using MyKitchen.Data.Models;
 
     public class AddressesService : IAddressesService
     {
         private readonly MyKitchenDbContext db;
-        private readonly IMapper mapper;
 
-        public AddressesService(
-            MyKitchenDbContext db,
-            IMapper mapper
-            )
+        public AddressesService(MyKitchenDbContext db)
         {
             this.db = db;
-            this.mapper = mapper;
         }
+
         public Address Create(string name, string number, int cityId, string userId)
         {
             var addressDate = this

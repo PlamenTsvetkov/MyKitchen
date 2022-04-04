@@ -1,9 +1,9 @@
 ﻿namespace MyKitchen.Services.Roles
 {
+    using System.Collections.Generic;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Microsoft.AspNetCore.Identity;
-    using System.Collections.Generic;
 
     public class RolesService : IRolesService
     {

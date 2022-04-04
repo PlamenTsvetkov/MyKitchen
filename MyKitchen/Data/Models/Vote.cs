@@ -3,6 +3,7 @@
     public class Vote
     {
         public int Id { get; set; }
+
         public int KitchenId { get; set; }
 
         public virtual Kitchen Kitchen { get; set; }

@@ -1,13 +1,11 @@
 ﻿namespace MyKitchen.Test.ServiceTests
 {
-    using Microsoft.EntityFrameworkCore;
-    using MyKitchen.Data;
+    using System.Linq;
+    using Xunit;
+
     using MyKitchen.Services.Colors;
     using MyKitchen.Services.Colors.Models;
     using MyKitchen.Test.Mocks;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Xunit;
 
     public class ColorsServiceTests
     {

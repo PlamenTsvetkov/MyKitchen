@@ -1,8 +1,9 @@
 ﻿namespace MyKitchen.Test.Mocks
 {
-    using Microsoft.EntityFrameworkCore;
-    using MyKitchen.Data;
     using System;
+    using Microsoft.EntityFrameworkCore;
+
+    using MyKitchen.Data;
 
     public static class DatabaseMock
     {

@@ -1,6 +1,5 @@
 ﻿@model ManufacturersListViewModel
 
-
 @{
     ViewBag.Title = "All Manufacturer";
 }
@@ -8,7 +7,6 @@
 {
     <div class="alert alert-success">@this.TempData["Message"]</div>
 }
-
 
 <h1 class="heading-margin text-center">@ViewBag.Title</h1>
 
@@ -22,7 +20,7 @@
             <th scope="col">Email</th>
             <th scope="col">Website</th>
             <th scope="col">PhoneNumber</th>
-            <th scope="col" >Deleted</th>
+            <th scope="col">Deleted</th>
             <th scope="col">Approved</th>
             <th scope="col"></th>
         </tr>
@@ -30,24 +28,24 @@
     <tbody>
         @foreach (var manufacturer in Model.Manufacturers)
         {
-        <tr>
-            <td scope="col">@manufacturer.Id</td>
-            <td scope="col">@manufacturer.Name</td>
-            <td scope="col">@manufacturer.KitchensCount</td>
-            <td scope="col">@manufacturer.AddressName @manufacturer.AddressNumber</td>
-            <td scope="col">@manufacturer.Email</td>
-            <td scope="col">@manufacturer.Website</td>
-            <td scope="col">@manufacturer.PhoneNumber</td>
-              <td scope="col">@(manufacturer.IsDeleted ? "Yes" : "No")</td>
-            <td scope="col">@(manufacturer.IsPublic ? "Yes" : "No")</td>
-            <td scope="col">
-                <a asp-area="" asp-controller="Manufacturers" asp-action="Edit" asp-route-id="@manufacturer.Id" class="btn btn-block btn-outline-success btn-xs">Edit</a>
-                <a asp-area="Admin" asp-controller="Manufacturers" asp-action="ChangeVisibility" asp-route-id="@manufacturer.Id" class="btn btn-block btn-outline-primary btn-xs mb-2">@(manufacturer.IsPublic ? "Hide" : "Show")</a>
-                  <form method="post" asp-area="" asp-controller="Manufacturers" asp-action="Delete" asp-route-id="@manufacturer.Id">
-                      <a class="btn btn-block btn-outline-danger btn-xs">Delete</a>
+            <tr>
+                <td scope="col">@manufacturer.Id</td>
+                <td scope="col">@manufacturer.Name</td>
+                <td scope="col">@manufacturer.KitchensCount</td>
+                <td scope="col">@manufacturer.AddressName @manufacturer.AddressNumber</td>
+                <td scope="col">@manufacturer.Email</td>
+                <td scope="col">@manufacturer.Website</td>
+                <td scope="col">@manufacturer.PhoneNumber</td>
+                <td scope="col">@(manufacturer.IsDeleted ? "Yes" : "No")</td>
+                <td scope="col">@(manufacturer.IsPublic ? "Yes" : "No")</td>
+                <td scope="col">
+                    <a asp-area="" asp-controller="Manufacturers" asp-action="Edit" asp-route-id="@manufacturer.Id" class="btn btn-block btn-outline-success btn-xs">Edit</a>
+                    <a asp-area="Admin" asp-controller="Manufacturers" asp-action="ChangeVisibility" asp-route-id="@manufacturer.Id" class="btn btn-block btn-outline-primary btn-xs mb-2">@(manufacturer.IsPublic ? "Hide" : "Show")</a>
+                    <form method="post" asp-area="" asp-controller="Manufacturers" asp-action="Delete" asp-route-id="@manufacturer.Id">
+                        <a class="btn btn-block btn-outline-danger btn-xs">Delete</a>
                     </form>
-            </td>
-        </tr>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

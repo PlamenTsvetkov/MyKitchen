@@ -8,6 +8,7 @@
         {
             this.Id = Guid.NewGuid().ToString();
         }
+
         [Required]
         public string Id { get; init; }
 

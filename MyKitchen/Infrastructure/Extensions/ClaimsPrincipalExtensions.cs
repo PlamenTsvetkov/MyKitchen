@@ -4,6 +4,7 @@
 
     using static Areas.Admin.AdminConstants;
     using static Areas.Manufacturer.ManufacturerConstants;
+
     public static class ClaimsPrincipalExtensions
     {
         public static string Id(this ClaimsPrincipal user)

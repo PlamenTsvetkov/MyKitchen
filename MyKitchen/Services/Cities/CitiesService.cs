@@ -2,18 +2,18 @@
 {
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using System.Collections.Generic;
+
     using MyKitchen.Data;
     using MyKitchen.Data.Models;
-    using System.Collections.Generic;
 
     public class CitiesService : ICitiesService
     {
         private readonly MyKitchenDbContext db;
         private readonly IMapper mapper;
 
-        public CitiesService(
-            MyKitchenDbContext db,
-            IMapper mapper)
+        public CitiesService(MyKitchenDbContext db,
+                             IMapper mapper)
         {
             this.db = db;
             this.mapper = mapper;
@@ -21,7 +21,7 @@
 
         public void Create(string name, int countryId)
         {
-            var city = this.db.Cities.FirstOrDefault(x => x.Name == name && x.CountryId==countryId);
+            var city = this.db.Cities.FirstOrDefault(x => x.Name == name && x.CountryId == countryId);
 
             if (city != null)
             {

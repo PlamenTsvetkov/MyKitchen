@@ -16,7 +16,7 @@
             //Arrange
             var db = DatabaseMock.Instance;
 
-            var serviceAddresses = new AddressesService(db, null);
+            var serviceAddresses = new AddressesService(db);
 
             var service = new ManufacturersService(db, null,serviceAddresses);
 
@@ -36,7 +36,7 @@
             //Arrange
             var db = DatabaseMock.Instance;
 
-            var serviceAddresses = new AddressesService(db, null);
+            var serviceAddresses = new AddressesService(db);
 
             var service = new ManufacturersService(db, null, serviceAddresses);
 
@@ -56,7 +56,7 @@
             //Arrange
             var db = DatabaseMock.Instance;
 
-            var serviceAddresses = new AddressesService(db, null);
+            var serviceAddresses = new AddressesService(db);
 
             var service = new ManufacturersService(db, null, serviceAddresses);
 
@@ -81,7 +81,7 @@
             //Arrange
             var db = DatabaseMock.Instance;
 
-            var serviceAddresses = new AddressesService(db, null);
+            var serviceAddresses = new AddressesService(db);
 
             var service = new ManufacturersService(db, null, serviceAddresses);
 
@@ -112,7 +112,7 @@
 
             var mapper = AutoMapperMock.Instance;
 
-            var serviceAddresses = new AddressesService(db, mapper);
+            var serviceAddresses = new AddressesService(db);
 
             var service = new ManufacturersService(db, mapper, serviceAddresses);
 
@@ -139,7 +139,7 @@
 
             var mapper = AutoMapperMock.Instance;
 
-            var serviceAddresses = new AddressesService(db, mapper);
+            var serviceAddresses = new AddressesService(db);
 
             var service = new ManufacturersService(db, mapper, serviceAddresses);
 
@@ -166,7 +166,7 @@
 
             var mapper = AutoMapperMock.Instance;
 
-            var serviceAddresses = new AddressesService(db, mapper);
+            var serviceAddresses = new AddressesService(db);
 
             var service = new ManufacturersService(db, mapper, serviceAddresses);
 
@@ -191,7 +191,7 @@
             //Arrange
             var db = DatabaseMock.Instance;
 
-            var serviceAddresses = new AddressesService(db, null);
+            var serviceAddresses = new AddressesService(db);
 
             var service = new ManufacturersService(db, null, serviceAddresses);
 

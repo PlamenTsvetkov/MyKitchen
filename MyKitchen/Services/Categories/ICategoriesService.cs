@@ -8,14 +8,17 @@
 
         T GetByName<T>(string name);
 
-         T GetById<T>(int id);
+        T GetById<T>(int id);
 
         bool CategoryExists(int categoryId);
 
         IEnumerable<T> GetAllWithPaging<T>(int page, int itemsPerPage = 12);
+
         int GetCount();
 
-        void Create(string name, string description, string imageUrl);
+        void Create(string name, 
+                    string description, 
+                    string imageUrl);
 
         Task UpdateAsync(int id,
                          string name,

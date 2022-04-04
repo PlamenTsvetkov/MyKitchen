@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
+
     using MyKitchen.Infrastructure.Extensions;
     using MyKitchen.Models.Home;
     using MyKitchen.Models.Kitchens;
@@ -37,6 +38,7 @@
             {
                 return RedirectToAction("Index", "Home", new { area = "Manufacturer" });
             }
+
             var indexViewModel = this.cache.Get<IndexViewModel>(IndexViewCasheKey);
 
             if (indexViewModel == null)
@@ -53,11 +55,8 @@
                 this.cache.Set(IndexViewCasheKey, indexViewModel, cacheOptions);
             }
 
-
-
             return this.View(indexViewModel);
         }
-
 
         public IActionResult Error() => View();
     }

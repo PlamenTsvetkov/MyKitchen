@@ -1,7 +1,8 @@
 ﻿namespace MyKitchen.Models.Countries
 {
-    using MyKitchen.Models.Cityes;
     using System.ComponentModel.DataAnnotations;
+
+    using MyKitchen.Models.Cityes;
 
     using static Data.DataConstants.Manufacturer;
     public class ManufacturerFormModel

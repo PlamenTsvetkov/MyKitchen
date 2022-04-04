@@ -12,7 +12,10 @@
             this.db = db;
         }
 
-        public async Task Create(int kitchenId, string userId, string content, int? parentId = null)
+        public async Task Create(int kitchenId, 
+                                 string userId, 
+                                 string content, 
+                                 int? parentId = null)
         {
             var comment = new Comment
             {
@@ -32,8 +35,10 @@
 
         public bool IsInPostId(int commentId, int kitchenId)
         {
-            var commentKitchenId = this.db.Comments.Where(x => x.Id == commentId)
-                .Select(x => x.KitchenId).FirstOrDefault();
+            var commentKitchenId = this.db
+                                .Comments.Where(x => x.Id == commentId)
+                                .Select(x => x.KitchenId).FirstOrDefault();
+
             return commentKitchenId == kitchenId;
         }
     }

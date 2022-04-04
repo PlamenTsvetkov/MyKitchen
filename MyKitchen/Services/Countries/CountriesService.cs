@@ -2,19 +2,18 @@
 {
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using System.Collections.Generic;
+
     using MyKitchen.Data;
     using MyKitchen.Data.Models;
-    using System.Collections.Generic;
 
     public class CountriesService : ICountriesService
     {
         private readonly MyKitchenDbContext db;
         private readonly IMapper mapper;
 
-        public CountriesService(
-            MyKitchenDbContext db,
-            IMapper mapper
-            )
+        public CountriesService(MyKitchenDbContext db,
+                                IMapper mapper)
         {
             this.db = db;
             this.mapper = mapper;

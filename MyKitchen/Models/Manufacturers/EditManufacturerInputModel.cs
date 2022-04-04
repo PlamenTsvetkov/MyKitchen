@@ -1,13 +1,15 @@
 ﻿namespace MyKitchen.Models.Manufacturers
 {
+    using System.ComponentModel.DataAnnotations;
+
     using MyKitchen.Models.Cityes;
     using MyKitchen.Models.Countries;
-    using System.ComponentModel.DataAnnotations;
 
     using static Data.DataConstants.Manufacturer;
     public class EditManufacturerInputModel
     {
         public int Id { get; set; }
+
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = "Manufacturer {0} must be between {2} and {1} characters long")]
         public string Name { get; set; }
