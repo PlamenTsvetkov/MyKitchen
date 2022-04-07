@@ -39,8 +39,8 @@
                 <td scope="col">@(manufacturer.IsDeleted ? "Yes" : "No")</td>
                 <td scope="col">@(manufacturer.IsPublic ? "Yes" : "No")</td>
                 <td scope="col">
-                    <a asp-area="" asp-controller="Manufacturers" asp-action="Edit" asp-route-id="@manufacturer.Id" class="btn btn-block btn-outline-success btn-xs">Edit</a>
-                    <a asp-area="Admin" asp-controller="Manufacturers" asp-action="ChangeVisibility" asp-route-id="@manufacturer.Id" class="btn btn-block btn-outline-primary btn-xs mb-2">@(manufacturer.IsPublic ? "Hide" : "Show")</a>
+                    <a asp-area="" asp-controller="Manufacturers" asp-action="Edit" asp-route-id="@manufacturer.Id" class="btn btn-block btn-outline-success btn-xs"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                    <a asp-area="Admin" asp-controller="Manufacturers" asp-action="ChangeVisibility" asp-route-id="@manufacturer.Id" class="btn btn-block btn-outline-primary btn-xs mb-2"><i class="fa-solid fa-eye"></i> @(manufacturer.IsPublic ?  "Hide" : "Show")</a>
                     <form method="post" asp-area="" asp-controller="Manufacturers" asp-action="Delete" asp-route-id="@manufacturer.Id">
                         <a class="btn btn-block btn-outline-danger btn-xs">Delete</a>
                     </form>

@@ -14,32 +14,51 @@
 <div class="row">
     @foreach (var manufacturer in Model.Manufacturers)
     {
-        <div class="col-md-4">
-            <div class="card mb-3" style="width: 25rem; height:20rem">
-                <div class="card-body text-center">
-                    <h5 class="card-title text-center">Name: @manufacturer.Name </h5>
-                    <h5 class="card-title text-center"><i class="fa-solid fa-desktop"></i> Website: @(manufacturer.Website==null ? "None" : manufacturer.Website)</h5>
-                    <h5 class="card-title text-center"><i class="fa-solid fa-envelope"></i> Email: @(manufacturer.Email==null ? "None" : manufacturer.Email)</h5>
-                    <h5 class="card-title text-center"><i class="fa-solid fa-phone"></i> Phone Number: @(manufacturer.PhoneNumber==null ? "None" : manufacturer.PhoneNumber)</h5>
-                    <h6 class="card-title text-center"><i class="fa-solid fa-map-location-dot"></i> Address: @manufacturer.AddressCityCountryName,  @manufacturer.AddressCityName@(manufacturer.AddressName==null ? string.Empty : $", {manufacturer.AddressName}") @(manufacturer.AddressNumber==null ? string.Empty : $", {manufacturer.AddressNumber}")</h6>
-
-                    <a asp-controller="Manufacturers" asp-action="AllKitchens" asp-route-manufacturerId="@manufacturer.Id" asp-route-pageId=1 class="btn btn-primary mb-2">See all kitchens: @manufacturer.KitchensCount</a>
-
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        @if (User.Id() == manufacturer.AddedByUserId || User.IsAdmin())
+        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column mb-2">
+            <div class="card bg-light d-flex flex-fill">
+                <div class="card-header text-muted border-bottom-0 text-center">
+                    Manufacturer
+                     
+                </div>
+                <div class="card-body pt-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="lead text-center"><b>@manufacturer.Name</b></h2>
+                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                <li class="small"><span class="fa-li"><i class="fa-solid fa-desktop"></i></span> Website : @(manufacturer.Website==null ? "None" : manufacturer.Website)</li>
+                                <li class="small"><span class="fa-li"><i class="fa-solid fa-envelope"></i></span> Email : @(manufacturer.Email==null ? "None" : manufacturer.Email)</li>
+                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: @manufacturer.AddressCityCountryName,  @manufacturer.AddressCityName@(manufacturer.AddressName==null ? string.Empty : $", {manufacturer.AddressName}") @(manufacturer.AddressNumber==null ? string.Empty : $", {manufacturer.AddressNumber}")</li>
+                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone : + @(manufacturer.PhoneNumber==null ? "None" : manufacturer.PhoneNumber)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="container">
+                        
+                        <a asp-controller="Manufacturers" asp-action="AllKitchens" asp-route-manufacturerId="@manufacturer.Id" asp-route-pageId=1 class="btn btn-primary mb-2">
+                            <img src="/images/logo/kitchen.svg" text-white width="30" height="30" /> See all kitchens: @manufacturer.KitchensCount
+                        </a>
+                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a asp-controller="Manufacturers" asp-action="Edit" asp-route-id="@manufacturer.Id" class="btn btn-warning mb-2">Edit</a>
+                            @if (User.Id() == manufacturer.AddedByUserId || User.IsAdmin())
+                            {
+                               <a asp-controller="Manufacturers" asp-action="Edit" asp-route-id="@manufacturer.Id" class="btn btn-warning mb-2"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
 
-                            <form method="post"  asp-controller="Manufacturers" asp-action="Delete" asp-route-id="@manufacturer.Id">
-                                <button class="btn btn-danger">Delete</button>
-                            </form>
-                            
+                                
+                                    <form method="post" asp-controller="Manufacturers" asp-action="Delete" asp-route-id="@manufacturer.Id" class="text-center">
+                                        <button class="btn btn-danger text-center"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                                    </form>
+
+                            }
+
                         }
-                    }
+                    </div>
+                    
                 </div>
             </div>
         </div>
+
     }
 </div>
 <hr />

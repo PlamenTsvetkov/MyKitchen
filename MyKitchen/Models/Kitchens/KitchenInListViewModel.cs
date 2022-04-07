@@ -23,6 +23,7 @@
         public string Description { get; set; }
 
         public string МanufacturerName { get; set; }
+        public string МanufacturerId { get; set; }
 
         public double AverageVote { get; set; }
 

@@ -156,7 +156,9 @@
                 return this.NotFound();
             }
 
-            var viewModel = new KitchensListViewModel
+            ViewBag.ManufacturerName = manufacturersService.GetById<ManufacturerInListViewModel>(manufacturerId).Name;
+
+        var viewModel = new KitchensListViewModel
             {
                 ItemsPerPage = manufacturerPerPage,
                 PageNumber = id,

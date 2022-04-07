@@ -1,16 +1,22 @@
 ﻿@model CategoryViewModel
 @{
-    this.ViewData["Title"] = Model.Name;
+    ViewBag.Title = Model.Name;
 }
 
-<h1 class="text-center mt-2">@Model.Name</h1>
+@*<h1 class="text-center mt-2">@Model.Name</h1>
 <div style="text-align: center;">
     <img src="@Model.ImageUrl" width="100" class="mr-3" alt="@Model.Name">
 </div>
 <div class="alert alert-info">
     @Model.Description
+</div>*@
+<div style="background:transparent !important" class="jumbotron">
+    <h1 class="display-4 text-center"><img src="@Model.ImageUrl" width="100" class="mr-3" alt="@Model.Name"> @ViewBag.Title</h1>
+    <p class="lead text-center"> @Model.Description</p>
+    <hr class="my-4">
+    <p>Add your own kitchen so that our users can get ideas from you.</p>
+    <a asp-area="" asp-controller="Kitchens" asp-action="Add" class="btn btn-primary btn-lg"  role="button"><i class="fas fa-plus"></i> Add kitchen</a>
 </div>
-
 
 <partial name="_KitchensPartial" model="@Model.Kitchens" />
 

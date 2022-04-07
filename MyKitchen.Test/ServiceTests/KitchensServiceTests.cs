@@ -1,16 +1,18 @@
 ﻿namespace MyKitchen.Test.ServiceTests
 {
-    using Microsoft.AspNetCore.Http;
-    using Moq;
-    using MyKitchen.Models.Kitchens;
-    using MyKitchen.Services.Addresses;
-    using MyKitchen.Services.Kitchens;
-    using MyKitchen.Services.Manufacturers;
-    using MyKitchen.Test.Mocks;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
+
+    using Moq;
     using Xunit;
+
+    using MyKitchen.Test.Mocks;
+    using Microsoft.AspNetCore.Http;
+    using MyKitchen.Models.Kitchens;
+    using MyKitchen.Services.Kitchens;
+    using MyKitchen.Services.Addresses;
+    using MyKitchen.Services.Manufacturers;
     public class KitchensServiceTests
     {
         [Fact]
@@ -25,18 +27,7 @@
             fileMock.Setup(_ => _.FileName).Returns(fileName);
             var service = new KitchenService(db, mapper);
 
-            var kitchen = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
-
-            await service.AddAsync(kitchen, "1", "Kitchen");
+           AddOneKitchen(service, file);
 
             //Act
             var kitchensCount = db.Kitchens.Count();
@@ -57,18 +48,7 @@
             fileMock.Setup(_ => _.FileName).Returns(fileName);
             var service = new KitchenService(db, mapper);
 
-            var kitchen = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
-
-            await service.AddAsync(kitchen, "1", "Kitchen");
+            AddOneKitchen(service, file);
 
             service.ChangeVisility(1);
 
@@ -91,31 +71,7 @@
             var fileName = "test.png";
             fileMock.Setup(_ => _.FileName).Returns(fileName);
 
-
-            var kitchen = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-
-            };
-            var kitchen2 = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
-
-            await service.AddAsync(kitchen, "1", "Kitchen");
-            await service.AddAsync(kitchen2, "1", "Kitchen2");
+            AddTwoKitchen(service, file);
 
             service.ChangeVisility(1);
 
@@ -139,30 +95,7 @@
             fileMock.Setup(_ => _.FileName).Returns(fileName);
 
 
-            var kitchen = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-
-            };
-            var kitchen2 = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
-
-            await service.AddAsync(kitchen, "1", "Kitchen");
-            await service.AddAsync(kitchen2, "1", "Kitchen2");
+            AddTwoKitchen(service, file);
 
             service.ChangeVisility(1);
 
@@ -185,31 +118,7 @@
             var fileName = "test.png";
             fileMock.Setup(_ => _.FileName).Returns(fileName);
 
-
-            var kitchen = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-
-            };
-            var kitchen2 = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
-
-            await service.AddAsync(kitchen, "1", "Kitchen");
-            await service.AddAsync(kitchen2, "1", "Kitchen2");
+            AddTwoKitchen(service, file);
 
             service.ChangeVisility(1);
 
@@ -233,30 +142,7 @@
             fileMock.Setup(_ => _.FileName).Returns(fileName);
 
 
-            var kitchen = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-
-            };
-            var kitchen2 = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
-
-            await service.AddAsync(kitchen, "1", "Kitchen");
-            await service.AddAsync(kitchen2, "1", "Kitchen2");
+            AddTwoKitchen(service, file);
 
             service.ChangeVisility(1);
 
@@ -264,7 +150,7 @@
             var kitchensCount = service.GetCountByUserId("1");
 
             //Assert
-            Assert.Equal(2, kitchensCount);
+            Assert.Equal(1, kitchensCount);
         }
 
         [Fact]
@@ -279,21 +165,7 @@
             var fileName = "test.png";
             fileMock.Setup(_ => _.FileName).Returns(fileName);
 
-
-            var kitchen = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-
-            };
-
-
-            await service.AddAsync(kitchen, "1", "Kitchen");
+            AddOneKitchen(service, file);
 
             var newCategoryId = 2;
             var newDescriptionId = "2";
@@ -311,7 +183,6 @@
                 ColorsId = new List<int> { 1, 2 },
             };
             await service.UpdateAsync(1, kitchen2, false);
-
 
             //Act
             var result = db.Kitchens.Where(k => k.Id == 1).FirstOrDefault();
@@ -336,20 +207,7 @@
             var fileName = "test.png";
             fileMock.Setup(_ => _.FileName).Returns(fileName);
 
-
-            var kitchen = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-
-            };
-
-            await service.AddAsync(kitchen, "1", "Kitchen");
+            AddOneKitchen(service, file);
 
             service.ChangeVisility(1);
 
@@ -385,18 +243,7 @@
             fileMock.Setup(_ => _.FileName).Returns(fileName);
             var service = new KitchenService(db, mapper);
 
-            var kitchen = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
-
-            await service.AddAsync(kitchen, "1", "Kitchen");
+            AddOneKitchen(service, file);
 
             //Act
             service.AddKitchenToUserCollection(1, "1");
@@ -447,18 +294,7 @@
             fileMock.Setup(_ => _.FileName).Returns(fileName);
             var service = new KitchenService(db, mapper);
 
-            var kitchen = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
-
-            await service.AddAsync(kitchen, "1", "Kitchen");
+            AddOneKitchen(service, file);
 
             //Act
             service.AddKitchenToUserCollection(1, "1");
@@ -485,18 +321,7 @@
             fileMock.Setup(_ => _.FileName).Returns(fileName);
             var service = new KitchenService(db, mapper);
 
-            var kitchen = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
-
-            await service.AddAsync(kitchen, "1", "Kitchen");
+            AddOneKitchen(service, file);
 
             //Act
             var isByUserTrue = service.IsByUser(1, "1");
@@ -519,18 +344,7 @@
             fileMock.Setup(_ => _.FileName).Returns(fileName);
             var service = new KitchenService(db, mapper);
 
-            var kitchen = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
-
-            await service.AddAsync(kitchen, "1", "Kitchen");
+            AddOneKitchen(service, file);
 
             //Act
             var lastKitchenIdByUser = service.GetLastKitchenIdByUserId("1");
@@ -556,30 +370,8 @@
 
             serviceManufacturer.Create("Plamen", "mail", "Site", "phoneNumber", "userId", 1, 1, "Niderle", "number 5");
 
-            var kitchen = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
+            AddTwoKitchen(service, file);
 
-            var kitchen2 = new KitchenFormModel
-            {
-                CategoryId = 2,
-                Description = "2",
-                KitchenMeter = 4,
-                Price = 12000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
-
-            await service.AddAsync(kitchen, "1", "Kitchen");
-            await service.AddAsync(kitchen2, "2", "Kitchen2");
 
             service.ChangeVisility(1);
 
@@ -605,30 +397,7 @@
             fileMock.Setup(_ => _.FileName).Returns(fileName);
             var service = new KitchenService(db, mapper);
 
-            var kitchen = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
-
-            var kitchen2 = new KitchenFormModel
-            {
-                CategoryId = 2,
-                Description = "2",
-                KitchenMeter = 4,
-                Price = 12000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
-
-            await service.AddAsync(kitchen, "1", "Kitchen");
-            await service.AddAsync(kitchen2, "2", "Kitchen2");
+            AddTwoKitchen(service, file);
 
             service.ChangeVisility(1);
             service.ChangeVisility(2);
@@ -653,30 +422,7 @@
             fileMock.Setup(_ => _.FileName).Returns(fileName);
             var service = new KitchenService(db, mapper);
 
-            var kitchen = new KitchenFormModel
-            {
-                CategoryId = 1,
-                Description = "1",
-                KitchenMeter = 3,
-                Price = 15000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
-
-            var kitchen2 = new KitchenFormModel
-            {
-                CategoryId = 2,
-                Description = "2",
-                KitchenMeter = 4,
-                Price = 12000,
-                МanufacturerId = 1,
-                ColorsId = new List<int> { 1, 2 },
-                Images = new List<IFormFile> { file }
-            };
-
-            await service.AddAsync(kitchen, "1", "Kitchen");
-            await service.AddAsync(kitchen2, "2", "Kitchen2");
+            AddTwoKitchen(service, file);
 
             service.ChangeVisility(1);
 
@@ -874,6 +620,22 @@
 
             await service.AddAsync(kitchen, "1", "Kitchen");
             await service.AddAsync(kitchen2, "2", "Kitchen2");
+        }
+
+        private async void AddOneKitchen(IKitchenService service, IFormFile file)
+        {
+            var kitchen = new KitchenFormModel
+            {
+                CategoryId = 1,
+                Description = "1",
+                KitchenMeter = 3,
+                Price = 15000,
+                МanufacturerId = 1,
+                ColorsId = new List<int> { 1, 2 },
+                Images = new List<IFormFile> { file }
+            };
+
+            await service.AddAsync(kitchen, "1", "Kitchen");
         }
 
     }

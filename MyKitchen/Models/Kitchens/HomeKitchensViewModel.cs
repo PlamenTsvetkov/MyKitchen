@@ -8,11 +8,18 @@
 
         public DateTime CreatedOn { get; set; }
 
+        public string UserName { get; set; }
+
         public string МanufacturerName { get; set; }
+
+        public int МanufacturerId { get; set; }
 
         public string ImageUrl { get; set; }
 
         public string Description { get; set; }
+        public string ShortDescription => this.Description.Length > 200
+                        ? this.Description.Substring(0, 200) + "..."
+                        : this.Description;
 
         public string CategoryName { get; set; }
 

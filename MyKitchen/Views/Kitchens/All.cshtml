@@ -9,7 +9,13 @@
     <div class="alert alert-success">@this.TempData["Message"]</div>
 }
 
-<h1 class="text-center mt-2">All Kitchens</h1>
+<div style="background:transparent !important" class="jumbotron">
+    <h1 class="display-4 text-center">@ViewBag.Title</h1>
+    <p class="lead text-center">Discover your favorite Kitchen and add it to your collection!</p>
+    <hr class="my-4">
+    <p>Add your own kitchen so that our users can get ideas from you.</p>
+    <a asp-area="" asp-controller="Kitchens" asp-action="Add" class="btn btn-primary btn-lg"  role="button"><i class="fas fa-plus"></i> Add kitchen</a>
+</div>
 
 <partial name="_KitchensPartial" model="@Model.Kitchens" />
 
