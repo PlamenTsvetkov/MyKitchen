@@ -124,4 +124,6 @@ Llsts all kitchens from the manufacturer with information about them and the abi
 # Manufacturer Area
 - The manufacturer can edit view and delete kitchens noted that they are manufactured by him.
 
-
+# Template Layouts
+- Default ASP.Net Core site templete 
+- AdminLTE- https://adminlte.io/ (Admin and Manufacturer area)
