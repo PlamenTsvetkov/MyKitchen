@@ -3,7 +3,7 @@
     ViewData["Title"] = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
+@*<h1 class="text-danger">Error.</h1>
 <h2 class="text-danger">An error occurred while processing your request.</h2>
 
 @if (Model.ShowRequestId)
@@ -22,4 +22,42 @@
     It can result in displaying sensitive information from exceptions to end users.
     For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
     and restarting the app.
-</p>
+</p>*@
+
+<section class="inner-page-banner bg-common" data-bg-image="img/figure/inner-page-banner1.jpg" style="background-image: url(&quot;img/figure/inner-page-banner1.jpg&quot;);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumbs-area">
+                            <h1>Error Page</h1>
+                            <ul>
+                                <li>
+                                    <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li>404 Page</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="error-page-wrap padding-top-80 padding-bottom-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="error-content-box">
+                            <div class="error-figure-wrap">
+                                <img src="/images/logo/kitchen.svg" alt="404" >
+                                <div class="error-center-figure">
+                                    <img src="images/figure/404-middle.png" alt="404" >
+                                </div>
+                            </div>
+                            <h2 class="item-title">Sorry! Page Was Not Found</h2>
+                            <p class="item-details">The page you are looking is not available or has been removed.
+                                    Try going to Home Page by using the button below.</p>
+                            <a asp-area="" asp-controller="Home" asp-action="Index" class="item-btn">GO TO HOME PAGE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>

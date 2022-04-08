@@ -169,10 +169,6 @@
         public async Task<IActionResult> Edit(int id, EditKitchenInputModel kitchen)
         {
             var userId = this.User.Id();
-            if (!this.categoriesService.CategoryExists(kitchen.CategoryId))
-            {
-                this.ModelState.AddModelError(nameof(kitchen.CategoryId), "Category does not exist.");
-            }
             if (!this.kitchenService.IsByUser(id, userId) && !User.IsAdmin() && !User.IsAManufacturer())
             {
                 return Unauthorized();
