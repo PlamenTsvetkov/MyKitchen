@@ -4395,6 +4395,8 @@ ul {
             -ms-transition: all 0.3s ease-in-out;
             -o-transition: all 0.3s ease-in-out;
             transition: all 0.3s ease-in-out;
+            width:350px;
+            height:200px;
         }
 
     .product-box-layout1 .item-content {
