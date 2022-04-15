@@ -232,7 +232,7 @@
         }
 
         [Fact]
-        public async Task AddKitchenToUserCollectionShouldWork()
+        public void AddKitchenToUserCollectionShouldWork()
         {
             //Arrange
             var db = DatabaseMock.Instance;
@@ -283,7 +283,7 @@
         }
 
         [Fact]
-        public async Task RemoveKitchenToUserCollectionShouldWork()
+        public void RemoveKitchenToUserCollectionShouldWork()
         {
             //Arrange
             var db = DatabaseMock.Instance;
@@ -310,7 +310,7 @@
         }
 
         [Fact]
-        public async Task IsByUserShouldWork()
+        public void IsByUserShouldWork()
         {
             //Arrange
             var db = DatabaseMock.Instance;
@@ -333,7 +333,7 @@
         }
 
         [Fact]
-        public async Task GetLastKitchenIdByUserIdShouldWork()
+        public void GetLastKitchenIdByUserIdShouldWork()
         {
             //Arrange
             var db = DatabaseMock.Instance;
@@ -354,7 +354,7 @@
         }
 
         [Fact]
-        public async Task GetАllKitchenByManufacturerNameShouldWork()
+        public void GetАllKitchenByManufacturerNameShouldWork()
         {
             //Arrange
             var db = DatabaseMock.Instance;
@@ -386,7 +386,7 @@
         }
 
         [Fact]
-        public async Task GetАllAdminKitchenShouldWork()
+        public void GetАllAdminKitchenShouldWork()
         {
             //Arrange
             var db = DatabaseMock.Instance;
@@ -411,7 +411,7 @@
         }
 
         [Fact]
-        public async Task GetАllKitchenShouldWork()
+        public void GetАllKitchenShouldWork()
         {
             //Arrange
             var db = DatabaseMock.Instance;

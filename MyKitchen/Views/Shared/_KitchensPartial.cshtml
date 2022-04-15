@@ -18,66 +18,68 @@
                 </figure>
 
                 <div class="item-content">
-                    <span class="sub-title">@kitchen.CategoryName</span>
-                    <h3 class="item-title"><a asp-controller="Manufacturers" asp-action="AllKitchens" asp-route-manufacturerId="@kitchen.МanufacturerId">@kitchen.МanufacturerName</a></h3>
-                    <ul class="item-rating">
-                        @if (@kitchen.AverageVote < 1)
-                        {
-                            <li class="star-empty"><i class="fas fa-star"></i></li>
-                            <li class="star-empty"><i class="fas fa-star"></i></li>
-                            <li class="star-empty"><i class="fas fa-star"></i></li>
-                            <li class="star-empty"><i class="fas fa-star"></i></li>
-                            <li class="star-empty"><i class="fas fa-star"></i></li>
-                        }
-                        else if (@kitchen.AverageVote < 2)
-                        {
-                            <li class="star-fill"><i class="fas fa-star"></i></li>
-                            <li class="star-empty"><i class="fas fa-star"></i></li>
-                            <li class="star-empty"><i class="fas fa-star"></i></li>
-                            <li class="star-empty"><i class="fas fa-star"></i></li>
-                            <li class="star-empty"><i class="fas fa-star"></i></li>
-                        }
-                        else if (@kitchen.AverageVote < 3)
-                        {
-                            <li class="star-fill"><i class="fas fa-star"></i></li>
-                            <li class="star-fill"><i class="fas fa-star"></i></li>
-                            <li class="star-empty"><i class="fas fa-star"></i></li>
-                            <li class="star-empty"><i class="fas fa-star"></i></li>
-                            <li class="star-empty"><i class="fas fa-star"></i></li>
-                        }
-                        else if (@kitchen.AverageVote < 4)
-                        {
-                            <li class="star-fill"><i class="fas fa-star"></i></li>
-                            <li class="star-fill"><i class="fas fa-star"></i></li>
-                            <li class="star-fill"><i class="fas fa-star"></i></li>
-                            <li class="star-empty"><i class="fas fa-star"></i></li>
-                            <li class="star-empty"><i class="fas fa-star"></i></li>
-                        }
-                        else if (@kitchen.AverageVote < 5)
-                        {
-                            <li class="star-fill"><i class="fas fa-star"></i></li>
-                            <li class="star-fill"><i class="fas fa-star"></i></li>
-                            <li class="star-fill"><i class="fas fa-star"></i></li>
-                            <li class="star-fill"><i class="fas fa-star"></i></li>
-                            <li class="star-empty"><i class="fas fa-star"></i></li>
-                        }
-                        else
-                        {
-                            <li class="star-fill"><i class="fas fa-star"></i></li>
-                            <li class="star-fill"><i class="fas fa-star"></i></li>
-                            <li class="star-fill"><i class="fas fa-star"></i></li>
-                            <li class="star-fill"><i class="fas fa-star"></i></li>
-                            <li class="star-fill"><i class="fas fa-star"></i></li>
-                        }
-                        <li><span>@kitchen.AverageVote.ToString("0.0")/ 5</span></li>
-                    </ul>
-                    <p> @kitchen.Description </p>
-                    <ul class="entry-meta">
-                        <li><span><i class="fa-solid fa-comment-dollar"></i> @kitchen.Price euros</span></li>
-                        <li><span ><i class="fas fa-user"></i> by <span>@kitchen.UserName</span></span></li>
-                        <li><span><i class="fas fa-clock"></i><span> @kitchen.PreparationTime</span> days</span></li>
-                        <li><span><i class="fa-solid fa-ruler"></i> @kitchen.KitchenMeter</span></li>
-                    </ul>
+                    <div height="200">
+                        <span class="sub-title">@kitchen.CategoryName</span>
+                        <h3 class="item-title"><a asp-controller="Manufacturers" asp-action="AllKitchens" asp-route-manufacturerId="@kitchen.МanufacturerId">@kitchen.МanufacturerName</a></h3>
+                        <ul class="item-rating">
+                            @if (@kitchen.AverageVote < 1)
+                            {
+                                <li class="star-empty"><i class="fas fa-star"></i></li>
+                                <li class="star-empty"><i class="fas fa-star"></i></li>
+                                <li class="star-empty"><i class="fas fa-star"></i></li>
+                                <li class="star-empty"><i class="fas fa-star"></i></li>
+                                <li class="star-empty"><i class="fas fa-star"></i></li>
+                            }
+                            else if (@kitchen.AverageVote < 2)
+                            {
+                                <li class="star-fill"><i class="fas fa-star"></i></li>
+                                <li class="star-empty"><i class="fas fa-star"></i></li>
+                                <li class="star-empty"><i class="fas fa-star"></i></li>
+                                <li class="star-empty"><i class="fas fa-star"></i></li>
+                                <li class="star-empty"><i class="fas fa-star"></i></li>
+                            }
+                            else if (@kitchen.AverageVote < 3)
+                            {
+                                <li class="star-fill"><i class="fas fa-star"></i></li>
+                                <li class="star-fill"><i class="fas fa-star"></i></li>
+                                <li class="star-empty"><i class="fas fa-star"></i></li>
+                                <li class="star-empty"><i class="fas fa-star"></i></li>
+                                <li class="star-empty"><i class="fas fa-star"></i></li>
+                            }
+                            else if (@kitchen.AverageVote < 4)
+                            {
+                                <li class="star-fill"><i class="fas fa-star"></i></li>
+                                <li class="star-fill"><i class="fas fa-star"></i></li>
+                                <li class="star-fill"><i class="fas fa-star"></i></li>
+                                <li class="star-empty"><i class="fas fa-star"></i></li>
+                                <li class="star-empty"><i class="fas fa-star"></i></li>
+                            }
+                            else if (@kitchen.AverageVote < 5)
+                            {
+                                <li class="star-fill"><i class="fas fa-star"></i></li>
+                                <li class="star-fill"><i class="fas fa-star"></i></li>
+                                <li class="star-fill"><i class="fas fa-star"></i></li>
+                                <li class="star-fill"><i class="fas fa-star"></i></li>
+                                <li class="star-empty"><i class="fas fa-star"></i></li>
+                            }
+                            else
+                            {
+                                <li class="star-fill"><i class="fas fa-star"></i></li>
+                                <li class="star-fill"><i class="fas fa-star"></i></li>
+                                <li class="star-fill"><i class="fas fa-star"></i></li>
+                                <li class="star-fill"><i class="fas fa-star"></i></li>
+                                <li class="star-fill"><i class="fas fa-star"></i></li>
+                            }
+                            <li><span>@kitchen.AverageVote.ToString("0.0")/ 5</span></li>
+                        </ul>
+                        <p> @kitchen.Description </p>
+                        <ul class="entry-meta">
+                            <li><span><i class="fa-solid fa-comment-dollar"></i> @kitchen.Price euros</span></li>
+                            <li><span><i class="fas fa-user"></i> by <span>@kitchen.UserName</span></span></li>
+                            <li><span><i class="fas fa-clock"></i><span> @kitchen.PreparationTime</span> days</span></li>
+                            <li><span><i class="fa-solid fa-ruler"></i> @kitchen.KitchenMeter</span></li>
+                        </ul>
+                    </div>
                     @if (this.ViewContext.RouteData.Values["action"].ToString() != "Collection" && this.ViewContext.RouteData.Values["action"].ToString() != "My"
                    && !this.User.IsAdmin() && this.User.Identity.IsAuthenticated)
                     {
