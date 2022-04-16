@@ -10,7 +10,7 @@
 
     public class KitchenService : IKitchenService
     {
-        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif", "jpeg" };
+        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif", "jpeg", "webp" };
         private readonly MyKitchenDbContext db;
         private readonly IMapper mapper;
 

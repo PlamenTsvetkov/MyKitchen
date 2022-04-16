@@ -4402,6 +4402,7 @@ ul {
     .product-box-layout1 .item-content {
         text-align: center;
         padding: 25px 30px 15px;
+        min-height: 200px;
     }
 
 @media (min-width: 992px) and (max-width: 1199px) {
