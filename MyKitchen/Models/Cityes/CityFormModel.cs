@@ -2,6 +2,7 @@
 {
     using MyKitchen.Models.Countries;
     using System.ComponentModel.DataAnnotations;
+
     using static Data.DataConstants.City;
     public class CityFormModel
     {

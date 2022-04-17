@@ -34,8 +34,6 @@
         [Display(Name = "Preparation Time")]
         public int PreparationTime { get; set; }
 
-        //public IEnumerable<IFormFile> Images { get; set; }
-
         [Required]
         public TypeOfDoorMaterial TypeOfDoorMaterial { get; set; }
 

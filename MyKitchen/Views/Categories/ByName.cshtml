@@ -3,13 +3,6 @@
     ViewBag.Title = Model.Name;
 }
 
-@*<h1 class="text-center mt-2">@Model.Name</h1>
-<div style="text-align: center;">
-    <img src="@Model.ImageUrl" width="100" class="mr-3" alt="@Model.Name">
-</div>
-<div class="alert alert-info">
-    @Model.Description
-</div>*@
 <div style="background:transparent !important" class="jumbotron">
     <h1 class="display-4 text-center"><img src="@Model.ImageUrl" width="100" class="mr-3" alt="@Model.Name"> @ViewBag.Title</h1>
     <p class="lead text-center"> @Model.Description</p>

@@ -10,7 +10,6 @@
 
         public bool IsAdmin { get; set; }
 
-
         public int KitchensCount { get; init; }
 
         public int ManufacturersCount { get; set; }

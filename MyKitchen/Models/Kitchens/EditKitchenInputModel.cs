@@ -5,7 +5,7 @@
     public class EditKitchenInputModel : BaseKitchenModel , IKitchenModel
     { 
         public int Id { get; set; }
-        public virtual ICollection<KitchensColors> KitchensColors { get; set; }
 
+        public virtual ICollection<KitchensColors> KitchensColors { get; set; }
     }
 }

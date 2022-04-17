@@ -6,6 +6,7 @@
     public class IndexViewModel
     {
         public IEnumerable<IndexCategoryViewModel> Categories { get; set; }
+
         public List<HomeKitchensViewModel> Kitchens { get; set; }
     }
 }
