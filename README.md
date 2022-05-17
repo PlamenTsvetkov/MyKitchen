@@ -1,7 +1,7 @@
 # MyKitchen Demo Project 
 Asp.Net app for the course C# ASP.NET Core February 2022 @SoftUni
 # Project Specification
-This is an application useful for users who are looking for ideas for a kitchen and who can make it for them. In it you can look at kitchens by categories and manufacturers, as there is information about the price of the kitchen, colors, the term of manufacture, the material from which it is made and others. Registered users can rate people's kitchens from 1 to 5 and write comments and reply to comments and have a collection of favorite kitchens..
+This is an application useful for users who are looking for ideas for a kitchen and who can make it for them. In it you can look at kitchens by categories and manufacturers, as there is information about the price of the kitchen, colors, the term of manufacture, the material from which it is made and others. Registered users can rate people's kitchens from 1 to 5 and write comments and reply to comments and have a collection of favorite kitchens.
 The application has an admin area where you can add roles and categories, as well as edit, delete and view users, categories, manufacturers and kitchens.
 
 # Roles
